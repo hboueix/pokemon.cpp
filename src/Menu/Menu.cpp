@@ -28,7 +28,7 @@ void Menu::mainMenu() {
 		<< "3. Soigner son équipe" << endl
 		<< "4. Voir ses pokémons dans le PC" << endl
 		<< endl << "0. Quitter" << endl << endl;
-	int userChoice = waitForValidUserInput(3);
+	int userChoice = waitForValidUserInput(4);
 	switch (userChoice) {
 		case 1:
 		{
@@ -61,6 +61,7 @@ int Menu::waitForValidUserInput(int maxValid) {
 		cin.clear();
 		cin.ignore(255, '\n');
 	}
+
 	return userChoice;
 }
 
@@ -79,6 +80,7 @@ void Menu::team() {
 	for (int i = 0; i < team.size(); i++) {
 		cout << i+1 << ". " << team[i].name << endl;
 	}
+
 	cout << endl << "0. Retour" << endl << endl;
 	int userChoice = waitForValidUserInput(team.size());
 	if (userChoice == 0) {
@@ -95,7 +97,28 @@ void Menu::healTeam() {
 }
 
 void Menu::allPCTeam() {
+	vector<Pokemon> team = player.getTeam();
+	vector<Pokemon> teamPC = player.getTeamPC();
+	cout << endl << "Your team :" << endl;
+	for (int i = 0; i < team.size(); i++) {
+		cout << "- " << team[i].name << endl;
+	}
 
+	cout << endl << "Your PC :" << endl;
+	for (int i = 0; i < teamPC.size(); i++) {
+		cout << "- " << teamPC[i].name << endl;
+	}
+
+	cout << endl << "1. Echanger" << endl
+		<< "0. Retour" << endl << endl;
+	int userChoice = waitForValidUserInput(1);
+	if (userChoice == 0) {
+		this->mainMenu();
+	} else {
+		cout << "L'échange n'est pas encore implementé..." << endl;
+		sleep(3);
+		this->allPCTeam();
+	}
 }
 
 #endif

@@ -9,12 +9,17 @@ using namespace std;
 
 class Player {
 private:
+	int money;
 	vector<Pokemon> team;
+	vector<Pokemon> teamPC;
 public:
 	string name;
 	Player();
+	Player(string name, vector<Pokemon> team, int money);
 	~Player();
+	int getMoney();
 	vector<Pokemon> getTeam();
+	vector<Pokemon> getTeamPC();
 };
 
 #endif
