@@ -18,6 +18,11 @@ public:
 	Pokemon(string pokemonName, string type, float maxHP, float attack, float defense);
 	~Pokemon();
 	void showStats();
+	void attacking(Pokemon &defender);
+	int getHP();
+	int getAttack();
+	int getDefense();
+	void setHP(int PDV);
 };
 
 #endif

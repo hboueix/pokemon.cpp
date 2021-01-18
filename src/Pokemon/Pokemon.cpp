@@ -31,4 +31,34 @@ void Pokemon::showStats() {
 		<< "DEF : " << this->defense << endl;
 }
 
+void Pokemon::attacking(Pokemon &defender) {
+	int damage = this->attack-defender.getDefense();
+	if (defender.getHP() - damage > 0) {
+		defender.setHP(defender.getHP()-damage);
+		cout << this->name << " a infligé " << damage << "HP à " << defender.name << endl
+			<< "Il reste " << defender.getHP() << "HP à " << defender.name << endl;
+	} else {
+		defender.setHP(0);
+		cout << this->name << " a infligé " << defender.getHP() << "HP à " << defender.name << endl
+			<< defender.name << " est KO." << endl;
+	}
+}
+
+int Pokemon::getHP(){
+	return HP;
+}
+
+int Pokemon::getAttack(){
+	return attack;
+}
+
+int Pokemon::getDefense(){
+	return defense;
+}
+
+void Pokemon::setHP(int PDV) {
+	HP = PDV; 
+}
+
+
 #endif

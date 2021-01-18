@@ -66,12 +66,49 @@ int Menu::waitForValidUserInput(int maxValid) {
 }
 
 void Menu::wildGrass() {
-	// cout << "         POKEMON++          " << endl
-	// 	<< "============================" << endl << endl 
-	// 	<< "1. Se balader dans les hautes herbes" << endl
-	// 	<< "2. Voir son équipe" << endl
-	// 	<< "3. Voir ses pokémons dans le PC" << endl
-	// 	<< "0. Quitter" << endl;
+	int userChoice;
+	vector<Pokemon> team = player.getTeam();
+	Pokemon *pokeSauvage = new Pokemon("Roucool");
+	cout << "Un "<< pokeSauvage->name <<" apparaît!" << endl
+		<< "En Avant " << team[0].name << "!"<< endl
+		<< "============================" << endl;
+	while (team[0].getHP() > 0 && pokeSauvage->getHP() > 0) {
+		cout << "Que voulez vous faire?" << endl
+			<< "hpsauvage" << pokeSauvage->getHP() << endl
+			<< "hpSalameche" << team[0].getHP() << endl
+			<< "============================" << endl << endl 
+			<< "1. Attaquer" << endl
+			<< "2. Changer de Pokemon" << endl
+			<< "3. Objet" << endl
+			<< "4. fuir" << endl
+			<< endl << "0. Quitter" << endl << endl;
+		userChoice = waitForValidUserInput(4);
+		switch (userChoice) {
+			case 1:
+			{
+				team[0].attacking(pokeSauvage);
+				break;
+			}
+			case 2:
+				// this->team();
+				break;
+			case 3:
+				// this->healTeam();
+			case 4:
+				// this->allPCTeam();
+				break;
+			case 0:
+				cout << "Bye !" << endl;
+				exit(EXIT_SUCCESS);
+				break;
+			default:
+				cout << "Input out of range... This shouldn't be see..." << endl;
+				break;
+		}
+	}
+	cout << "combat terminé!" << endl;
+	this->mainMenu();
+	
 }
 
 void Menu::team() {
