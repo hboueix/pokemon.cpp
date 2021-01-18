@@ -12,6 +12,7 @@ private:
 	int waitForValidUserInput(int maxValid);
 	void wildGrass();
 	void team();
+	void healTeam();
 	void allPCTeam();
 public:
 	Menu(Player player);

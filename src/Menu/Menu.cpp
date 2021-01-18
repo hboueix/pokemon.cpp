@@ -25,7 +25,8 @@ void Menu::mainMenu() {
 		<< "============================" << endl << endl 
 		<< "1. Se balader dans les hautes herbes" << endl
 		<< "2. Voir son équipe" << endl
-		<< "3. Voir ses pokémons dans le PC" << endl
+		<< "3. Soigner son équipe" << endl
+		<< "4. Voir ses pokémons dans le PC" << endl
 		<< endl << "0. Quitter" << endl << endl;
 	int userChoice = waitForValidUserInput(3);
 	switch (userChoice) {
@@ -38,6 +39,8 @@ void Menu::mainMenu() {
 			this->team();
 			break;
 		case 3:
+			this->healTeam();
+		case 4:
 			this->allPCTeam();
 			break;
 		case 0:
@@ -81,10 +84,14 @@ void Menu::team() {
 	if (userChoice == 0) {
 		this->mainMenu();
 	} else {
-		team[userChoice+1].showStats();
+		team[userChoice-1].showStats();
 		sleep(5);
 		this->team();
 	}
+}
+
+void Menu::healTeam() {
+
 }
 
 void Menu::allPCTeam() {
