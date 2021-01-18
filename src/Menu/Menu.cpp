@@ -81,7 +81,7 @@ void Menu::team() {
 	if (userChoice == 0) {
 		this->mainMenu();
 	} else {
-		team[userChoice].showStats();
+		team[userChoice+1].showStats();
 		sleep(5);
 		this->team();
 	}
