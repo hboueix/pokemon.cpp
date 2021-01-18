@@ -86,7 +86,7 @@ void Menu::wildGrass() {
 		switch (userChoice) {
 			case 1:
 			{
-				team[0].attacking(pokeSauvage);
+				team[0].attacking(*pokeSauvage);
 				break;
 			}
 			case 2:
