@@ -21,6 +21,9 @@ public:
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
 	void swapPokemon(int pokemonSelected, int pokemonPCSelected);
+	void moveToPC(int toMove);
+	void moveToTeam(int toMove);
+	void removeFromPC(int toRemove);
 };
 
 #endif
