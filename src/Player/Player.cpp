@@ -42,7 +42,15 @@ vector<Pokemon> Player::getTeamPC() {
 }
 
 void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected) {
-
+	if (pokemonSelected > this->team.size()) {
+		this->team.push_back(this->teamPC[pokemonPCSelected-1]);
+		this->teamPC.erase(this->teamPC.begin() + pokemonPCSelected-1);
+	} else {
+		this->teamPC.push_back(this->team[pokemonSelected-1]);
+		this->team.erase(this->team.begin() + pokemonSelected - 1);
+		this->team.insert(this->team.begin() + pokemonSelected - 1, this->teamPC[pokemonPCSelected - 1]);
+		this->teamPC.erase(this->teamPC.begin() + pokemonPCSelected - 1);
+	}
 }
 
 #endif

@@ -161,7 +161,8 @@ void Menu::allPCTeam() {
 		cout << "Sélectionnez un pokémon dans votre PC" << endl;
 		int pokemonPCSelected = waitForValidUserInput(teamPC.size());
 		this->player.swapPokemon(pokemonSelected, pokemonPCSelected);
-		sleep(3);
+		cout << "Echange en cours..." << endl;
+		sleep(1);
 		this->allPCTeam();
 	}
 }
