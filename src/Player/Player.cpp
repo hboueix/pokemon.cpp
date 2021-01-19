@@ -41,4 +41,8 @@ vector<Pokemon> Player::getTeamPC() {
 	return teamPC;
 }
 
+void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected) {
+
+}
+
 #endif

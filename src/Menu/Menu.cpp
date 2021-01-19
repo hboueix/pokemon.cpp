@@ -138,12 +138,16 @@ void Menu::allPCTeam() {
 	vector<Pokemon> teamPC = player.getTeamPC();
 	cout << endl << "Your team :" << endl;
 	for (int i = 0; i < team.size(); i++) {
-		cout << "- " << team[i].name << endl;
+		cout << "(" << i+1 << ") " << team[i].name << endl;
+	}
+
+	for (int i = 0; i < 6 - team.size(); i++) {
+		cout << "(" << (6 - team.size()) + i+1 << ") " << endl;
 	}
 
 	cout << endl << "Your PC :" << endl;
 	for (int i = 0; i < teamPC.size(); i++) {
-		cout << "- " << teamPC[i].name << endl;
+		cout << "(" << i+1 << ") " << teamPC[i].name << endl;
 	}
 
 	cout << endl << "1. Echanger" << endl
@@ -152,7 +156,11 @@ void Menu::allPCTeam() {
 	if (userChoice == 0) {
 		this->mainMenu();
 	} else {
-		cout << "L'échange n'est pas encore implementé..." << endl;
+		cout << "Sélectionnez un emplacement dans votre équipe (1 à 6)" << endl;
+		int pokemonSelected = waitForValidUserInput(6);
+		cout << "Sélectionnez un pokémon dans votre PC" << endl;
+		int pokemonPCSelected = waitForValidUserInput(teamPC.size());
+		this->player.swapPokemon(pokemonSelected, pokemonPCSelected);
 		sleep(3);
 		this->allPCTeam();
 	}

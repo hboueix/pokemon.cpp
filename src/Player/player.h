@@ -20,6 +20,7 @@ public:
 	int getMoney();
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
+	void swapPokemon(int pokemonSelected, int pokemonPCSelected);
 };
 
 #endif
