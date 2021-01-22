@@ -74,8 +74,6 @@ void Menu::wildGrass() {
 		<< "============================" << endl;
 	while (team[0].getHP() > 0 && pokeSauvage->getHP() > 0) {
 		cout << "Que voulez vous faire?" << endl
-			<< "hpsauvage" << pokeSauvage->getHP() << endl
-			<< "hpSalameche" << team[0].getHP() << endl
 			<< "============================" << endl << endl 
 			<< "1. Attaquer" << endl
 			<< "2. Changer de Pokemon" << endl
