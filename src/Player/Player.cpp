@@ -7,22 +7,23 @@
 
 using namespace std;
 
-Player::Player() {
-	name = "Red";
-	money = 1000;
+Player::Player(string name) {
+	this->name = name;
+	this->money = 1000;
 	Pokemon *poke1 = new Pokemon("Salamèche");
 	Pokemon *poke2 = new Pokemon("Carapuce");
 	Pokemon *poke3 = new Pokemon("Bulbizarre");
-	team.push_back(*poke1);
-	team.push_back(*poke2);
-	team.push_back(*poke3);
-	teamPC.push_back(*(new Pokemon("Pikachu")));
+	this->team.push_back(*poke1);
+	this->team.push_back(*poke2);
+	this->team.push_back(*poke3);
+	this->teamPC.push_back(*(new Pokemon("Pikachu")));
 }
 
-Player::Player(string name, vector<Pokemon> team, int money) {
-	name = name;
-	team = team;
-	money = money;
+Player::Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC) {
+	this->name = name;
+	this->money = money;
+	this->team = team;
+	this->teamPC = teamPC;
 }
 
 Player::~Player() {

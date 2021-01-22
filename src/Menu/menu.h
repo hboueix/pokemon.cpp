@@ -2,20 +2,23 @@
 #define MENU_HEADERS_INCLUDED
 
 #include <iostream>
+#include "../Storage/storage.h"
 #include "../Player/player.h"
 
 using namespace std;
 
 class Menu {
 private:
-	Player player;
+	Player *player;
+	Storage *storage;
 	int waitForValidUserInput(int maxValid);
 	void wildGrass();
 	void team();
 	void healTeam();
 	void allPCTeam();
+	void save();
 public:
-	Menu(Player player);
+	Menu(Player *player);
 	~Menu();
 	void mainMenu();
 };
