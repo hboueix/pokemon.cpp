@@ -63,7 +63,7 @@ void Storage::savePlayer(Player *player) {
 }
 
 Player* Storage::loadPlayer(string namePlayer) {
-	string dataPlayerRaw = this->read(namePlayer);
+	string dataPlayerRaw = this->read("." + namePlayer + ".pokesave");
 	if (dataPlayerRaw != "") {
 		json dataPlayer = json::parse(dataPlayerRaw);
 		vector<Pokemon> team = {};
