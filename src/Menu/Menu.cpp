@@ -187,24 +187,20 @@ void Menu::healTeam()
 		cout << endl
 			 << "Vous vous reposez toute une nuit..." << endl
 			 << endl;
-		// for (int i = 0; i < this->team.size(); i++)
-		// {
-		// 	int pokeHP = this->team[i].getHP();
-		// 	int pokeMaxHP = this->team[i].getMaxHP();
+		for (int i = 0; i < team.size(); i++)
+		{
+			int pokeHP = team[i].getHP();
+			int pokeMaxHP = team[i].getMaxHP();
 
-		// 	if (pokeHP < (pokeMaxHP / 2))
-		// 	{
-		// 		this->player->removeMoney(10);
-		// 	}
-		// 	else if (pokeHP == 0.0)
-		// 	{
-		// 		this->player->removeMoney(100);
-		// 	}
-		// 	else
-		// 	{
-		// 		this->player->removeMoney(30);
-		// 	}
-		// }
+			if (pokeHP == 0.0)
+			{
+				this->player->removeMoney(100);
+			}
+			else if (pokeHP < pokeMaxHP && pokeHP != 0.0)
+			{
+				this->player->removeMoney(40);
+			}
+		}
 		this->player->healPokemons();
 		sleep(2.5);
 		this->save();

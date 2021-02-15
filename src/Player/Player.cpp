@@ -51,10 +51,10 @@ int Player::getMoney()
 	return money;
 }
 
-// void Player::removeMoney(int *toRemove)
-// {
-// 	this->money -= toRemove;
-// }
+void Player::removeMoney(int toRemove)
+{
+	this->money -= toRemove;
+}
 
 vector<Pokemon> Player::getTeam()
 {

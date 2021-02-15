@@ -18,7 +18,7 @@ public:
 	Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC);
 	~Player();
 	void healPokemons();
-	// void removeMoney();
+	void removeMoney(int toRemove);
 	int getMoney();
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
