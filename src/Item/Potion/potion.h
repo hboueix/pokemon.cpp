@@ -11,6 +11,7 @@ class Potion : public Item {
 private:
 
 public:
+    virtual void affiche() const;
     Potion();
     ~Potion();
 

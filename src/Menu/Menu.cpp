@@ -148,8 +148,28 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	}
 }
 
-void Menu::team()
-{
+void Menu::menuItem() {
+	vector<Item*> backPack = player->getBackPack();
+	cout << endl << "Votre inventaire :" << endl;
+	// cout << backPack << endl;
+	for (int i = 0; i < backPack.size(); i++) {
+		// string itemName = backPack[i].name;
+		cout << i+1 << ". " << backPack[i]->name << endl;
+	}
+
+	cout << endl << "0. Retour" << endl << endl;
+	int userChoice = waitForValidUserInput(backPack.size());
+	if (userChoice == 0) {
+		this->mainMenu();
+	} else {
+		backPack[userChoice-1]->affiche();
+		sleep(5);
+		this->save();
+	}
+}
+
+
+void Menu::team() {
 	vector<Pokemon> team = player->getTeam();
 	cout << endl
 		 << "Your team :" << endl;

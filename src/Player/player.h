@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include "../Pokemon/pokemon.h"
+#include "../Item/item.h"
+#include "../Item/Potion/potion.h"
+
 
 using namespace std;
 
@@ -12,6 +15,7 @@ private:
 	int money;
 	vector<Pokemon> team;
 	vector<Pokemon> teamPC;
+	vector<Item*> backPack;
 public:
 	string name;
 	Player(string name);
@@ -20,6 +24,7 @@ public:
 	void healPokemons();
 	void removeMoney(int toRemove);
 	int getMoney();
+	vector<Item*> getBackPack();
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
 	void swapPokemon(int pokemonSelected, int pokemonPCSelected);

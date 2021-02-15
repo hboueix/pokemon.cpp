@@ -11,9 +11,10 @@ class Ball : public Item {
 private:
     float chanceOfSuccess;
 public:
+    virtual void affiche() const;
     Ball();
     ~Ball();
-    void launch();
+    // virtual void launch();
 };
 
 #endif

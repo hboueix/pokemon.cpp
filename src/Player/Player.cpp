@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "../Pokemon/Pokemon.cpp"
+#include "../Item/Potion/Potion.cpp"
+#include "../Item/Item.cpp"
 #include "player.h"
 
 using namespace std;
@@ -18,6 +20,8 @@ Player::Player(string name)
 	this->team.push_back(*poke2);
 	this->team.push_back(*poke3);
 	this->teamPC.push_back(*(new Pokemon("Pikachu")));
+	this->backPack.push_back(new Item());
+	this->backPack.push_back(new Potion());
 }
 
 Player::Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC)
@@ -66,10 +70,12 @@ vector<Pokemon> Player::getTeamPC()
 	return teamPC;
 }
 
-void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected)
-{
-	if (pokemonSelected > this->team.size())
-	{
+vector<Item*> Player::getBackPack() {
+	return backPack;
+}
+
+void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected) {
+	if (pokemonSelected > this->team.size()) {
 		this->moveToTeam(pokemonPCSelected);
 	}
 	else

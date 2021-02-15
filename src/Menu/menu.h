@@ -12,7 +12,8 @@ private:
 	Player *player;
 	Storage *storage;
 	int waitForValidUserInput(int maxValid);
-	void wildGrass(Pokemon *pokeSauvage = 0);
+	void wildGrass();
+	void menuItem();
 	void team();
 	void healTeam();
 	void allPCTeam();
