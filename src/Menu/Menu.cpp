@@ -251,9 +251,11 @@ void Menu::healTeam()
 		{
 			string pokeName = team[i].name;
 			string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
-			team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
-			cout << i + 1 << ". " << pokeName << endl;
+			cout << i + 1 << ". " << pokeName << pokeHP << endl;
 		}
+		cout << endl
+			 << endl
+			 << endl;
 		sleep(5);
 		this->mainMenu();
 		break;
