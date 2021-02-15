@@ -13,8 +13,7 @@ public:
 	string name;
     Item();
     ~Item();
-    virtual void affiche() const;
-    // virtual void use(Item const&);
+    virtual void use() const;
     virtual string getDescription();
 
 };

@@ -11,6 +11,8 @@ Pokeball::~Pokeball() {
 
 }
 
-
+void Pokeball::use() const {
+    cout << "Ceci est une pokeball." << name << chanceOfSuccess << endl;
+}
 
 #endif

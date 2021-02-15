@@ -128,7 +128,7 @@ void Menu::menuItem() {
 	if (userChoice == 0) {
 		this->mainMenu();
 	} else {
-		backPack[userChoice-1]->affiche();
+		backPack[userChoice-1]->use();
 		sleep(5);
 		this->save();
 	}

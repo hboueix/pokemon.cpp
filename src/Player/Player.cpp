@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "../Pokemon/Pokemon.cpp"
-#include "../Item/Potion/Potion.cpp"
+#include "../Item/Potions/Potions.cpp"
 #include "../Item/Item.cpp"
 #include "player.h"
 
@@ -20,7 +20,7 @@ Player::Player(string name) {
 	this->team.push_back(*poke3);
 	this->teamPC.push_back(*(new Pokemon("Pikachu")));
 	this->backPack.push_back(new Item());
-	this->backPack.push_back(new Potion());
+	this->backPack.push_back(new Potions());
 }
 
 Player::Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC) {

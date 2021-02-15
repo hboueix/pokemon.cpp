@@ -2,18 +2,18 @@
 #define POTION_HEADERS_INCLUDED
 
 #include <iostream>
-#include "../item.h"
+#include "../potions.h"
 
 
 using namespace std;
 
-class Potion : public Item {
+class Hyperpotion : public Item {
 private:
 
 public:
-    virtual void affiche() const;
-    Potion();
-    ~Potion();
+    virtual void use() const;
+    Hyperpotion();
+    ~Hyperpotion();
 
 };
 

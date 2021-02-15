@@ -12,13 +12,9 @@ Item::~Item() {
 	
 }
 
-void Item::affiche() const {
+void Item::use() const {
     cout << "Ceci est un item." << name << endl;
 }
-
-// void Item::use(Item const& i) {
-// 	cout << "use" << i.name << endl;
-// }
 
 string Item::getDescription() {
 	return description;

@@ -8,10 +8,10 @@
 using namespace std;
 
 class Ball : public Item {
-private:
+protected:
     float chanceOfSuccess;
 public:
-    virtual void affiche() const;
+    virtual void use() const;
     Ball();
     ~Ball();
     // virtual void launch();

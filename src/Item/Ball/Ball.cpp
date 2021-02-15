@@ -11,12 +11,9 @@ Ball::~Ball() {
 
 }
 
-void Ball::affiche() const {
+void Ball::use() const {
     cout << "Ceci est une ball." << name << chanceOfSuccess << endl;
 }
-// void Ball::launch() {
-//     cout << "methode ball.cpp" << endl;
-// }
 
 
 

@@ -8,7 +8,7 @@ Potion::Potion() {
     description = "description for potion";
 }
 
-void Potion::affiche() const {
+void Potion::use() const {
     cout << "Ceci est une potion." << name << endl;
 }
 
