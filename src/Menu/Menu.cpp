@@ -14,7 +14,8 @@
 
 using namespace std;
 
-Menu::Menu(Player *player, Storage *storage) { 
+Menu::Menu(Player *player, Storage *storage)
+{
 	this->storage = storage;
 	this->player = player;
 }
@@ -38,10 +39,8 @@ void Menu::mainMenu()
 	switch (userChoice)
 	{
 	case 1:
-	{
 		this->wildGrass();
 		break;
-	}
 	case 2:
 		this->team();
 		break;
@@ -80,46 +79,52 @@ void Menu::wildGrass()
 	int userChoice;
 	vector<Pokemon> team = player->getTeam();
 	int myPokemonIdx = this->player->getFirstValidPokemonIndex();
-	if (myPokemonIdx < 0) {
+	if (myPokemonIdx < 0)
+	{
 		cout << "Vous n'avez aucun pokémon en état de se battre..." << endl;
 		this->mainMenu();
 		return;
 	}
 	Pokemon myPokemon = this->player->getTeam()[myPokemonIdx];
 	Pokemon pokeSauvage = this->storage->getRandomPokemon();
-	cout << "Un "<< pokeSauvage.name <<" apparaît!" << endl
-		<< "En Avant " << myPokemon.name << "!"<< endl
-		<< "============================" << endl;
-	while (myPokemon.getHP() > 0 && pokeSauvage.getHP() > 0) {
+	cout << "Un " << pokeSauvage.name << " apparaît!" << endl
+		 << "En Avant " << myPokemon.name << "!" << endl
+		 << "============================" << endl;
+	while (myPokemon.getHP() > 0 && pokeSauvage.getHP() > 0)
+	{
 		cout << "Que voulez vous faire?" << endl
-			<< "============================" << endl << endl 
-			<< "1. Attaquer" << endl
-			<< "2. Changer de Pokemon" << endl
-			<< "3. Objet" << endl
-			<< "4. fuir" << endl
-			<< endl << "0. Quitter" << endl << endl;
+			 << "============================" << endl
+			 << endl
+			 << "1. Attaquer" << endl
+			 << "2. Changer de Pokemon" << endl
+			 << "3. Objet" << endl
+			 << "4. fuir" << endl
+			 << endl
+			 << "0. Quitter" << endl
+			 << endl;
 		userChoice = waitForValidUserInput(4);
-		switch (userChoice) {
-			case 1:
-			{
-				myPokemon.attacking(*&pokeSauvage);
-				this->save();
-				break;
-			}
-			case 2:
-				// this->team();
-				break;
-			case 3:
-				// this->healTeam();
-			case 4:
-				this->wildGrass();
-				break;
-			case 0:
-				this->mainMenu();
-				break;
-			default:
-				cout << "Input out of range... This shouldn't be see..." << endl;
-				break;
+		switch (userChoice)
+		{
+		case 1:
+		{
+			myPokemon.attacking(*&pokeSauvage);
+			this->save();
+			break;
+		}
+		case 2:
+			// this->team();
+			break;
+		case 3:
+			// this->healTeam();
+		case 4:
+			this->wildGrass();
+			break;
+		case 0:
+			this->mainMenu();
+			break;
+		default:
+			cout << "Input out of range... This shouldn't be see..." << endl;
+			break;
 		}
 	}
 	cout << "combat terminé!" << endl;
@@ -159,6 +164,7 @@ void Menu::team()
 void Menu::healTeam()
 {
 	vector<Pokemon> team = this->player->getTeam();
+
 	cout << endl
 		 << "Votre équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
@@ -175,16 +181,14 @@ void Menu::healTeam()
 		 << "0. Retour" << endl
 		 << endl;
 	int userChoice = waitForValidUserInput(team.size());
-	if (userChoice == 0)
+	switch (userChoice)
 	{
+	case 0:
 		this->mainMenu();
-	}
-	else if (userChoice == 1)
-	{
-		sleep(2.5);
-		cout << endl
-			 << "Vous vous reposez toute une nuit..." << endl
-			 << endl;
+		break;
+	case 1:
+		sleep(.5);
+		int moneySpend = 0;
 		for (int i = 0; i < team.size(); i++)
 		{
 			int pokeHP = team[i].getHP();
@@ -193,16 +197,29 @@ void Menu::healTeam()
 			if (pokeHP == 0.0)
 			{
 				this->player->removeMoney(100);
+				moneySpend += 100;
 			}
 			else if (pokeHP < pokeMaxHP && pokeHP != 0.0)
 			{
 				this->player->removeMoney(40);
+				moneySpend += 40;
 			}
 		}
 		this->player->healPokemons();
-		sleep(2.5);
 		this->save();
-		this->healTeam();
+		cout << endl
+			 << "Tu as dépensé(e) " << moneySpend << "¤ pour soigner tes pokémons." << endl
+			 << "Ton équipe s'est bien reposée." << endl;
+		for (int i = 0; i < team.size(); i++)
+		{
+			string pokeName = team[i].name;
+			string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
+			team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
+			cout << i + 1 << ". " << pokeName << endl;
+		}
+		sleep(5);
+		this->mainMenu();
+		break;
 	}
 }
 

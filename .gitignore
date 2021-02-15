@@ -2,6 +2,5 @@
 main
 *.pokesave
 *.py
-build/**
+build/
 CMakeLists.txt
-build/.cmake
