@@ -132,6 +132,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 			break;
 		case 3:
 			this->save();
+			this->menuItem();
 			this->wildGrass(pokeSauvage);
 			break;
 		case 4:
@@ -275,7 +276,7 @@ void Menu::allPCTeam()
 
 	for (int i = 0; i < 6 - team.size(); i++)
 	{
-		cout << "(" << (6 - team.size()) + i + 1 << ") " << endl;
+		cout << "(" << (i + team.size()) + 1 << ") " << endl;
 	}
 
 	cout << endl
