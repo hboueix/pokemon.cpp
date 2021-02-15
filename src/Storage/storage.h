@@ -18,6 +18,7 @@ public:
 	void savePlayer(Player *player);
 	Player* loadPlayer(string name);
 	void load_pokemons();
+	Pokemon getRandomPokemon();
 };
 
 #endif

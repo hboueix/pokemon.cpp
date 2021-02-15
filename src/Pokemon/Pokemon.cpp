@@ -17,13 +17,16 @@ Pokemon::Pokemon(string pokemonName) {
 	defense = 5.0;
 }
 
-Pokemon::Pokemon(string pokemonName, string type, float maxHP, float HP, float attack, float defense) {
+Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed) {
 	this->name = pokemonName;
 	this->type = type;
 	this->maxHP = maxHP;
 	this->HP = HP;
 	this->attack = attack;
 	this->defense = defense;
+	this->sp_attack = sp_attack;
+	this->sp_defense = sp_defense;
+	this->speed = speed;
 }
 
 Pokemon::~Pokemon() {
@@ -35,7 +38,10 @@ void Pokemon::showStats() {
 		<< "Type : " << this->type << endl
 		<< "HP/maxHP : " << this->HP << " / " << this->maxHP << endl
 		<< "ATQ : " << this->attack << endl
-		<< "DEF : " << this->defense << endl;
+		<< "DEF : " << this->defense << endl
+		<< "SP_ATQ : " << this->sp_attack << endl
+		<< "SP_DEF : " << this-> sp_defense << endl
+		<< "Speed : " << this->speed << endl;
 }
 
 void Pokemon::attacking(Pokemon &defender) {
@@ -56,7 +62,7 @@ string Pokemon::getType() {
 }
 
 int Pokemon::getHP(){
-	return HP;
+	return this->HP;
 }
 
 int Pokemon::getMaxHP() {
@@ -64,15 +70,15 @@ int Pokemon::getMaxHP() {
 }
 
 int Pokemon::getAttack(){
-	return attack;
+	return this->attack;
 }
 
 int Pokemon::getDefense(){
-	return defense;
+	return this->defense;
 }
 
-void Pokemon::setHP(int PDV) {
-	HP = PDV; 
+void Pokemon::setHP(int HP) {
+	this->HP = HP; 
 }
 
 json Pokemon::getJson() {
@@ -82,7 +88,10 @@ json Pokemon::getJson() {
 				{"HP", this->HP},
 				{"maxHP", this->maxHP},
 				{"ATQ", this->attack},
-				{"DEF", this->defense}
+				{"DEF", this->defense},
+				{"SP_ATQ", this->sp_attack},
+				{"SP_DEF", this->sp_defense},
+				{"speed", this->speed}
 			};
 }
 
