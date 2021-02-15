@@ -94,10 +94,16 @@ Player *Storage::loadPlayer(string namePlayer)
 				*(new Pokemon(
 					pokemon["name"].get<string>(),
 					pokemon["type"].get<string>(),
-					pokemon["maxHP"].get<float>(),
-					pokemon["HP"].get<float>(),
-					pokemon["ATQ"].get<float>(),
-					pokemon["DEF"].get<float>())));
+					pokemon["maxHP"].get<int>(),
+					pokemon["HP"].get<int>(),
+					pokemon["ATQ"].get<int>(),
+					pokemon["DEF"].get<int>(),
+					pokemon["SP_ATQ"].get<int>(),
+					pokemon["SP_DEF"].get<int>(),
+					pokemon["speed"].get<int>()
+					)
+				)
+			);
 		}
 
 		for (int i = 0; i < dataPlayer["teamPC"].size(); i++)
@@ -110,7 +116,13 @@ Player *Storage::loadPlayer(string namePlayer)
 					pokemon["maxHP"].get<float>(),
 					pokemon["HP"].get<float>(),
 					pokemon["ATQ"].get<float>(),
-					pokemon["DEF"].get<float>())));
+					pokemon["DEF"].get<float>(),
+					pokemon["SP_ATQ"].get<int>(),
+					pokemon["SP_DEF"].get<int>(),
+					pokemon["speed"].get<int>()
+					)
+				)
+			);
 		}
 
 		return new Player(
@@ -136,12 +148,18 @@ void Storage::load_pokemons()
 			json pokemon = dataPokemons[i];
 			this->all_pokemon_templates.push_back(
 				*(new Pokemon(
-					pokemon["name"].get<string>(),
+					pokemon["name_fr"].get<string>(),
 					pokemon["type1"].get<string>(),
-					pokemon["hp"].get<float>(),
-					pokemon["hp"].get<float>(),
-					pokemon["attack"].get<float>(),
-					pokemon["defense"].get<float>())));
+					pokemon["hp"].get<int>(),
+					pokemon["hp"].get<int>(),
+					pokemon["attack"].get<int>(),
+					pokemon["defense"].get<int>(),
+					pokemon["sp_attack"].get<int>(),
+					pokemon["sp_defense"].get<int>(),
+					pokemon["speed"].get<int>()
+					)
+				)
+			);
 		}
 
 		// for (int i = 0; i < this->all_pokemon_templates.size(); i++)
@@ -158,8 +176,12 @@ void Storage::load_pokemons()
 Pokemon Storage::getRandomPokemon() {
 	int randomIndex = rand() % this->all_pokemon_templates.size();
 	Pokemon random = this->all_pokemon_templates[randomIndex];
-	random.showStats();
+	// random.showStats();
 	return random;
 }
+
+// Pokemon Storage::getPokemonTemplate(string name) {
+
+// }
 
 #endif

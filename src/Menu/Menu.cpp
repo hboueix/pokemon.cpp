@@ -74,7 +74,7 @@ int Menu::waitForValidUserInput(int maxValid)
 	return userChoice;
 }
 
-void Menu::wildGrass()
+void Menu::wildGrass(Pokemon *pokeSauvage)
 {
 	int userChoice;
 	vector<Pokemon> team = player->getTeam();
@@ -86,49 +86,66 @@ void Menu::wildGrass()
 		return;
 	}
 	Pokemon myPokemon = this->player->getTeam()[myPokemonIdx];
-	Pokemon pokeSauvage = this->storage->getRandomPokemon();
-	cout << "Un " << pokeSauvage.name << " apparaît!" << endl
-		 << "En Avant " << myPokemon.name << "!" << endl
-		 << "============================" << endl;
-	while (myPokemon.getHP() > 0 && pokeSauvage.getHP() > 0)
-	{
+	if (pokeSauvage == 0) {
+		Pokemon poke = this->storage->getRandomPokemon();
+		pokeSauvage = &poke;
+	}
+	
+	if (myPokemon.getHP() > 0 && pokeSauvage->getHP() > 0) {
+		cout << "Un "<< pokeSauvage->name <<" apparaît!" << endl
+			<< "En Avant " << myPokemon.name << "!"<< endl
+			<< "============================" << endl;
 		cout << "Que voulez vous faire?" << endl
-			 << "============================" << endl
-			 << endl
-			 << "1. Attaquer" << endl
-			 << "2. Changer de Pokemon" << endl
-			 << "3. Objet" << endl
-			 << "4. fuir" << endl
-			 << endl
-			 << "0. Quitter" << endl
-			 << endl;
-		userChoice = waitForValidUserInput(4);
-		switch (userChoice)
-		{
+			<< "============================" << endl << endl 
+			<< "1. Attaquer" << endl
+			<< "2. Changer de Pokemon" << endl
+			<< "3. Objet" << endl
+			<< "4. fuir" << endl
+			<< endl << "0. Quitter" << endl << endl;
+	} 
+	else if (!pokeSauvage->getHP() > 0) {
+		cout << pokeSauvage->name << " est KO !" << endl
+			<< "Vous avez battu le pokémon sauvage !" << endl;
+		this->save();
+		this->mainMenu();
+		return;
+	}
+	else {
+		cout << "Votre pokémon est KO" << endl;
+		this->save();
+		this->mainMenu();
+		return;
+	}
+
+	userChoice = waitForValidUserInput(4);
+	switch (userChoice) {
 		case 1:
 		{
-			myPokemon.attacking(*&pokeSauvage);
+			myPokemon.attacking(*pokeSauvage);
 			this->save();
+			this->wildGrass(pokeSauvage);
 			break;
 		}
 		case 2:
-			// this->team();
+			this->save();
+			this->wildGrass(pokeSauvage);
 			break;
 		case 3:
-			// this->healTeam();
+			this->save();
+			this->wildGrass(pokeSauvage);
+			break;
 		case 4:
+			this->save();
 			this->wildGrass();
 			break;
 		case 0:
+			this->save();
 			this->mainMenu();
 			break;
 		default:
 			cout << "Input out of range... This shouldn't be see..." << endl;
 			break;
-		}
 	}
-	cout << "combat terminé!" << endl;
-	this->mainMenu();
 }
 
 void Menu::team()
