@@ -24,6 +24,7 @@ public:
 	void moveToPC(int toMove);
 	void moveToTeam(int toMove);
 	void removeFromPC(int toRemove);
+	int getFirstValidPokemonIndex();
 };
 
 #endif

@@ -66,4 +66,13 @@ void Player::removeFromPC(int toRemove) {
 	this->teamPC.erase(this->teamPC.begin() + toRemove - 1);
 }
 
+int Player::getFirstValidPokemonIndex() {
+	for (int i = 0; i < this->team.size(); i++) {
+		if (this->team[i].getHP() > 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 #endif

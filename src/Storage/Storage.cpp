@@ -144,15 +144,22 @@ void Storage::load_pokemons()
 					pokemon["defense"].get<float>())));
 		}
 
-		for (int i = 0; i < this->all_pokemon_templates.size(); i++)
-		{
-			all_pokemon_templates[i].showStats();
-		}
+		// for (int i = 0; i < this->all_pokemon_templates.size(); i++)
+		// {
+		// 	this->all_pokemon_templates[i].showStats();
+		// }
 	}
 	else
 	{
 		cout << "ERROR : missing pokemons data" << endl;
 	}
+}
+
+Pokemon Storage::getRandomPokemon() {
+	int randomIndex = rand() % this->all_pokemon_templates.size();
+	Pokemon random = this->all_pokemon_templates[randomIndex];
+	random.showStats();
+	return random;
 }
 
 #endif
