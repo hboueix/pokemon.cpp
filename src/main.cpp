@@ -13,7 +13,8 @@ int main() {
 	cin >> playerName; 
 	Storage *storage = new Storage();
 	Player *player = storage->loadPlayer(playerName);
-	Menu *myMenu = new Menu(player);
+	Menu *myMenu = new Menu(player, storage);
+	// storage->load_pokemons();
 	myMenu->mainMenu();
 	// cout << storage->read("." + playerName + ".pokesave") << endl;
 	

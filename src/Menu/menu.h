@@ -18,7 +18,7 @@ private:
 	void allPCTeam();
 	void save();
 public:
-	Menu(Player *player);
+	Menu(Player *player, Storage *storage);
 	~Menu();
 	void mainMenu();
 };

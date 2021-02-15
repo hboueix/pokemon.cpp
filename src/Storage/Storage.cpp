@@ -11,50 +11,67 @@
 using namespace std;
 using json = nlohmann::json;
 
-Storage::Storage() {
-	save = "./saves/user.pokepp";
+Storage::Storage()
+{
+	// save = "./saves/user.pokepp";
+	this->load_pokemons();
 }
 
-Storage::~Storage() {
-
+Storage::~Storage()
+{
 }
 
-string Storage::read(string filePath) {
+string Storage::read(string filePath)
+{
 	ifstream flux(filePath.c_str());
-	if (flux) {
+	if (flux)
+	{
+		string lignes;
 		string ligne;
-		getline(flux, ligne);
-		return ligne;
-	} else {
+		while (getline(flux, ligne))
+		{
+			lignes += ligne;
+		}
+
+		return lignes;
+	}
+	else
+	{
 		// cout << "ERREUR: Impossible d'ouvrir le fichier '" << filePath << "'." << endl;
 		return "";
 	}
 }
 
-bool Storage::write(string filePath, string toWrite) {
+bool Storage::write(string filePath, string toWrite)
+{
 	ofstream flux(filePath.c_str());
-	if (flux) {
+	if (flux)
+	{
 		flux << toWrite << endl;
 		return true;
-	} else {
+	}
+	else
+	{
 		cout << "ERREUR: Impossible d'ouvrir le fichier '" << filePath << "'." << endl;
 		return false;
 	}
 }
 
-void Storage::savePlayer(Player *player) {
+void Storage::savePlayer(Player *player)
+{
 	json dataPlayer = {
 		{"name", player->name},
 		{"money", player->getMoney()},
 		{"team", {}},
-		{"teamPC", {}}
-	};
-	for (int i = 0; i < player->getTeam().size(); i++) {
+		{"teamPC", {}}};
+	for (int i = 0; i < player->getTeam().size(); i++)
+	{
 		Pokemon pokemon = player->getTeam()[i];
 		dataPlayer["team"].push_back(pokemon.getJson());
 	}
 
-	for (int i = 0; i < player->getTeamPC().size(); i++) {
+	for (int i = 0; i < player->getTeamPC().size(); i++)
+	{
 		Pokemon pokemon = player->getTeamPC()[i];
 		dataPlayer["teamPC"].push_back(pokemon.getJson());
 	}
@@ -62,13 +79,16 @@ void Storage::savePlayer(Player *player) {
 	this->write("." + player->name + ".pokesave", dataPlayer.dump());
 }
 
-Player* Storage::loadPlayer(string namePlayer) {
+Player *Storage::loadPlayer(string namePlayer)
+{
 	string dataPlayerRaw = this->read("." + namePlayer + ".pokesave");
-	if (dataPlayerRaw != "") {
+	if (dataPlayerRaw != "")
+	{
 		json dataPlayer = json::parse(dataPlayerRaw);
 		vector<Pokemon> team = {};
 		vector<Pokemon> teamPC = {};
-		for (int i = 0; i < dataPlayer["team"].size(); i++) { 
+		for (int i = 0; i < dataPlayer["team"].size(); i++)
+		{
 			json pokemon = dataPlayer["team"][i];
 			team.push_back(
 				*(new Pokemon(
@@ -77,12 +97,11 @@ Player* Storage::loadPlayer(string namePlayer) {
 					pokemon["maxHP"].get<float>(),
 					pokemon["HP"].get<float>(),
 					pokemon["ATQ"].get<float>(),
-					pokemon["DEF"].get<float>()
-				))
-			);
+					pokemon["DEF"].get<float>())));
 		}
 
-		for (int i = 0; i < dataPlayer["teamPC"].size(); i++) { 
+		for (int i = 0; i < dataPlayer["teamPC"].size(); i++)
+		{
 			json pokemon = dataPlayer["teamPC"][i];
 			teamPC.push_back(
 				*(new Pokemon(
@@ -91,20 +110,48 @@ Player* Storage::loadPlayer(string namePlayer) {
 					pokemon["maxHP"].get<float>(),
 					pokemon["HP"].get<float>(),
 					pokemon["ATQ"].get<float>(),
-					pokemon["DEF"].get<float>()
-				))
-			);
+					pokemon["DEF"].get<float>())));
 		}
 
 		return new Player(
 			dataPlayer["name"].get<string>(),
 			dataPlayer["money"].get<int>(),
 			team,
-			teamPC
-		);
-
-	} else {
+			teamPC);
+	}
+	else
+	{
 		return new Player(namePlayer);
+	}
+}
+
+void Storage::load_pokemons()
+{
+	string dataPokemonsRaw = this->read("pokemon.json");
+	if (dataPokemonsRaw != "")
+	{
+		json dataPokemons = json::parse(dataPokemonsRaw);
+		for (int i = 0; i < dataPokemons.size(); i++)
+		{
+			json pokemon = dataPokemons[i];
+			this->all_pokemon_templates.push_back(
+				*(new Pokemon(
+					pokemon["name"].get<string>(),
+					pokemon["type1"].get<string>(),
+					pokemon["hp"].get<float>(),
+					pokemon["hp"].get<float>(),
+					pokemon["attack"].get<float>(),
+					pokemon["defense"].get<float>())));
+		}
+
+		for (int i = 0; i < this->all_pokemon_templates.size(); i++)
+		{
+			all_pokemon_templates[i].showStats();
+		}
+	}
+	else
+	{
+		cout << "ERROR : missing pokemons data" << endl;
 	}
 }
 

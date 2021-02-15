@@ -14,8 +14,8 @@
 
 using namespace std;
 
-Menu::Menu(Player *player) { 
-	this->storage = new Storage();
+Menu::Menu(Player *player, Storage *storage) { 
+	this->storage = storage;
 	this->player = player;
 }
 
