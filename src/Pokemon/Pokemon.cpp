@@ -56,7 +56,7 @@ string Pokemon::getType() {
 }
 
 int Pokemon::getHP(){
-	return HP;
+	return this->HP;
 }
 
 int Pokemon::getMaxHP() {
@@ -64,15 +64,15 @@ int Pokemon::getMaxHP() {
 }
 
 int Pokemon::getAttack(){
-	return attack;
+	return this->attack;
 }
 
 int Pokemon::getDefense(){
-	return defense;
+	return this->defense;
 }
 
-void Pokemon::setHP(int PDV) {
-	HP = PDV; 
+void Pokemon::setHP(int HP) {
+	this->HP = HP; 
 }
 
 json Pokemon::getJson() {
