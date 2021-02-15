@@ -14,13 +14,16 @@ private:
 	vector<Pokemon> teamPC;
 public:
 	string name;
-	Player();
-	Player(string name, vector<Pokemon> team, int money);
+	Player(string name);
+	Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC);
 	~Player();
 	int getMoney();
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
 	void swapPokemon(int pokemonSelected, int pokemonPCSelected);
+	void moveToPC(int toMove);
+	void moveToTeam(int toMove);
+	void removeFromPC(int toRemove);
 };
 
 #endif

@@ -1,3 +1,4 @@
 .vscode/
 main
-src/Item/main.cpp
+*.pokesave
+*.py

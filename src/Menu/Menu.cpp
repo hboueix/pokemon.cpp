@@ -9,11 +9,13 @@
 
 #include <iostream>
 #include "menu.h"
+#include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
 
 using namespace std;
 
-Menu::Menu(Player player) { 
+Menu::Menu(Player *player, Storage *storage) { 
+	this->storage = storage;
 	this->player = player;
 }
 
@@ -44,8 +46,9 @@ void Menu::mainMenu() {
 			this->allPCTeam();
 			break;
 		case 0:
+			this->save();
 			cout << "Bye !" << endl;
-			exit(EXIT_SUCCESS);
+			// exit(EXIT_SUCCESS);
 			break;
 		default:
 			cout << "Input out of range... This shouldn't be see..." << endl;
@@ -67,7 +70,7 @@ int Menu::waitForValidUserInput(int maxValid) {
 
 void Menu::wildGrass() {
 	int userChoice;
-	vector<Pokemon> team = player.getTeam();
+	vector<Pokemon> team = player->getTeam();
 	Pokemon *pokeSauvage = new Pokemon("Roucool");
 	cout << "Un "<< pokeSauvage->name <<" apparaît!" << endl
 		<< "En Avant " << team[0].name << "!"<< endl
@@ -85,6 +88,7 @@ void Menu::wildGrass() {
 			case 1:
 			{
 				team[0].attacking(*pokeSauvage);
+				this->save();
 				break;
 			}
 			case 2:
@@ -110,9 +114,11 @@ void Menu::wildGrass() {
 }
 
 void Menu::team() {
-	vector<Pokemon> team = player.getTeam();
+	vector<Pokemon> team = player->getTeam();
 	cout << endl << "Your team :" << endl;
 	for (int i = 0; i < team.size(); i++) {
+		string pokeName = team[i].name;
+		team[i].getHP() > 0 ? pokeName += "" : pokeName += " (KO)";
 		cout << i+1 << ". " << team[i].name << endl;
 	}
 
@@ -123,6 +129,7 @@ void Menu::team() {
 	} else {
 		team[userChoice-1].showStats();
 		sleep(5);
+		this->save();
 		this->team();
 	}
 }
@@ -132,8 +139,8 @@ void Menu::healTeam() {
 }
 
 void Menu::allPCTeam() {
-	vector<Pokemon> team = player.getTeam();
-	vector<Pokemon> teamPC = player.getTeamPC();
+	vector<Pokemon> team = player->getTeam();
+	vector<Pokemon> teamPC = player->getTeamPC();
 	cout << endl << "Your team :" << endl;
 	for (int i = 0; i < team.size(); i++) {
 		cout << "(" << i+1 << ") " << team[i].name << endl;
@@ -144,24 +151,75 @@ void Menu::allPCTeam() {
 	}
 
 	cout << endl << "Your PC :" << endl;
-	for (int i = 0; i < teamPC.size(); i++) {
-		cout << "(" << i+1 << ") " << teamPC[i].name << endl;
+	if (teamPC.size() > 0) {
+		for (int i = 0; i < teamPC.size(); i++) {
+			cout << "(" << i+1 << ") " << teamPC[i].name << endl;
+		}
+	} else {
+		cout << "(Vide)" << endl;
 	}
 
-	cout << endl << "1. Echanger" << endl
+	cout << endl << "1. Echanger / Ajouter depuis le PC" << endl
+		<< "2. Retirer de l'équipe" << endl
+		<< "3. Supprimer du PC" << endl
 		<< "0. Retour" << endl << endl;
-	int userChoice = waitForValidUserInput(1);
-	if (userChoice == 0) {
-		this->mainMenu();
-	} else {
-		cout << "Sélectionnez un emplacement dans votre équipe (1 à 6)" << endl;
-		int pokemonSelected = waitForValidUserInput(6);
-		cout << "Sélectionnez un pokémon dans votre PC" << endl;
-		int pokemonPCSelected = waitForValidUserInput(teamPC.size());
-		this->player.swapPokemon(pokemonSelected, pokemonPCSelected);
-		sleep(3);
-		this->allPCTeam();
+	int userChoice = waitForValidUserInput(3);
+	switch (userChoice) {
+		case 1:
+		{
+			cout << "Sélectionnez un emplacement dans votre équipe (1 à 6)" << endl;
+			int pokemonSelected = waitForValidUserInput(6);
+			cout << "Sélectionnez un pokémon dans votre PC" << endl;
+			int pokemonPCSelected = waitForValidUserInput(teamPC.size());
+			cout << "Echange en cours..." << endl;
+			this->player->swapPokemon(pokemonSelected, pokemonPCSelected);
+			sleep(1);
+			this->save();
+			this->allPCTeam();
+			break;
+		}
+		case 2:
+			if (team.size() == 1) {
+				cout << "Vous ne pouvez pas avoir une équipe vide. C'est bien trop dangereux !" << endl;
+				sleep(2);
+				this->save();
+				this->allPCTeam();
+			} else {
+				cout << "Quel pokémon voulez-vous retirer de l'équipe ? Il sera transféré dans le PC." << endl;
+				int toMove = waitForValidUserInput(team.size());
+				cout << team[toMove-1].name << " a été transféré dans le PC !" << endl;
+				this->player->moveToPC(toMove);
+				sleep(1);
+				this->save();
+				this->allPCTeam();
+			}
+			break;
+		case 3:
+		{
+			if (teamPC.size() == 0) {
+				cout << "Votre PC est vide. Capturez d'autres pokémons !" << endl;
+				sleep(1); 
+			} else {
+				cout << "Quel pokémon voulez-vous supprimer du PC ?" << endl;
+				int toRemove = waitForValidUserInput(teamPC.size());
+				if (toRemove != 0) {
+					cout << teamPC[toRemove - 1].name << " a été relaché dans la nature..." << endl;
+					this->player->removeFromPC(toRemove);
+					sleep(1);
+				}
+			}
+			this->save();
+			this->allPCTeam();
+			break;
+		}
+		case 0:
+			this->mainMenu();
+			break;
 	}
+}
+
+void Menu::save() {
+	this->storage->savePlayer(this->player);
 }
 
 #endif

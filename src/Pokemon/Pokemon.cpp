@@ -1,6 +1,13 @@
 #ifndef POKEMON_INCLUDED
 #define POKEMON_INCLUDED
 
+#include <iostream>
+#include "pokemon.h"
+#include "../../libs/nlohmann/json.hpp"
+
+using namespace std;
+using json = nlohmann::json;
+
 Pokemon::Pokemon(string pokemonName) {
 	name = pokemonName;
 	type = "Not implemented";
@@ -10,13 +17,13 @@ Pokemon::Pokemon(string pokemonName) {
 	defense = 5.0;
 }
 
-Pokemon::Pokemon(string pokemonName, string type, float maxHP, float attack, float defense) {
-	name = pokemonName;
-	type = type;
-	maxHP = maxHP;
-	HP = maxHP;
-	attack = attack;
-	defense = defense;
+Pokemon::Pokemon(string pokemonName, string type, float maxHP, float HP, float attack, float defense) {
+	this->name = pokemonName;
+	this->type = type;
+	this->maxHP = maxHP;
+	this->HP = HP;
+	this->attack = attack;
+	this->defense = defense;
 }
 
 Pokemon::~Pokemon() {
@@ -44,8 +51,16 @@ void Pokemon::attacking(Pokemon &defender) {
 	}
 }
 
+string Pokemon::getType() {
+	return this->type;
+}
+
 int Pokemon::getHP(){
 	return HP;
+}
+
+int Pokemon::getMaxHP() {
+	return this->maxHP;
 }
 
 int Pokemon::getAttack(){
@@ -60,5 +75,15 @@ void Pokemon::setHP(int PDV) {
 	HP = PDV; 
 }
 
+json Pokemon::getJson() {
+	return {
+				{"name", this->name},
+				{"type", this->type},
+				{"HP", this->HP},
+				{"maxHP", this->maxHP},
+				{"ATQ", this->attack},
+				{"DEF", this->defense}
+			};
+}
 
 #endif
