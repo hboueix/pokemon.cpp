@@ -12,7 +12,7 @@ private:
 	Player *player;
 	Storage *storage;
 	int waitForValidUserInput(int maxValid);
-	void wildGrass();
+	void wildGrass(Pokemon *pokeSauvage = 0);
 	void menuItem();
 	void team();
 	void healTeam();
