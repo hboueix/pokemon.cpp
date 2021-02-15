@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/daftmob/Ynov/c++/pokemon.cpp/build",
-  "command": "/usr/bin/g++-7   -g -o CMakeFiles/pokemon.cpp.dir/src/main.cpp.o -c /home/daftmob/Ynov/c++/pokemon.cpp/src/main.cpp",
-  "file": "/home/daftmob/Ynov/c++/pokemon.cpp/src/main.cpp"
-}
-]

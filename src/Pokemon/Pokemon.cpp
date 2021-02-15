@@ -8,7 +8,8 @@
 using namespace std;
 using json = nlohmann::json;
 
-Pokemon::Pokemon(string pokemonName) {
+Pokemon::Pokemon(string pokemonName)
+{
 	name = pokemonName;
 	type = "Not implemented";
 	maxHP = 30.0;
@@ -17,7 +18,8 @@ Pokemon::Pokemon(string pokemonName) {
 	defense = 5.0;
 }
 
-Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed) {
+Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed)
+{
 	this->name = pokemonName;
 	this->type = type;
 	this->maxHP = maxHP;
@@ -29,70 +31,81 @@ Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack,
 	this->speed = speed;
 }
 
-Pokemon::~Pokemon() {
-
+Pokemon::~Pokemon()
+{
 }
 
-void Pokemon::showStats() {
+void Pokemon::showStats()
+{
 	cout << "Nom : " << this->name << endl
-		<< "Type : " << this->type << endl
-		<< "HP/maxHP : " << this->HP << " / " << this->maxHP << endl
-		<< "ATQ : " << this->attack << endl
-		<< "DEF : " << this->defense << endl
-		<< "SP_ATQ : " << this->sp_attack << endl
-		<< "SP_DEF : " << this-> sp_defense << endl
-		<< "Speed : " << this->speed << endl;
+		 << "Type : " << this->type << endl
+		 << "HP/maxHP : " << this->HP << " / " << this->maxHP << endl
+		 << "ATQ : " << this->attack << endl
+		 << "DEF : " << this->defense << endl
+		 << "SP_ATQ : " << this->sp_attack << endl
+		 << "SP_DEF : " << this->sp_defense << endl
+		 << "Speed : " << this->speed << endl;
 }
 
-void Pokemon::attacking(Pokemon &defender) {
-	int damage = this->attack-defender.getDefense();
-	if (defender.getHP() - damage > 0) {
-		defender.setHP(defender.getHP()-damage);
+void Pokemon::attacking(Pokemon &defender)
+{
+	int damage = this->attack - defender.getDefense(); //TODO: vérifier les max d'att et def | gestion des erreurs
+	if (defender.getHP() - damage > 0)
+	{
+		defender.setHP(defender.getHP() - damage);
 		cout << this->name << " a infligé " << damage << "HP à " << defender.name << endl
-			<< "Il reste " << defender.getHP() << "HP à " << defender.name << endl;
-	} else {
+			 << "Il reste " << defender.getHP() << "HP à " << defender.name << endl;
+	}
+	else
+	{
 		defender.setHP(0);
 		cout << this->name << " a infligé " << defender.getHP() << "HP à " << defender.name << endl
-			<< defender.name << " est KO." << endl;
+			 << defender.name << " est KO." << endl;
 	}
 }
 
-string Pokemon::getType() {
+string Pokemon::getType()
+{
 	return this->type;
 }
 
-int Pokemon::getHP(){
+int Pokemon::getHP()
+{
 	return this->HP;
 }
 
-int Pokemon::getMaxHP() {
+int Pokemon::getMaxHP()
+{
 	return this->maxHP;
 }
 
-int Pokemon::getAttack(){
+int Pokemon::getAttack()
+{
 	return this->attack;
 }
 
-int Pokemon::getDefense(){
+int Pokemon::getDefense()
+{
 	return this->defense;
 }
 
-void Pokemon::setHP(int HP) {
-	this->HP = HP; 
+void Pokemon::setHP(int HP)
+{
+	this->HP = HP;
 }
 
-json Pokemon::getJson() {
+json Pokemon::getJson()
+{
 	return {
-				{"name", this->name},
-				{"type", this->type},
-				{"HP", this->HP},
-				{"maxHP", this->maxHP},
-				{"ATQ", this->attack},
-				{"DEF", this->defense},
-				{"SP_ATQ", this->sp_attack},
-				{"SP_DEF", this->sp_defense},
-				{"speed", this->speed}
-			};
+		{"name", this->name},
+		{"type", this->type},
+		{"HP", this->HP},
+		{"maxHP", this->maxHP},
+		{"ATQ", this->attack},
+		{"DEF", this->defense},
+		{"SP_ATQ", this->sp_attack},
+		{"SP_DEF", this->sp_defense},
+		{"speed", this->speed}};
 }
 
 #endif
