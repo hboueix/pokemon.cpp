@@ -8,7 +8,8 @@ using namespace std;
 
 class Storage {
 private:
-	string save;
+	// string save;
+	vector<Pokemon> all_pokemon_templates;
 public:
 	Storage();
 	~Storage();
@@ -16,6 +17,7 @@ public:
 	bool write(string filePath, string toWrite);
 	void savePlayer(Player *player);
 	Player* loadPlayer(string name);
+	void load_pokemons();
 };
 
 #endif

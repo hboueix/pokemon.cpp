@@ -14,9 +14,8 @@
 
 using namespace std;
 
-Menu::Menu(Player *player)
-{
-	this->storage = new Storage();
+Menu::Menu(Player *player, Storage *storage) { 
+	this->storage = storage;
 	this->player = player;
 }
 
@@ -87,17 +86,12 @@ void Menu::wildGrass()
 	while (team[0].getHP() > 0 && pokeSauvage->getHP() > 0)
 	{
 		cout << "Que voulez vous faire?" << endl
-			 << "hpsauvage" << pokeSauvage->getHP() << endl
-			 << "hpSalameche" << team[0].getHP() << endl
-			 << "============================" << endl
-			 << endl
-			 << "1. Attaquer" << endl
-			 << "2. Changer de Pokemon" << endl
-			 << "3. Objet" << endl
-			 << "4. fuir" << endl
-			 << endl
-			 << "0. Quitter" << endl
-			 << endl;
+			<< "============================" << endl << endl 
+			<< "1. Attaquer" << endl
+			<< "2. Changer de Pokemon" << endl
+			<< "3. Objet" << endl
+			<< "4. fuir" << endl
+			<< endl << "0. Quitter" << endl << endl;
 		userChoice = waitForValidUserInput(4);
 		switch (userChoice)
 		{
