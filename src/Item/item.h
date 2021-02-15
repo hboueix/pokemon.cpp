@@ -6,14 +6,16 @@
 using namespace std;
 
 class Item {
-private:
+protected:
     string description;
 
 public:
 	string name;
     Item();
     ~Item();
-    string getDescription();
+    virtual void affiche() const;
+    // virtual void use(Item const&);
+    virtual string getDescription();
 
 };
 

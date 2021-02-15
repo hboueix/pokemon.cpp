@@ -13,6 +13,7 @@ private:
 	Storage *storage;
 	int waitForValidUserInput(int maxValid);
 	void wildGrass();
+	void menuItem();
 	void team();
 	void healTeam();
 	void allPCTeam();

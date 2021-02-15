@@ -95,7 +95,8 @@ void Menu::wildGrass() {
 				// this->team();
 				break;
 			case 3:
-				// this->healTeam();
+				this->menuItem();
+				break;
 			case 4:
 				// this->allPCTeam();
 				break;
@@ -113,13 +114,34 @@ void Menu::wildGrass() {
 	
 }
 
+void Menu::menuItem() {
+	vector<Item*> backPack = player->getBackPack();
+	cout << endl << "Votre inventaire :" << endl;
+	// cout << backPack << endl;
+	for (int i = 0; i < backPack.size(); i++) {
+		// string itemName = backPack[i].name;
+		cout << i+1 << ". " << backPack[i]->name << endl;
+	}
+
+	cout << endl << "0. Retour" << endl << endl;
+	int userChoice = waitForValidUserInput(backPack.size());
+	if (userChoice == 0) {
+		this->mainMenu();
+	} else {
+		backPack[userChoice-1]->affiche();
+		sleep(5);
+		this->save();
+	}
+}
+
+
 void Menu::team() {
 	vector<Pokemon> team = player->getTeam();
 	cout << endl << "Your team :" << endl;
 	for (int i = 0; i < team.size(); i++) {
 		string pokeName = team[i].name;
-		team[i].getHP() > 0 ? pokeName += "" : pokeName += " (KO)";
-		cout << i+1 << ". " << team[i].name << endl;
+		team[i].getHP() > 0 ? pokeName += '('+team[i].getHP()+'/'+team[i].getMaxHP()+'/' : pokeName += " (KO)";
+		cout << i+1 << ". " << pokeName << endl;
 	}
 
 	cout << endl << "0. Retour" << endl << endl;

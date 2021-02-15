@@ -4,7 +4,12 @@
 #include "potion.h"
 
 Potion::Potion() {
+    name = "potion";
+    description = "description for potion";
+}
 
+void Potion::affiche() const {
+    cout << "Ceci est une potion." << name << endl;
 }
 
 Potion::~Potion() {
