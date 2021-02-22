@@ -174,6 +174,7 @@ void Storage::load_pokemons()
 }
 
 Pokemon Storage::getRandomPokemon() {
+	srand(time(NULL));
 	int randomIndex = rand() % this->all_pokemon_templates.size();
 	Pokemon random = this->all_pokemon_templates[randomIndex];
 	// random.showStats();
