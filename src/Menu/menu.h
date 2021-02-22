@@ -11,8 +11,8 @@ class Menu {
 private:
 	Player *player;
 	Storage *storage;
-	int waitForValidUserInput(int maxValid);
-	void wildGrass(Pokemon *pokeSauvage = 0);
+	int waitForValidUserInput(int maxValid, string question="Que voulez-vous faire ?", bool canExit=true);
+	void wildGrass(Pokemon *pokeSauvage=0);
 	void menuItem();
 	void team();
 	void healTeam();

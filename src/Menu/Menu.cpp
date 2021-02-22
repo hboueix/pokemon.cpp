@@ -60,11 +60,11 @@ void Menu::mainMenu()
 	}
 }
 
-int Menu::waitForValidUserInput(int maxValid)
+int Menu::waitForValidUserInput(int maxValid, string question, bool canExit)
 {
-	cout << "Que voulez-vous faire ?" << endl;
+	cout << question << endl;
 	int userChoice;
-	while (!(cin >> userChoice) || !(userChoice <= maxValid && userChoice >= 0))
+	while (!(cin >> userChoice) || !(userChoice <= maxValid && userChoice >= !canExit))
 	{
 		cout << "Choix non valide, réessayez." << endl;
 		cin.clear();
@@ -100,8 +100,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 			<< "1. Attaquer" << endl
 			<< "2. Changer de Pokemon" << endl
 			<< "3. Objet" << endl
-			<< "4. fuir" << endl
-			<< endl << "0. Quitter" << endl << endl;
+			<< "4. Fuir" << endl << endl;
 	} 
 	else if (!pokeSauvage->getHP() > 0) {
 		cout << pokeSauvage->name << " est KO !" << endl
@@ -111,13 +110,13 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		return;
 	}
 	else {
-		cout << "Votre pokémon est KO" << endl;
+		cout << "Votre pokémon est KO..." << endl;
 		this->save();
 		this->mainMenu();
 		return;
 	}
 
-	userChoice = waitForValidUserInput(4);
+	userChoice = waitForValidUserInput(4, "Que doit faire " + myPokemon.name + " ?", false);
 	switch (userChoice) {
 		case 1:
 		{
@@ -136,10 +135,6 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 			this->wildGrass(pokeSauvage);
 			break;
 		case 4:
-			this->save();
-			this->wildGrass();
-			break;
-		case 0:
 			this->save();
 			this->mainMenu();
 			break;
