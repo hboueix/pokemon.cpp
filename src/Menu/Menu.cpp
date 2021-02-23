@@ -17,7 +17,66 @@ Menu::Menu(Player *player, Storage *storage)
 
 	if (this->player->getTeam().size() == 0)
 	{
-		this->player->addPokemon(this->storage->getPokemonTemplate("Pikachu"));
+		cout << endl
+			 << "=============================" << endl
+			 << "| MAISON DU DOCTEUR LAFLEUR |" << endl
+			 << "=============================" << endl;
+		sleep(1);
+		cout << endl
+			 << "Bienvenue, jeune chasseur de pokémon !" << endl
+			 << "Que dis-tu ?" << endl
+			 << "Tu as besoin d'avoir un pokémon GrAtUiT pour commencer ton aventure !?" << endl
+			 << endl;
+		sleep(1);
+		cout << endl
+			 << "Bon, je te laisse choisir entre ces trois là au moins!" << endl
+			 << endl
+			 << " (っ▀¯▀)つ " << endl
+			 << endl
+			 << "1 pour Bulbizarre" << endl
+			 << "2 pour Salamèche" << endl
+			 << "3 pour Carapuce" << endl
+			 << endl;
+		sleep(1);
+		int userChoice = waitForValidUserInput(4, "Choisis bien, pas d'échanges !", false);
+		switch (userChoice)
+		{
+		case 1:
+			cout << endl
+				 << "La nature est la plus forte !" << endl
+				 << "Tu as choisi Bulbizarre !" << endl
+				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
+				 << endl;
+			this->player->addPokemon(this->storage->getPokemonTemplate("Bulbizarre"));
+			sleep(2.5);
+			break;
+		case 2:
+			cout << endl
+				 << "Tout feu tout flamme !" << endl
+				 << "Tu as choisi Salamèche !" << endl
+				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
+				 << endl;
+			this->player->addPokemon(this->storage->getPokemonTemplate("Salamèche"));
+			sleep(2.5);
+			break;
+		case 3:
+			cout << endl
+				 << "Haha, il est toujours salé !" << endl
+				 << "Tu as choisi Carapuce !" << endl
+				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
+				 << endl;
+			this->player->addPokemon(this->storage->getPokemonTemplate("Carapuce"));
+			sleep(2.5);
+			break;
+		default:
+			cout << endl
+				 << "Non ! Tu ne dois pas !!.." << endl
+				 << " ᕦ(ò_óˇ)ᕤ " << endl
+				 << endl;
+			this->player->addPokemon(this->storage->getPokemonTemplate("Pikachu"));
+			sleep(2.5);
+			break;
+		}
 	}
 }
 
@@ -25,7 +84,8 @@ Menu::~Menu() {}
 
 void Menu::mainMenu()
 {
-	cout << "============================" << endl
+	cout << endl
+		 << "============================" << endl
 		 << "|        POKEMON++         |" << endl
 		 << "============================" << endl
 		 << endl
