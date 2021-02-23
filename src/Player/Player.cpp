@@ -13,13 +13,6 @@ Player::Player(string name)
 {
 	this->name = name;
 	this->money = 1000;
-	Pokemon *poke1 = new Pokemon("Salamèche");
-	Pokemon *poke2 = new Pokemon("Carapuce");
-	Pokemon *poke3 = new Pokemon("Bulbizarre");
-	this->team.push_back(*poke1);
-	this->team.push_back(*poke2);
-	this->team.push_back(*poke3);
-	this->teamPC.push_back(*(new Pokemon("Pikachu")));
 	this->backPack.push_back(new Item());
 	this->backPack.push_back(new Potions());
 }
@@ -70,12 +63,15 @@ vector<Pokemon> Player::getTeamPC()
 	return teamPC;
 }
 
-vector<Item*> Player::getBackPack() {
+vector<Item *> Player::getBackPack()
+{
 	return backPack;
 }
 
-void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected) {
-	if (pokemonSelected > this->team.size()) {
+void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected)
+{
+	if (pokemonSelected > this->team.size())
+	{
 		this->moveToTeam(pokemonPCSelected);
 	}
 	else
@@ -98,14 +94,30 @@ void Player::moveToTeam(int toMove)
 	this->teamPC.erase(this->teamPC.begin() + toMove - 1);
 }
 
+int Player::addPokemon(Pokemon pokemon)
+{
+	if (this->team.size() < 6)
+	{
+		this->team.push_back(pokemon);
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 void Player::removeFromPC(int toRemove)
 {
 	this->teamPC.erase(this->teamPC.begin() + toRemove - 1);
 }
 
-int Player::getFirstValidPokemonIndex() {
-	for (int i = 0; i < this->team.size(); i++) {
-		if (this->team[i].getHP() > 0) {
+int Player::getFirstValidPokemonIndex()
+{
+	for (int i = 0; i < this->team.size(); i++)
+	{
+		if (this->team[i].getHP() > 0)
+		{
 			return i;
 		}
 	}

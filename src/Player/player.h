@@ -30,6 +30,7 @@ public:
 	void swapPokemon(int pokemonSelected, int pokemonPCSelected);
 	void moveToPC(int toMove);
 	void moveToTeam(int toMove);
+	int addPokemon(Pokemon pokemon);
 	void removeFromPC(int toRemove);
 	int getFirstValidPokemonIndex();
 };
