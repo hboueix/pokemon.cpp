@@ -24,7 +24,7 @@ int main() {
 	Storage *storage = new Storage();
 	vector<string> players = storage->loadPlayers();
 	string playerName;
-	if (players.size() >= 0) {
+	if (players.size() > 0) {
 		cout << "Sauvegarde(s) existante(s) :" << endl;
 		for (int i = 0; i < players.size(); i++) {
 			cout << to_string(i+1) + ". " << players[i] << endl;
