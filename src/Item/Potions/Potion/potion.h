@@ -7,14 +7,13 @@
 
 using namespace std;
 
-class Potion : public Item {
+class Potion : public Potions {
 private:
 
 public:
-    virtual void use() const;
     Potion();
     ~Potion();
-
+    virtual void use(Pokemon &Pokemon) const;
 };
 
 #endif

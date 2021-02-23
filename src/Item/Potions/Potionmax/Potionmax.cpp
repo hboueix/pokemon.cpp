@@ -1,18 +1,18 @@
-#ifndef POTION_INCLUDED
-#define POTION_INCLUDED
+#ifndef POTIONMAX_INCLUDED
+#define POTIONMAX_INCLUDED
 
-#include "potion.h"
+#include "potionmax.h"
 
-Potions::Potions() {
-    name = "potion";
-    description = "description for potion";
+Potionmax::Potionmax() {
+    name = "Potionmax";
+    description = "description for potionmax";
 }
 
-void Potions::use() const {
-    cout << "Ceci est une potion." << name << endl;
+void Potionmax::use() const {
+    cout << "Ceci est une potionmax. pas la meme gestion que autre potions" << name << endl;
 }
 
-Potions::~Potions() {
+Potionmax::~Potionmax() {
 
 }
 

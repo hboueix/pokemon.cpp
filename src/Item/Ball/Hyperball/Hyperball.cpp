@@ -2,9 +2,11 @@
 #define HYPERBALL_INCLUDED
 
 #include "hyperball.h"
+#include "../Ball.cpp"
 
 Hyperball::Hyperball() {
-
+    name = "Hyperball";
+    description = "description for hyperball";
 }
 
 Hyperball::~Hyperball() {

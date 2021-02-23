@@ -8,9 +8,6 @@ Hyperpotion::Hyperpotion() {
     description = "description for hyperpotion";
 }
 
-void Hyperpotion::use() const {
-    cout << "Ceci est une hyperpotion." << name << endl;
-}
 
 Hyperpotion::~Hyperpotion() {
 

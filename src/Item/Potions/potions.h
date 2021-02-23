@@ -8,10 +8,11 @@
 using namespace std;
 
 class Potions : public Item {
-private:
-
+protected:
+    int pvHeal;
+    
 public:
-    virtual void use() const;
+    virtual void use(Pokemon& Pokemon) const;
     Potions();
     ~Potions();
 

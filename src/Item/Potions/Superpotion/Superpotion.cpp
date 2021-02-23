@@ -1,16 +1,14 @@
-#ifndef POTION_INCLUDED
-#define POTION_INCLUDED
+#ifndef SUPERPOTION_INCLUDED
+#define SUPERPOTION_INCLUDED
 
 #include "superpotion.h" 
 
 Superpotion::Superpotion() {
-    name = "superpotion";
+    name = "Superpotion";
     description = "description for superpotion";
 }
 
-void Superpotion::use() const {
-    cout << "Ceci est une superpotion." << name << endl;
-}
+
 
 Superpotion::~Superpotion() {
 

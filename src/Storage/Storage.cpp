@@ -62,8 +62,16 @@ void Storage::savePlayer(Player *player)
 	json dataPlayer = {
 		{"name", player->name},
 		{"money", player->getMoney()},
+		{"backpack", {}},
 		{"team", {}},
 		{"teamPC", {}}};
+
+	for (int i = 0; i < player->getBackPack().size(); i++)
+	{
+		Item* item = player->getBackPack()[i];
+		dataPlayer["backpack"].push_back(item->name);
+	}
+	
 	for (int i = 0; i < player->getTeam().size(); i++)
 	{
 		Pokemon pokemon = player->getTeam()[i];
@@ -85,8 +93,32 @@ Player *Storage::loadPlayer(string namePlayer)
 	if (dataPlayerRaw != "")
 	{
 		json dataPlayer = json::parse(dataPlayerRaw);
+		vector<Item*> backpack = {};
 		vector<Pokemon> team = {};
 		vector<Pokemon> teamPC = {};
+
+		for (int i = 0; i < dataPlayer["backpack"].size(); i++)
+		{
+			string item = dataPlayer["backpack"][i];
+			if (item == "Pokeball") {
+				backpack.push_back(new Pokeball());
+			} else if (item == "Superball") {
+				backpack.push_back(new Superball());
+			} else if (item == "Hyperball") {
+				backpack.push_back(new Hyperball());
+			} else if (item == "Masterball") {
+				backpack.push_back(new Masterball());
+			} else if (item == "Potion") {
+				backpack.push_back(new Potion());
+			} else if (item == "Superpotion") {
+				backpack.push_back(new Superpotion());
+			} else if (item == "Hyperpotion") {
+				backpack.push_back(new Hyperpotion());
+			} else if (item == "Potionmax") {
+				backpack.push_back(new Potionmax());
+			}
+		}
+		
 		for (int i = 0; i < dataPlayer["team"].size(); i++)
 		{
 			json pokemon = dataPlayer["team"][i];
@@ -128,6 +160,7 @@ Player *Storage::loadPlayer(string namePlayer)
 		return new Player(
 			dataPlayer["name"].get<string>(),
 			dataPlayer["money"].get<int>(),
+			backpack,
 			team,
 			teamPC);
 	}

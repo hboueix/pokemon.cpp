@@ -13,7 +13,7 @@ public:
 	string name;
     Item();
     ~Item();
-    virtual void use() const;
+    virtual void use(Pokemon pokemon) const;
     virtual string getDescription();
 
 };

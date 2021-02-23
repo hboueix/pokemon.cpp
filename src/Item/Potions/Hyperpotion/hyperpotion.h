@@ -1,5 +1,5 @@
-#ifndef POTION_HEADERS_INCLUDED
-#define POTION_HEADERS_INCLUDED
+#ifndef HYPERPOTION_HEADERS_INCLUDED
+#define HYPERPOTION_HEADERS_INCLUDED
 
 #include <iostream>
 #include "../potions.h"
@@ -7,11 +7,10 @@
 
 using namespace std;
 
-class Hyperpotion : public Item {
+class Hyperpotion : public Potions {
 private:
 
 public:
-    virtual void use() const;
     Hyperpotion();
     ~Hyperpotion();
 
