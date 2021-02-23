@@ -1,13 +1,9 @@
 #ifndef MENU_INCLUDED
 #define MENU_INCLUDED
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
-
 #include <iostream>
+#include <unistd.h>
+
 #include "menu.h"
 #include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
