@@ -35,6 +35,7 @@ void Menu::mainMenu()
 		 << endl
 		 << "0. Quitter" << endl
 		 << endl;
+	this->save();
 	int userChoice = waitForValidUserInput(4);
 	switch (userChoice)
 	{
@@ -359,6 +360,7 @@ void Menu::allPCTeam()
 
 void Menu::save()
 {
+	this->storage->saveConfig(this->player);
 	this->storage->savePlayer(this->player);
 }
 

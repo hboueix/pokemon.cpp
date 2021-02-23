@@ -1,6 +1,7 @@
 .vscode/
 main
 *.pokesave
+.pokecfg
 *.py
 build/
 CMakeLists.txt
