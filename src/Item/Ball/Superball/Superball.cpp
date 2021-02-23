@@ -2,9 +2,9 @@
 #define SUPERBALL_INCLUDED
 
 #include "superball.h"
-#include "../Ball.cpp"
+// #include "../Ball.cpp"
 
-Superball::Superball() {
+Superball::Superball():Ball() {
     name = "Superball";
     description = "description for superball";
 }

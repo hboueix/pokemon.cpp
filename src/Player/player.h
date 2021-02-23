@@ -25,6 +25,7 @@ public:
 	void removeMoney(int toRemove);
 	int getMoney();
 	vector<Item*> getBackPack();
+	void setTeam(vector<Pokemon> team);
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();
 	void swapPokemon(int pokemonSelected, int pokemonPCSelected);

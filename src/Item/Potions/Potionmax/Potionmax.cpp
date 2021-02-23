@@ -3,7 +3,7 @@
 
 #include "potionmax.h"
 
-Potionmax::Potionmax() {
+Potionmax::Potionmax():Potions() {
     name = "Potionmax";
     description = "description for potionmax";
 }

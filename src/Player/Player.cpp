@@ -75,6 +75,11 @@ vector<Pokemon> Player::getTeam()
 	return team;
 }
 
+void Player::setTeam(vector<Pokemon> team)
+{
+	this->team = team;
+}
+
 vector<Pokemon> Player::getTeamPC()
 {
 	return teamPC;

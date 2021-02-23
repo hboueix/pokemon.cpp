@@ -12,7 +12,7 @@ protected:
     int pvHeal;
     
 public:
-    virtual void use(Pokemon& Pokemon) const;
+    virtual void use(Pokemon* Pokemon) const;
     Potions();
     ~Potions();
 

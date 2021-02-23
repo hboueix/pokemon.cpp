@@ -91,7 +91,11 @@ int Pokemon::getDefense()
 
 void Pokemon::setHP(int HP)
 {
-	this->HP = HP;
+	if (HP > this->maxHP) {
+		this->HP = this->maxHP;
+	} else {
+		this->HP = HP;
+	}
 }
 
 json Pokemon::getJson()
