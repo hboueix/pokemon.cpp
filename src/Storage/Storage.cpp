@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include <fstream>
+#include <time.h>
+
 #include "../../libs/nlohmann/json.hpp"
 #include "../Player/Player.cpp"
-
 #include "storage.h"
 
 using namespace std;
@@ -85,6 +86,52 @@ void Storage::savePlayer(Player *player)
 	}
 
 	this->write("." + player->name + ".pokesave", dataPlayer.dump());
+}
+
+void Storage::saveConfig(Player *player) {
+	string pokecfgRaw = this->read(".pokecfg");
+	json pokecfg;
+	if (pokecfgRaw != "") {
+		pokecfg = json::parse(pokecfgRaw);
+		pokecfg["lastPlayer"] = player->name;
+		bool found = false;
+		for (int i = 0; i < pokecfg["players"].size(); i++) {
+			if (pokecfg["players"][i] == player->name) {
+				found = true;
+				break;
+			}
+		}
+		
+		if (!found) {
+			pokecfg["players"].push_back(player->name);
+		}
+	}
+	else {
+		pokecfg = {
+			{"lastPlayer", player->name},
+			{"players", {}}
+		};
+		pokecfg["players"].push_back(player->name);
+	}
+
+	this->write(".pokecfg", pokecfg.dump());
+}
+
+vector<string> Storage::loadPlayers() {
+	vector<string> players = {};
+	string pokecfgRaw = this->read(".pokecfg");
+	if (pokecfgRaw != "") {
+		json pokecfg = json::parse(pokecfgRaw);
+		for (int i = 0; i < pokecfg["players"].size(); i++) {
+			players.push_back(pokecfg["players"][i].get<string>());
+		}
+	}
+	return players;
+}
+
+string Storage::getLastPlayerName() {
+	json pokecfg = json::parse(this->read(".pokecfg"));
+	return pokecfg["lastPlayer"].get<string>();
 }
 
 Player *Storage::loadPlayer(string namePlayer)

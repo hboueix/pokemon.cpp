@@ -1,13 +1,9 @@
 #ifndef MENU_INCLUDED
 #define MENU_INCLUDED
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
-
 #include <iostream>
+#include <unistd.h>
+
 #include "menu.h"
 #include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
@@ -35,6 +31,7 @@ void Menu::mainMenu()
 		 << endl
 		 << "0. Quitter" << endl
 		 << endl;
+	this->save();
 	int userChoice = waitForValidUserInput(4);
 	switch (userChoice)
 	{
@@ -390,6 +387,7 @@ void Menu::allPCTeam()
 
 void Menu::save()
 {
+	this->storage->saveConfig(this->player);
 	this->storage->savePlayer(this->player);
 }
 

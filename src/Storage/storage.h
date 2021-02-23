@@ -16,6 +16,9 @@ public:
 	string read(string filePath);
 	bool write(string filePath, string toWrite);
 	void savePlayer(Player *player);
+	void saveConfig(Player *player);
+	vector<string> loadPlayers();
+	string getLastPlayerName();
 	Player* loadPlayer(string name);
 	void load_pokemons();
 	Pokemon getRandomPokemon();
