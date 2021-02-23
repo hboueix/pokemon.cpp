@@ -80,48 +80,57 @@ void Storage::savePlayer(Player *player)
 	this->write("." + player->name + ".pokesave", dataPlayer.dump());
 }
 
-void Storage::saveConfig(Player *player) {
+void Storage::saveConfig(Player *player)
+{
 	string pokecfgRaw = this->read(".pokecfg");
 	json pokecfg;
-	if (pokecfgRaw != "") {
+	if (pokecfgRaw != "")
+	{
 		pokecfg = json::parse(pokecfgRaw);
 		pokecfg["lastPlayer"] = player->name;
 		bool found = false;
-		for (int i = 0; i < pokecfg["players"].size(); i++) {
-			if (pokecfg["players"][i] == player->name) {
+		for (int i = 0; i < pokecfg["players"].size(); i++)
+		{
+			if (pokecfg["players"][i] == player->name)
+			{
 				found = true;
 				break;
 			}
 		}
-		
-		if (!found) {
+
+		if (!found)
+		{
 			pokecfg["players"].push_back(player->name);
 		}
 	}
-	else {
+	else
+	{
 		pokecfg = {
 			{"lastPlayer", player->name},
-			{"players", {}}
-		};
+			{"players", {}}};
 		pokecfg["players"].push_back(player->name);
 	}
 
 	this->write(".pokecfg", pokecfg.dump());
 }
 
-vector<string> Storage::loadPlayers() {
+vector<string> Storage::loadPlayers()
+{
 	vector<string> players = {};
 	string pokecfgRaw = this->read(".pokecfg");
-	if (pokecfgRaw != "") {
+	if (pokecfgRaw != "")
+	{
 		json pokecfg = json::parse(pokecfgRaw);
-		for (int i = 0; i < pokecfg["players"].size(); i++) {
+		for (int i = 0; i < pokecfg["players"].size(); i++)
+		{
 			players.push_back(pokecfg["players"][i].get<string>());
 		}
 	}
 	return players;
 }
 
-string Storage::getLastPlayerName() {
+string Storage::getLastPlayerName()
+{
 	json pokecfg = json::parse(this->read(".pokecfg"));
 	return pokecfg["lastPlayer"].get<string>();
 }
@@ -147,10 +156,7 @@ Player *Storage::loadPlayer(string namePlayer)
 					pokemon["DEF"].get<int>(),
 					pokemon["SP_ATQ"].get<int>(),
 					pokemon["SP_DEF"].get<int>(),
-					pokemon["speed"].get<int>()
-					)
-				)
-			);
+					pokemon["speed"].get<int>())));
 		}
 
 		for (int i = 0; i < dataPlayer["teamPC"].size(); i++)
@@ -166,10 +172,7 @@ Player *Storage::loadPlayer(string namePlayer)
 					pokemon["DEF"].get<float>(),
 					pokemon["SP_ATQ"].get<int>(),
 					pokemon["SP_DEF"].get<int>(),
-					pokemon["speed"].get<int>()
-					)
-				)
-			);
+					pokemon["speed"].get<int>())));
 		}
 
 		return new Player(
@@ -203,16 +206,8 @@ void Storage::load_pokemons()
 					pokemon["defense"].get<int>(),
 					pokemon["sp_attack"].get<int>(),
 					pokemon["sp_defense"].get<int>(),
-					pokemon["speed"].get<int>()
-					)
-				)
-			);
+					pokemon["speed"].get<int>())));
 		}
-
-		// for (int i = 0; i < this->all_pokemon_templates.size(); i++)
-		// {
-		// 	this->all_pokemon_templates[i].showStats();
-		// }
 	}
 	else
 	{
@@ -220,16 +215,25 @@ void Storage::load_pokemons()
 	}
 }
 
-Pokemon Storage::getRandomPokemon() {
+Pokemon Storage::getRandomPokemon()
+{
 	srand(time(NULL));
 	int randomIndex = rand() % this->all_pokemon_templates.size();
 	Pokemon random = this->all_pokemon_templates[randomIndex];
-	// random.showStats();
 	return random;
 }
 
-// Pokemon Storage::getPokemonTemplate(string name) {
+Pokemon Storage::getPokemonTemplate(string name)
+{
+	for (int i = 0; i < this->all_pokemon_templates.size(); i++)
+	{
+		Pokemon pokemon = this->all_pokemon_templates[i];
 
-// }
+		if (pokemon.name == name)
+		{
+			return pokemon;
+		}
+	}
+}
 
 #endif

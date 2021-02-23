@@ -22,6 +22,7 @@ public:
 	Player* loadPlayer(string name);
 	void load_pokemons();
 	Pokemon getRandomPokemon();
+	Pokemon getPokemonTemplate(string name);
 };
 
 #endif
