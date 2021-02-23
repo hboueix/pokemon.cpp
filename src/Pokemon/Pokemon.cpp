@@ -8,15 +8,15 @@
 using namespace std;
 using json = nlohmann::json;
 
-Pokemon::Pokemon(string pokemonName)
-{
-	name = pokemonName;
-	type = "Not implemented";
-	maxHP = 30.0;
-	HP = maxHP;
-	attack = 10.0;
-	defense = 5.0;
-}
+// Pokemon::Pokemon(string pokemonName)
+// {
+// 	name = pokemonName;
+// 	type = "Not implemented";
+// 	maxHP = 30.0;
+// 	HP = maxHP;
+// 	attack = 10.0;
+// 	defense = 5.0;
+// }
 
 Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed)
 {
@@ -49,17 +49,18 @@ void Pokemon::showStats()
 
 void Pokemon::attacking(Pokemon &defender)
 {
-	int damage = this->attack - defender.getDefense(); //TODO: vérifier les max d'att et def | gestion des erreurs
-	if (defender.getHP() - damage > 0)
+	int lostPV = ((((1 * 0.4 + 2) * this->attack * this->attack) / (defender.getDefense() * 50)) + 2);
+
+	if (defender.getHP() - lostPV > 0)
 	{
-		defender.setHP(defender.getHP() - damage);
-		cout << this->name << " a infligé " << damage << "HP à " << defender.name << endl
+		defender.setHP(defender.getHP() - lostPV);
+		cout << this->name << " a infligé " << lostPV << "HP à " << defender.name << endl
 			 << "Il reste " << defender.getHP() << "HP à " << defender.name << endl;
 	}
 	else
 	{
 		defender.setHP(0);
-		cout << this->name << " a infligé " << defender.getHP() << "HP à " << defender.name << endl
+		cout << this->name << " a infligé " << lostPV << "HP à " << defender.name << endl
 			 << defender.name << " est KO." << endl;
 	}
 }
