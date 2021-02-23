@@ -4,7 +4,15 @@
 #include <iostream>
 #include "../Pokemon/Pokemon.cpp"
 #include "../Item/Potions/Potions.cpp"
-#include "../Item/Item.cpp"
+#include "../Item/Potions/Potion/Potion.cpp"
+#include "../Item/Potions/Superpotion/Superpotion.cpp"
+#include "../Item/Potions/Hyperpotion/Hyperpotion.cpp"
+#include "../Item/Potions/Potionmax/Potionmax.cpp"
+#include "../Item/Ball/Ball.cpp"
+#include "../Item/Ball/Pokeball/Pokeball.cpp"
+#include "../Item/Ball/Superball/Superball.cpp"
+#include "../Item/Ball/Hyperball/Hyperball.cpp"
+#include "../Item/Ball/Masterball/Masterball.cpp"
 #include "player.h"
 
 using namespace std;
@@ -13,14 +21,16 @@ Player::Player(string name)
 {
 	this->name = name;
 	this->money = 1000;
-	this->backPack.push_back(new Item());
-	this->backPack.push_back(new Potions());
+	this->backpack.push_back(new Superpotion());
+	this->backpack.push_back(new Pokeball());
+	this->backpack.push_back(new Potion());
 }
 
-Player::Player(string name, int money, vector<Pokemon> team, vector<Pokemon> teamPC)
+Player::Player(string name, int money, vector<Item *> backpack, vector<Pokemon> team, vector<Pokemon> teamPC)
 {
 	this->name = name;
 	this->money = money;
+	this->backpack = backpack;
 	this->team = team;
 	this->teamPC = teamPC;
 }
@@ -58,14 +68,19 @@ vector<Pokemon> Player::getTeam()
 	return team;
 }
 
+void Player::setTeam(vector<Pokemon> team)
+{
+	this->team = team;
+}
+
 vector<Pokemon> Player::getTeamPC()
 {
-	return teamPC;
+	return this->teamPC;
 }
 
 vector<Item *> Player::getBackPack()
 {
-	return backPack;
+	return this->backPack;
 }
 
 void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected)

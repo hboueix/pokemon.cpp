@@ -1,5 +1,5 @@
-#ifndef POTION_HEADERS_INCLUDED
-#define POTION_HEADERS_INCLUDED
+#ifndef SUPERPOTION_HEADERS_INCLUDED
+#define SUPERPOTION_HEADERS_INCLUDED
 
 #include <iostream>
 #include "../potions.h"
@@ -7,11 +7,11 @@
 
 using namespace std;
 
-class Superpotion : public Item {
+class Superpotion : public Potions {
 private:
 
 public:
-    virtual void use() const;
+    virtual void use(Pokemon* Pokemon) const;
     Superpotion();
     ~Superpotion();
 

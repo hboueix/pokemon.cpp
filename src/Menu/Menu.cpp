@@ -213,37 +213,60 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	}
 }
 
-void Menu::menuItem()
-{
-	vector<Item *> backPack = player->getBackPack();
-	cout << endl
-		 << "Votre inventaire :" << endl;
-	// cout << backPack << endl;
-	for (int i = 0; i < backPack.size(); i++)
-	{
-		// string itemName = backPack[i].name;
-		cout << i + 1 << ". " << backPack[i]->name << endl;
+void Menu::menuItem() {
+	vector<Item*> backpack = this->player->getBackPack();
+	cout << endl << "Votre inventaire :" << endl;
+	// cout << backpack << endl;
+	for (int i = 0; i < backpack.size(); i++) {
+		// string itemName = backpack[i].name;
+		cout << i+1 << ". " << backpack[i]->name << endl;
 	}
 
-	cout << endl
-		 << "0. Retour" << endl
-		 << endl;
-	int userChoice = waitForValidUserInput(backPack.size());
-	if (userChoice == 0)
-	{
-		this->mainMenu();
-	}
-	else
-	{
-		backPack[userChoice - 1]->use();
-		sleep(5);
-		this->save();
+	cout << endl << "0. Retour" << endl << endl;
+	int userChoice = waitForValidUserInput(backpack.size());
+	if (userChoice == 0) {
+		this->wildGrass();
+		return;
+	} else {
+		//TODO choisir entre ball ou potion
+		// cout << backpack[userChoice-1]->name.find("ball") << endl;
+		// if (backpack[userChoice-1]->name.find("ball")) {
+		// 	cout << "catch! or not" << endl;
+		// }
+		if (backpack[userChoice-1]->name.find("otion")) 
+		{
+			vector<Pokemon> team = player->getTeam();
+			cout << endl
+				<< "Your team :" << endl;
+			for (int i = 0; i < team.size(); i++)
+			{
+				string pokeName = team[i].name;
+				string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
+				team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
+				cout << i + 1 << ". " << pokeName << endl;
+			}
+			cout << endl
+			<< "0. Retour" << endl
+			<< endl;
+			//affiche liste pokemon team
+			int userChoice2 = waitForValidUserInput(backpack.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
+			if (userChoice2 == 0)
+			{
+				this->menuItem();
+				return;
+			}
+
+			backpack[userChoice-1]->use(&(team[userChoice2-1]));
+			this->player->setTeam(team);
+		}
+		sleep(3);
+		// this->save();
 	}
 }
 
-void Menu::team()
-{
-	vector<Pokemon> team = player->getTeam();
+
+void Menu::team() {
+	vector<Pokemon> team = this->player->getTeam();
 	cout << endl
 		 << "Your team :" << endl;
 	for (int i = 0; i < team.size(); i++)

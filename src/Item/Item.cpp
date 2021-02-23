@@ -12,7 +12,7 @@ Item::~Item() {
 	
 }
 
-void Item::use() const {
+void Item::use(Pokemon* pokemon) const {
     cout << "Ceci est un item." << name << endl;
 }
 

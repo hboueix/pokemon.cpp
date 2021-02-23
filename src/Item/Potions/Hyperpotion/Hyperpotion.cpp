@@ -3,14 +3,11 @@
 
 #include "hyperpotion.h"
 
-Hyperpotion::Hyperpotion() {
+Hyperpotion::Hyperpotion():Potions() {
     name = "Hyperpotion";
     description = "description for hyperpotion";
 }
 
-void Hyperpotion::use() const {
-    cout << "Ceci est une hyperpotion." << name << endl;
-}
 
 Hyperpotion::~Hyperpotion() {
 

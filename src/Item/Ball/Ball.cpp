@@ -2,8 +2,9 @@
 #define BALL_INCLUDED
 
 #include "ball.h"
+#include "../Item.cpp"
 
-Ball::Ball() {
+Ball::Ball():Item() {
 
 }
 

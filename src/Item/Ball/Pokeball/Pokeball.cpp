@@ -2,9 +2,11 @@
 #define POKEBALL_INCLUDED
 
 #include "pokeball.h"
+// #include "../Ball.cpp"
 
-Pokeball::Pokeball() {
-
+Pokeball::Pokeball():Ball()  {
+    name = "Pokeball";
+    description = "description for pokeball";
 }
 
 Pokeball::~Pokeball() {

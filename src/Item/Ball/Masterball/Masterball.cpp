@@ -2,9 +2,11 @@
 #define MASTERBALL_INCLUDED
 
 #include "masterball.h"
+// #include "../Ball.cpp"
 
-Masterball::Masterball() {
-
+Masterball::Masterball():Ball() {
+    name = "Masterball";
+    description = "description for masterball";
 }
 
 Masterball::~Masterball() {
