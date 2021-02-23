@@ -14,6 +14,11 @@ Menu::Menu(Player *player, Storage *storage)
 {
 	this->storage = storage;
 	this->player = player;
+
+	if (this->player->getTeam().size() == 0)
+	{
+		this->player->addPokemon(this->storage->getPokemonTemplate("Pikachu"));
+	}
 }
 
 Menu::~Menu() {}
@@ -83,30 +88,36 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		return;
 	}
 	Pokemon myPokemon = this->player->getTeam()[myPokemonIdx];
-	if (pokeSauvage == 0) {
+	if (pokeSauvage == 0)
+	{
 		Pokemon poke = this->storage->getRandomPokemon();
 		pokeSauvage = &poke;
 	}
-	
-	if (myPokemon.getHP() > 0 && pokeSauvage->getHP() > 0) {
-		cout << "Un "<< pokeSauvage->name <<" apparaît!" << endl
-			<< "En Avant " << myPokemon.name << "!"<< endl
-			<< "============================" << endl;
+
+	if (myPokemon.getHP() > 0 && pokeSauvage->getHP() > 0)
+	{
+		cout << "Un " << pokeSauvage->name << " apparaît!" << endl
+			 << "En Avant " << myPokemon.name << "!" << endl
+			 << "============================" << endl;
 		cout << "Que voulez vous faire?" << endl
-			<< "============================" << endl << endl 
-			<< "1. Attaquer" << endl
-			<< "2. Changer de Pokemon" << endl
-			<< "3. Objet" << endl
-			<< "4. Fuir" << endl << endl;
-	} 
-	else if (!pokeSauvage->getHP() > 0) {
+			 << "============================" << endl
+			 << endl
+			 << "1. Attaquer" << endl
+			 << "2. Changer de Pokemon" << endl
+			 << "3. Objet" << endl
+			 << "4. Fuir" << endl
+			 << endl;
+	}
+	else if (!pokeSauvage->getHP() > 0)
+	{
 		cout << pokeSauvage->name << " est KO !" << endl
-			<< "Vous avez battu le pokémon sauvage !" << endl;
+			 << "Vous avez battu le pokémon sauvage !" << endl;
 		this->save();
 		this->mainMenu();
 		return;
 	}
-	else {
+	else
+	{
 		cout << "Votre pokémon est KO..." << endl;
 		this->save();
 		this->mainMenu();
@@ -114,55 +125,64 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	}
 
 	userChoice = waitForValidUserInput(4, "Que doit faire " + myPokemon.name + " ?", false);
-	switch (userChoice) {
-		case 1:
-		{
-			myPokemon.attacking(*pokeSauvage);
-			this->save();
-			this->wildGrass(pokeSauvage);
-			break;
-		}
-		case 2:
-			this->save();
-			this->wildGrass(pokeSauvage);
-			break;
-		case 3:
-			this->save();
-			this->menuItem();
-			this->wildGrass(pokeSauvage);
-			break;
-		case 4:
-			this->save();
-			this->mainMenu();
-			break;
-		default:
-			cout << "Input out of range... This shouldn't be see..." << endl;
-			break;
+	switch (userChoice)
+	{
+	case 1:
+	{
+		myPokemon.attacking(*pokeSauvage);
+		this->save();
+		this->wildGrass(pokeSauvage);
+		break;
+	}
+	case 2:
+		this->save();
+		this->wildGrass(pokeSauvage);
+		break;
+	case 3:
+		this->save();
+		this->menuItem();
+		this->wildGrass(pokeSauvage);
+		break;
+	case 4:
+		this->save();
+		this->mainMenu();
+		break;
+	default:
+		cout << "Input out of range... This shouldn't be see..." << endl;
+		break;
 	}
 }
 
-void Menu::menuItem() {
-	vector<Item*> backPack = player->getBackPack();
-	cout << endl << "Votre inventaire :" << endl;
+void Menu::menuItem()
+{
+	vector<Item *> backPack = player->getBackPack();
+	cout << endl
+		 << "Votre inventaire :" << endl;
 	// cout << backPack << endl;
-	for (int i = 0; i < backPack.size(); i++) {
+	for (int i = 0; i < backPack.size(); i++)
+	{
 		// string itemName = backPack[i].name;
-		cout << i+1 << ". " << backPack[i]->name << endl;
+		cout << i + 1 << ". " << backPack[i]->name << endl;
 	}
 
-	cout << endl << "0. Retour" << endl << endl;
+	cout << endl
+		 << "0. Retour" << endl
+		 << endl;
 	int userChoice = waitForValidUserInput(backPack.size());
-	if (userChoice == 0) {
+	if (userChoice == 0)
+	{
 		this->mainMenu();
-	} else {
-		backPack[userChoice-1]->use();
+	}
+	else
+	{
+		backPack[userChoice - 1]->use();
 		sleep(5);
 		this->save();
 	}
 }
 
-
-void Menu::team() {
+void Menu::team()
+{
 	vector<Pokemon> team = player->getTeam();
 	cout << endl
 		 << "Your team :" << endl;
