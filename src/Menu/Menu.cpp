@@ -1,11 +1,11 @@
 #ifndef MENU_INCLUDED
 #define MENU_INCLUDED
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
+// #ifdef _WIN32
+// #include <Windows.h>
+// #else
 #include <unistd.h>
-#endif
+// #endif
 
 #include <iostream>
 #include "menu.h"
