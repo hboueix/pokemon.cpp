@@ -195,6 +195,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		break;
 	}
 	case 2:
+		// TODO change attacking pokemon
 		this->save();
 		this->wildGrass(pokeSauvage);
 		break;
