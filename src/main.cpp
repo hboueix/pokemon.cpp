@@ -8,6 +8,8 @@
 using namespace std;
 
 int main() {
+	Storage *storage = new Storage();
+	// TODO move this into a new menu method
 	cout << "                                  ,'\\" << endl
 		<< "    _.----.        ____         ,'  _\\   ___    ___     ____" << endl
 		<< "_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`." << endl
@@ -21,10 +23,10 @@ int main() {
 		<< "        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |" << endl
     	<< "                                `'                            '-._|" << endl;
 
-	Storage *storage = new Storage();
 	vector<string> players = storage->loadPlayers();
 	string playerName;
 	if (players.size() > 0) {
+		// TODO be able to create a new player even if existing players
 		cout << "Sauvegarde(s) existante(s) :" << endl;
 		for (int i = 0; i < players.size(); i++) {
 			cout << to_string(i+1) + ". " << players[i] << endl;

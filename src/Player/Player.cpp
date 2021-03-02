@@ -80,7 +80,7 @@ vector<Pokemon> Player::getTeamPC()
 
 vector<Item *> Player::getBackPack()
 {
-	return this->backPack;
+	return this->backpack;
 }
 
 void Player::swapPokemon(int pokemonSelected, int pokemonPCSelected)
