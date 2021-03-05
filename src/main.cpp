@@ -7,10 +7,8 @@
 
 using namespace std;
 
-int main()
+string login(Storage *storage)
 {
-	Storage *storage = new Storage();
-	// TODO move this into a new menu method
 	cout << "                                  ,'\\" << endl
 		 << "    _.----.        ____         ,'  _\\   ___    ___     ____" << endl
 		 << "_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`." << endl
@@ -26,44 +24,58 @@ int main()
 		 << endl
 		 << endl
 		 << "1. Nouvelle partie" << endl
-		 << "2. Charger une partie" << endl;
+		 << "2. Charger une partie" << endl
+		 << endl;
 
 	string playerName;
-	int choice;
-	cin >> choice;
+	int loginChoice;
+	while (!(cin >> loginChoice) || (loginChoice != 1 && loginChoice != 2))
+	{
+		cout << endl
+			 << "Choix non valide ! Choix possibles : 1 ou 2" << endl
+			 << "1. Nouvelle partie" << endl
+			 << "2. Charger une partie" << endl
+			 << endl;
+		cin.clear();
+		cin.ignore(255, '\n');
+	}
+
 	cin.clear();
 	cin.ignore(255, '\n');
-	if (choice == 2)
+	switch (loginChoice)
+	{
+	case 2:
 	{
 		vector<string> players = storage->loadPlayers();
 		if (players.size() > 0)
 		{
-			// TODO be able to create a new player even if existing players
-			cout << "Sauvegarde(s) existante(s) :" << endl;
+			cout << endl
+				 << "Sauvegarde(s) existante(s) :" << endl;
 			for (int i = 0; i < players.size(); i++)
 			{
 				cout << to_string(i + 1) + ". " << players[i] << endl;
 			}
-			cout << "Sélectionnez la sauvegarde que vous voulez charger ou chargez la dernière sauvegarde en tapant 'ENTER'." << endl;
-			cout << "Chargez une sauvegarde (defaut : " + storage->getLastPlayerName() + "): ";
-			string userChoice;
-			bool validChoice = false;
+			cout << endl
+				 << "Sélectionnez la sauvegarde que vous voulez charger ou chargez la dernière sauvegarde en tapant 'ENTER'." << endl
+				 << "Chargez une sauvegarde (defaut : " + storage->getLastPlayerName() + "): ";
+			string playerChoice;
+			bool isValidChoice = false;
 			do
 			{
-				getline(cin, userChoice);
-				if (userChoice == "")
+				getline(cin, playerChoice);
+				if (playerChoice == "")
 				{
-					validChoice = true;
+					isValidChoice = true;
 					break;
 				}
 				else
 				{
 					try
 					{
-						int choice = stoi(userChoice);
+						int choice = stoi(playerChoice);
 						if (choice <= players.size() && choice >= 1)
 						{
-							validChoice = true;
+							isValidChoice = true;
 						}
 						else
 						{
@@ -74,21 +86,22 @@ int main()
 					{
 						cout << endl
 							 << "Choix non valide, réessayez." << endl
-							 << endl;
-						cout << "Sauvegarde(s) existante(s) :" << endl;
+							 << endl
+							 << "Sauvegarde(s) existante(s) :" << endl;
 						for (int i = 0; i < players.size(); i++)
 						{
 							cout << to_string(i + 1) + ". " << players[i] << endl;
 						}
-						cout << "Sélectionnez la sauvegarde que vous voulez charger ou chargez la dernière sauvegarde en tapant 'ENTER'." << endl;
-						cout << "Chargez une sauvegarde (defaut : " + storage->getLastPlayerName() + "): ";
+						cout << endl
+							 << "Sélectionnez la sauvegarde que vous voulez charger ou chargez la dernière sauvegarde en tapant 'ENTER'." << endl
+							 << "Chargez une sauvegarde (defaut : " + storage->getLastPlayerName() + "): ";
 					}
 				}
-			} while (!validChoice);
+			} while (!isValidChoice);
 
-			if (userChoice != "")
+			if (playerChoice != "")
 			{
-				playerName = players[stoi(userChoice) - 1];
+				playerName = players[stoi(playerChoice) - 1];
 			}
 			else
 			{
@@ -97,22 +110,32 @@ int main()
 		}
 		else
 		{
-			cout << "Aucune sauvegarde existante." << endl;
-			cout << "Nouveau joueur : ";
+			cout << "Aucune sauvegarde existante." << endl
+				 << "Nouveau joueur : ";
 			cin >> playerName;
 		}
+
+		break;
 	}
-	else if (choice == 1)
+	case 1:
 	{
 		cout << "Nouveau joueur : ";
 		cin >> playerName;
+		break;
+	}
 	}
 
+	return playerName;
+}
+
+int main()
+{
+	Storage *storage = new Storage();
+	string playerName = login(storage);
+	cout << "\033[2J\033[1;1H";
 	Player *player = storage->loadPlayer(playerName);
 	Menu *myMenu = new Menu(player, storage);
-	// storage->load_pokemons();
 	myMenu->mainMenu();
-	// cout << storage->read("." + playerName + ".pokesave") << endl;
 
 	return 0;
 }
