@@ -13,8 +13,9 @@ Hyperball::~Hyperball() {
 
 }
 
-void Hyperball::use() const {
+bool Hyperball::use(Pokemon* pokemon) const {
     cout << "Ceci est une hyperball." << name << chanceOfSuccess << endl;
+    return true;
 }
 
 #endif

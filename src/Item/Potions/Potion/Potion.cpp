@@ -9,7 +9,7 @@ Potion::Potion():Potions() {
     pvHeal = 20;
 }
 
-void Potion::use(Pokemon* pokemon) const {
+bool Potion::use(Pokemon* pokemon) const {
     int pokeMaxHP = pokemon->getMaxHP();
     int pokeHP = pokemon->getHP();
     if (pokeHP == pokeMaxHP) {
@@ -20,6 +20,7 @@ void Potion::use(Pokemon* pokemon) const {
         pokemon->setHP(pokeHP + this->pvHeal);
         cout << " Vous avez rendu " << this->pvHeal << " HP à " << pokemon->name << endl;
     }
+    return true;
 }
 
 Potion::~Potion() {

@@ -11,7 +11,7 @@ class Superpotion : public Potions {
 private:
 
 public:
-    virtual void use(Pokemon* Pokemon) const;
+    virtual bool use(Pokemon* pokemon) const;
     Superpotion();
     ~Superpotion();
 

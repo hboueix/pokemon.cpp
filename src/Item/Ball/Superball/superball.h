@@ -10,7 +10,7 @@ class Superball : public Ball {
 private:
 
 public:
-    virtual void use() const;
+    virtual bool use(Pokemon* pokemon) const;
     Superball();
     ~Superball();
 };

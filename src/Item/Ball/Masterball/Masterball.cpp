@@ -13,8 +13,9 @@ Masterball::~Masterball() {
 
 }
 
-void Masterball::use() const {
+bool Masterball::use(Pokemon* pokemon) const {
     cout << "Ceci est une masterball." << name << chanceOfSuccess << endl;
+    return true;
 }
 
 #endif

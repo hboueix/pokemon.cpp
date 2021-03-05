@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "../Pokemon/Pokemon.cpp"
+#include "../Item/Item.cpp"
 #include "../Item/Potions/Potions.cpp"
 #include "../Item/Potions/Potion/Potion.cpp"
 #include "../Item/Potions/Superpotion/Superpotion.cpp"
@@ -21,7 +22,6 @@ Player::Player(string name)
 {
 	this->name = name;
 	this->money = 1000;
-	this->backpack.push_back(new Superpotion());
 	this->backpack.push_back(new Pokeball());
 	this->backpack.push_back(new Potion());
 }

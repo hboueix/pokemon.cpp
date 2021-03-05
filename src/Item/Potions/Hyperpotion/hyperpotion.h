@@ -11,6 +11,7 @@ class Hyperpotion : public Potions {
 private:
 
 public:
+    virtual bool use(Pokemon* pokemon) const;
     Hyperpotion();
     ~Hyperpotion();
 

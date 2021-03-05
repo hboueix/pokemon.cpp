@@ -5,15 +5,11 @@
 #include "../Item.cpp"
 
 Ball::Ball():Item() {
-
+    type="ball";
 }
 
 Ball::~Ball() {
 
-}
-
-void Ball::use() const {
-    cout << "Ceci est une ball." << name << chanceOfSuccess << endl;
 }
 
 

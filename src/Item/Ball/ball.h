@@ -10,11 +10,10 @@ using namespace std;
 class Ball : public Item {
 protected:
     float chanceOfSuccess;
+    
 public:
-    virtual void use() const;
     Ball();
     ~Ball();
-    // virtual void launch();
 };
 
 #endif

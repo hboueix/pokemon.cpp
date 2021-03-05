@@ -8,6 +8,7 @@
 #include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
 
+
 using namespace std;
 
 Menu::Menu(Player *player, Storage *storage)
@@ -108,6 +109,7 @@ void Menu::mainMenu()
 		break;
 	case 3:
 		this->healTeam();
+		break;
 	case 4:
 		this->allPCTeam();
 		break;
@@ -200,10 +202,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		this->wildGrass(pokeSauvage);
 		break;
 	case 3:
+		{
+		this->menuItem(pokeSauvage);
 		this->save();
-		this->menuItem();
 		this->wildGrass(pokeSauvage);
 		break;
+		}
 	case 4:
 		this->save();
 		this->mainMenu();
@@ -214,7 +218,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	}
 }
 
-void Menu::menuItem() {
+void Menu::menuItem(Pokemon *pokeSauvage) {
 	vector<Item*> backpack = this->player->getBackPack();
 	cout << endl << "Votre inventaire :" << endl;
 	// cout << backpack << endl;
@@ -229,14 +233,18 @@ void Menu::menuItem() {
 		this->wildGrass();
 		return;
 	} else {
-		//TODO choisir entre ball ou potion
-		// cout << backpack[userChoice-1]->name.find("ball") << endl;
-		// if (backpack[userChoice-1]->name.find("ball")) {
-		// 	cout << "catch! or not" << endl;
-		// }
-		if (backpack[userChoice-1]->name.find("otion")) 
+		vector<Pokemon> team = this->player->getTeam();
+		if (backpack[userChoice-1]->type == "ball") {
+			//TODO: capture pokemon adverse
+			cout << "Vous avez lancé " << backpack[userChoice-1]->name <<" sur " << pokeSauvage->name << endl;
+			if (backpack[userChoice-1]->use(pokeSauvage))
+			{
+				this->player->addPokemon(*pokeSauvage);
+				this->mainMenu();
+			}
+		}
+		if (backpack[userChoice-1]->type == "potion") 
 		{
-			vector<Pokemon> team = player->getTeam();
 			cout << endl
 				<< "Your team :" << endl;
 			for (int i = 0; i < team.size(); i++)
@@ -249,7 +257,6 @@ void Menu::menuItem() {
 			cout << endl
 			<< "0. Retour" << endl
 			<< endl;
-			//affiche liste pokemon team
 			int userChoice2 = waitForValidUserInput(backpack.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
 			if (userChoice2 == 0)
 			{
@@ -261,7 +268,6 @@ void Menu::menuItem() {
 			this->player->setTeam(team);
 		}
 		sleep(3);
-		// this->save();
 	}
 }
 

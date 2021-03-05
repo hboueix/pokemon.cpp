@@ -11,7 +11,7 @@ class Potionmax : public Potions {
 private:
 
 public:
-    virtual void use() const;
+    virtual bool use(Pokemon* pokemon) const;
     Potionmax();
     ~Potionmax();
 

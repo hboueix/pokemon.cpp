@@ -13,8 +13,9 @@ Superball::~Superball() {
 
 }
 
-void Superball::use() const {
+bool Superball::use(Pokemon* pokemon) const {
     cout << "Ceci est une superball." << name << chanceOfSuccess << endl;
+    return true;
 }
 
 #endif

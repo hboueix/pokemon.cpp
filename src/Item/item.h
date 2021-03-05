@@ -2,7 +2,6 @@
 #define ITEM_HEADERS_INCLUDED
 
 #include <iostream>
-
 using namespace std;
 
 class Item {
@@ -10,10 +9,11 @@ protected:
     string description;
 
 public:
+    string type;
 	string name;
     Item();
     ~Item();
-    virtual void use(Pokemon* pokemon) const;
+    virtual bool use(Pokemon* pokemon) const = 0;
     virtual string getDescription();
 
 };

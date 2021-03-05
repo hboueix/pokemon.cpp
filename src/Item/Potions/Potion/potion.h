@@ -13,7 +13,7 @@ private:
 public:
     Potion();
     ~Potion();
-    virtual void use(Pokemon* Pokemon) const;
+    virtual bool use(Pokemon* pokemon) const;
 };
 
 #endif

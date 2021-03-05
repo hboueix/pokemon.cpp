@@ -12,9 +12,6 @@ Item::~Item() {
 	
 }
 
-void Item::use(Pokemon* pokemon) const {
-    cout << "Ceci est un item." << name << endl;
-}
 
 string Item::getDescription() {
 	return description;

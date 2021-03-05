@@ -2,8 +2,8 @@
 
 #include "Storage/Storage.cpp"
 #include "Menu/Menu.cpp"
-#include "Player/Player.cpp"
 #include "Pokemon/Pokemon.cpp"
+#include "Player/Player.cpp"
 
 using namespace std;
 
