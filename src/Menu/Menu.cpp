@@ -118,7 +118,6 @@ void Menu::mainMenu()
 	case 0:
 		this->save();
 		cout << "Bye !" << endl;
-		// exit(EXIT_SUCCESS);
 		break;
 	default:
 		cout << "Input out of range... This shouldn't be see..." << endl;
@@ -324,7 +323,7 @@ void Menu::team()
 {
 	vector<Pokemon> team = this->player->getTeam();
 	cout << endl
-		 << "Your team :" << endl;
+		 << "Votre équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
 	{
 		string pokeName = team[i].name;
@@ -336,7 +335,7 @@ void Menu::team()
 	cout << endl
 		 << "0. Retour" << endl
 		 << endl;
-	int userChoice = waitForValidUserInput(team.size());
+	int userChoice = waitForValidUserInput(team.size(), "Quel pokémon voulez-vous inspecter ?");
 	if (userChoice == 0)
 	{
 		this->mainMenu();
@@ -344,7 +343,7 @@ void Menu::team()
 	else
 	{
 		team[userChoice - 1].showStats();
-		sleep(5);
+		sleep(3);
 		this->save();
 		this->team();
 	}
@@ -447,7 +446,7 @@ void Menu::allPCTeam()
 	vector<Pokemon> team = player->getTeam();
 	vector<Pokemon> teamPC = player->getTeamPC();
 	cout << endl
-		 << "Your team :" << endl;
+		 << "Votre équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
 	{
 		cout << "(" << i + 1 << ") " << team[i].name << endl;
@@ -459,7 +458,7 @@ void Menu::allPCTeam()
 	}
 
 	cout << endl
-		 << "Your PC :" << endl;
+		 << "Vos pokémons dans le PC :" << endl;
 	if (teamPC.size() > 0)
 	{
 		for (int i = 0; i < teamPC.size(); i++)

@@ -44,7 +44,7 @@ void Pokemon::showStats()
 		 << "DEF : " << this->defense << endl
 		 << "SP_ATQ : " << this->sp_attack << endl
 		 << "SP_DEF : " << this->sp_defense << endl
-		 << "Speed : " << this->speed << endl;
+		 << "Vitesse : " << this->speed << endl;
 }
 
 void Pokemon::attacking(Pokemon &defender)
