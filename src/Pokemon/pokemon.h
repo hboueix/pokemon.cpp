@@ -28,6 +28,7 @@ public:
 	int getHP();
 	int getMaxHP();
 	int getAttack();
+	int getSpeed();
 	int getDefense();
 	int getCaptureRate();
 	void setHP(int PDV);

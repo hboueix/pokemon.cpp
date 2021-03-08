@@ -40,7 +40,13 @@ void Pokemon::showStats()
 
 void Pokemon::attacking(Pokemon &defender)
 {
-	int lostPV = ((((1 * 0.4 + 2) * this->attack * this->attack) / (defender.getDefense() * 50)) + 2);
+	int cc = 1;
+	srand(time(NULL));
+	if (rand() % 255 < this->getSpeed()/2) 
+	{
+		cc = 2;
+	}
+	int lostPV = ((((1 * 0.4 + 2) * this->attack * this->attack) / (defender.getDefense() * 50)) + 2)*cc;
 
 	if (defender.getHP() - lostPV > 0)
 	{
@@ -88,6 +94,10 @@ int Pokemon::getCaptureRate()
 	return this->capture_rate;
 }
 
+int Pokemon::getSpeed()
+{
+	return this->speed;
+}
 void Pokemon::setHP(int HP)
 {
 	if (HP > this->maxHP)

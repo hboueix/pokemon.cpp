@@ -57,6 +57,10 @@ int Player::getMoney()
 {
 	return money;
 }
+void Player::addMoney( int money)
+{
+	this->money += money;
+}
 
 void Player::removeMoney(int toRemove)
 {
@@ -154,34 +158,42 @@ void Player::buyItem(string item, int howMuch)
 		if (item == "Potion")
 		{
 			this->backpack.push_back(new Potion());
+			this->removeMoney(300);
 		}
 		else if (item == "Superpotion")
 		{
 			this->backpack.push_back(new Superpotion());
+			this->removeMoney(600);
 		}
 		else if (item == "Hyperpotion")
 		{
 			this->backpack.push_back(new Hyperpotion());
+			this->removeMoney(1200);
 		}
 		else if (item == "Potionmax")
 		{
 			this->backpack.push_back(new Potionmax());
+			this->removeMoney(2500);
 		}
 		else if (item == "Pokeball")
 		{
 			this->backpack.push_back(new Pokeball());
+			this->removeMoney(200);
 		}
 		else if (item == "Superball")
 		{
 			this->backpack.push_back(new Superball());
+			this->removeMoney(600);
 		}
 		else if (item == "Hyperball")
 		{
 			this->backpack.push_back(new Hyperball());
+			this->removeMoney(1200);
 		}
 		else if (item == "Masterball")
 		{
 			this->backpack.push_back(new Masterball());
+			this->removeMoney(15000);
 		}
 	}
 	sort(this->backpack.begin(), this->backpack.end());

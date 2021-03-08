@@ -36,9 +36,9 @@ Menu::Menu(Player *player, Storage *storage)
 			 << endl
 			 << " (っ▀¯▀)つ " << endl
 			 << endl
-			 << "1 pour Bulbizarre" << endl
-			 << "2 pour Salamèche" << endl
-			 << "3 pour Carapuce" << endl
+			 << "1 pour Florizarre" << endl
+			 << "2 pour Dracaufeu" << endl
+			 << "3 pour Tortank" << endl
 			 << endl;
 		sleep(1);
 		int userChoice = waitForValidUserInput(4, false);
@@ -47,40 +47,40 @@ Menu::Menu(Player *player, Storage *storage)
 		case 1:
 			cout << endl
 				 << "'La nature est la plus forte !'" << endl
-				 << "Tu as choisi Bulbizarre !" << endl
+				 << "Tu as choisi Florizarre !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
-			this->player->addPokemon(this->storage->getPokemonTemplate("Bulbizarre"));
+			this->player->addPokemon(this->storage->getPokemonTemplate("Florizarre"));
 			sleep(5);
 			cout << "\033[2J\033[1;1H";
 			break;
 		case 2:
 			cout << endl
 				 << "'Tout feu tout flamme !'" << endl
-				 << "Tu as choisi Salamèche !" << endl
+				 << "Tu as choisi Dracaufeu !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
-			this->player->addPokemon(this->storage->getPokemonTemplate("Salamèche"));
+			this->player->addPokemon(this->storage->getPokemonTemplate("Dracaufeu"));
 			sleep(5);
 			cout << "\033[2J\033[1;1H";
 			break;
 		case 3:
 			cout << endl
 				 << "'Haha, il est toujours salé !'" << endl
-				 << "Tu as choisi Carapuce !" << endl
+				 << "Tu as choisi Tortank !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
-			this->player->addPokemon(this->storage->getPokemonTemplate("Carapuce"));
+			this->player->addPokemon(this->storage->getPokemonTemplate("Tortank"));
 			sleep(5);
 			cout << "\033[2J\033[1;1H";
 			break;
 		default:
 			cout << endl
 				 << "'Non ! Tu ne dois pas !!..'" << endl
-				 << "Tu as obtenu Pikachu !!" << endl
+				 << "Tu as obtenu Mewtwo !!" << endl
 				 << " ᕦ(ò_óˇ)ᕤ " << endl
 				 << endl;
-			this->player->addPokemon(this->storage->getPokemonTemplate("Pikachu"));
+			this->player->addPokemon(this->storage->getPokemonTemplate("Mewtwo"));
 			sleep(5);
 			cout << "\033[2J\033[1;1H";
 			break;
@@ -208,6 +208,8 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 			 << "Tu as battu " << pokeSauvage->name << " !" << endl
 			 << endl;
 		cout << "\033[2J\033[1;1H";
+		srand(time(NULL));
+		this->player->addMoney(rand() % 100 + (pokeSauvage->getMaxHP())*2);
 		this->save();
 		this->mainMenu();
 		return;
