@@ -578,7 +578,6 @@ void Menu::allPCTeam()
 		{
 			cout << "Ton PC est vide. Capture d'autres pokémons !" << endl;
 			sleep(2.5);
-			cout << "\033[2J\033[1;1H";
 		}
 		else
 		{
@@ -589,9 +588,10 @@ void Menu::allPCTeam()
 				cout << teamPC[toRemove - 1].name << " a été relaché dans la nature..." << endl;
 				this->player->removeFromPC(toRemove);
 				sleep(2.5);
-				cout << "\033[2J\033[1;1H";
+				
 			}
 		}
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->allPCTeam();
 		break;
@@ -604,7 +604,8 @@ void Menu::allPCTeam()
 
 void Menu::shop()
 {
-	cout << "Bienvenue dans le magasin, que voulez-vous acheter ?" << endl
+	cout << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
+	<< endl
 		 << "1. Pokeball" << endl
 		 << "2. Superball" << endl
 		 << "3. Hyperball" << endl
@@ -614,13 +615,15 @@ void Menu::shop()
 		 << "7. Hyperpotion" << endl
 		 << "8. Potionmax" << endl
 		 << endl
-		 << "0. Retour" << endl;
+		 << "0. Retour" << endl
+		 << endl;
 	int userChoice = this->waitForValidUserInput(8);
 	cout << "Combien ? (max: 20)" << endl;
 	int howMuch = this->waitForValidUserInput(20);
 	if (howMuch == 0)
 	{
 		cout << "Vous me faites perdre mon temps.. Au revoir !" << endl;
+		this->mainMenu();
 		return;
 	}
 
@@ -628,41 +631,57 @@ void Menu::shop()
 	{
 	case 1:
 		this->player->buyItem("Pokeball", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 2:
 		this->player->buyItem("Superball", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 3:
 		this->player->buyItem("Hyperball", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 4:
 		this->player->buyItem("Masterball", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 5:
 		this->player->buyItem("Potion", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 6:
 		this->player->buyItem("Superpotion", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 7:
 		this->player->buyItem("Hyperpotion", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
 	case 8:
 		this->player->buyItem("Potionmax", howMuch);
+		sleep(2.5);
+		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
 		break;
@@ -676,7 +695,7 @@ void Menu::showBackpack()
 {
 	vector<Item *> backpack = this->player->getBackPack();
 	cout << endl
-		 << "Votre inventaire :" << endl;
+		 << "Ton inventaire :" << endl;
 	map<string, int> inventory;
 	for (int i = 0; i < backpack.size(); i++)
 	{
@@ -697,6 +716,7 @@ void Menu::showBackpack()
 
 	cout << endl;
 	sleep(3);
+	cout << "\033[2J\033[1;1H";
 	this->mainMenu();
 }
 

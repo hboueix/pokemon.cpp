@@ -176,6 +176,8 @@ void Player::buyItem(string item, int howMuch)
 			this->backpack.push_back(new Masterball());
 		}
 	}
+	cout << endl
+		 << endl;
 }
 
 #endif
