@@ -793,6 +793,7 @@ void Menu::showBackpack()
 {
 	vector<Item *> backpack = this->player->getBackpack();
 	cout << endl
+		 << "Ton argent : " << this->player->getMoney() << " ¤" << endl << endl
 		 << "Ton inventaire :" << endl;
 	map<string, int> inventory;
 	for (int i = 0; i < backpack.size(); i++)

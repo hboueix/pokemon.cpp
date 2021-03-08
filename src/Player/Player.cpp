@@ -159,41 +159,55 @@ void Player::buyItem(string item, int howMuch)
 		{
 			this->backpack.push_back(new Potion());
 			this->removeMoney(300);
+			cout << "Ca vous fera "<< 300*howMuch <<" ¤" << endl;
 		}
 		else if (item == "Superpotion")
 		{
 			this->backpack.push_back(new Superpotion());
 			this->removeMoney(600);
+			cout << "Ca vous fera "<< 600*howMuch <<" ¤" << endl;
 		}
 		else if (item == "Hyperpotion")
 		{
 			this->backpack.push_back(new Hyperpotion());
 			this->removeMoney(1200);
+			cout << "Ca vous fera "<< 1200*howMuch <<" ¤" << endl;
+
 		}
 		else if (item == "Potionmax")
 		{
 			this->backpack.push_back(new Potionmax());
 			this->removeMoney(2500);
+			cout << "Ca vous fera "<< 2500*howMuch <<" ¤" << endl;
+
 		}
 		else if (item == "Pokeball")
 		{
 			this->backpack.push_back(new Pokeball());
 			this->removeMoney(200);
+			cout << "Ca vous fera "<< 200*howMuch <<" ¤" << endl;
+
 		}
 		else if (item == "Superball")
 		{
 			this->backpack.push_back(new Superball());
 			this->removeMoney(600);
+			cout << "Ca vous fera "<< 600*howMuch <<" ¤" << endl;
+
 		}
 		else if (item == "Hyperball")
 		{
 			this->backpack.push_back(new Hyperball());
 			this->removeMoney(1200);
+			cout << "Ca vous fera "<< 1200*howMuch <<" ¤" << endl;
+
 		}
 		else if (item == "Masterball")
 		{
 			this->backpack.push_back(new Masterball());
 			this->removeMoney(15000);
+			cout << "Ca vous fera "<< 15000*howMuch <<" ¤" << endl;
+
 		}
 	}
 	sort(this->backpack.begin(), this->backpack.end());
