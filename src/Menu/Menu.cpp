@@ -331,6 +331,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			}
 
 			backpack[userChoice - 1]->use(&(team[userChoice2 - 1]));
+			backpack.erase(backpack.begin()+userChoice-1);
 			this->player->setTeam(team);
 			this->player->setBackpack(backpack);
 		}
@@ -632,7 +633,7 @@ void Menu::shop()
 
 void Menu::showBackpack() 
 {
-	vector<Item *> backpack = this->player->getBackPack();
+	vector<Item *> backpack = this->player->getBackpack();
 	cout << endl
 		 << "Votre inventaire :" << endl;
 	map<string, int> inventory;
