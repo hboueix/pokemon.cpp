@@ -119,6 +119,7 @@ void Menu::mainMenu()
 	case 0:
 		this->save();
 		cout << "Bye !" << endl;
+		exit(EXIT_SUCCESS);
 		break;
 	default:
 		cout << "Input out of range... This shouldn't be see..." << endl;
