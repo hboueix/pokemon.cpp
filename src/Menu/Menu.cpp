@@ -476,6 +476,7 @@ void Menu::healTeam()
 			 << endl
 			 << " ( ˘ ³˘)♥ " << endl
 			 << endl;
+		team = this->player->getTeam();
 		for (int i = 0; i < team.size(); i++)
 		{
 			string pokeName = team[i].name;
@@ -615,7 +616,7 @@ void Menu::allPCTeam()
 void Menu::shop()
 {
 	cout << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
-	<< endl
+		 << endl
 		 << "1. Pokeball" << endl
 		 << "2. Superball" << endl
 		 << "3. Hyperball" << endl
