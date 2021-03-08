@@ -363,25 +363,30 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 
 	int i = 0;
 	int j = 0;
-	map<int, Item *> dictItem;
+	map<int, Item *> dictItems;
 	string lastItemName = "";
 	for (auto item : inventory)
 	{
-		if (lastItemName != item.first->name)
-		{
-			lastItemName = item.first->name;
+		bool contains = false;
+		for (auto dictItem : dictItems) {
+			if (dictItem.second->name == item.first->name) 
+			{
+				contains = true;
+			}
+		}
+		if (!contains) {
 			i++;
-			dictItem[i] = item.first;
+			dictItems[i] = item.first;
 		}
 	}
-	for (auto item : dictItem) {
+	for (auto item : dictItems) {
 		cout << item.first << "- " << item.second->name << " (" << inventoryName[item.second->name] << ")" << endl;
 	}
 
 	cout << endl
 		 << "0. Retour" << endl
 		 << endl;
-	int userChoice = waitForValidUserInput(dictItem.size());
+	int userChoice = waitForValidUserInput(dictItems.size());
 	if (userChoice == 0)
 	{
 		cout << "\033[2J\033[1;1H";
@@ -391,13 +396,13 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 	else
 	{
 		vector<Pokemon> team = this->player->getTeam();
-		if (dictItem[userChoice]->type == "ball")
+		if (dictItems[userChoice]->type == "ball")
 		{
-			cout << "Tu as lancé une " << dictItem[userChoice]->name << " sur " << pokeSauvage->name << " !" << endl;
-			if (dictItem[userChoice]->use(pokeSauvage))
+			cout << "Tu as lancé une " << dictItems[userChoice]->name << " sur " << pokeSauvage->name << " !" << endl;
+			if (dictItems[userChoice]->use(pokeSauvage))
 			{
 				this->player->addPokemon(*pokeSauvage);
-				auto item = find(backpack.begin(), backpack.end(), dictItem[userChoice]);
+				auto item = find(backpack.begin(), backpack.end(), dictItems[userChoice]);
 				int indx = item - backpack.begin();
 				backpack.erase(backpack.begin() + indx);
 				this->player->setBackpack(backpack);
@@ -407,7 +412,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			else
 			{
 				cout << pokeSauvage->name << " s'est échappé !" << endl;
-			auto item = find(backpack.begin(), backpack.end(), dictItem[userChoice]);
+			auto item = find(backpack.begin(), backpack.end(), dictItems[userChoice]);
 			int indx = item - backpack.begin();
 			backpack.erase(backpack.begin() + indx);
 			this->player->setBackpack(backpack);

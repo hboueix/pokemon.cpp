@@ -184,6 +184,7 @@ void Player::buyItem(string item, int howMuch)
 			this->backpack.push_back(new Masterball());
 		}
 	}
+	sort(this->backpack.begin(), this->backpack.end());
 	cout << endl
 		 << endl;
 }
