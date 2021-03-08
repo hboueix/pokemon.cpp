@@ -4,5 +4,6 @@ main.exe
 *.pokesave
 .pokecfg
 *.py
+*.csv
 build/
 CMakeLists.txt
