@@ -464,10 +464,11 @@ void Menu::healTeam()
 		 << "'Avez-vous besoin de soigner des pokémons ?'" << endl
 		 << endl
 		 << "1. Soigner" << endl
-		 << "2. Retour" << endl
+		 << endl
+		 << "0. Retour" << endl
 		 << endl;
 	sleep(2.5);
-	int userChoice = waitForValidUserInput(2, false);
+	int userChoice = waitForValidUserInput(1);
 	int moneySpend = 0;
 	switch (userChoice)
 	{
@@ -512,14 +513,14 @@ void Menu::healTeam()
 		cout << "\033[2J\033[1;1H";
 		this->mainMenu();
 		break;
-	case 2:
+	case 0:
 		cout << "\033[2J\033[1;1H";
 		cout << endl
 			 << "Tu repars sans rien dire..." << endl
 			 << endl;
 		sleep(2.5);
-		this->mainMenu();
 		cout << "\033[2J\033[1;1H";
+		this->mainMenu();
 		break;
 	default:
 		cout << endl
