@@ -257,7 +257,7 @@ Pokemon Storage::getRandomPokemon()
 }
 
 
-// TODO: rentrer la création des objets Pokemon dans le if!!
+// TODO: rentrer la création des objets Pokemon dans le if
 Pokemon Storage::getPokemonTemplate(string name)
 {
 	for (int i = 0; i < this->all_pokemon_templates.size(); i++)
