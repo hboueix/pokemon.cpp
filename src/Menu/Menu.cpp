@@ -152,7 +152,16 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 {
 	int userChoice;
 	vector<Pokemon> team = this->player->getTeam();
-	int myPokemonIdx = this->player->getFirstValidPokemonIndex();
+	int myPokemonIdx;
+	if (attackingPokeIdx < 0) 
+	{
+		myPokemonIdx = this->player->getFirstValidPokemonIndex();
+	}
+	else
+	{
+		myPokemonIdx = attackingPokeIdx;
+	}
+
 	if (myPokemonIdx < 0)
 	{
 		cout << "Vous n'avez aucun pokémon en état de se battre..." << endl;
@@ -208,7 +217,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		team[myPokemonIdx] = myPokemon;
 		this->player->setTeam(team);
 		this->save();
-		this->wildGrass(pokeSauvage);
+		this->wildGrass(pokeSauvage, myPokemonIdx);
 		break;
 	}
 	case 2:
@@ -216,8 +225,9 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		int newPokeIdx = this->chooseAttackPoke(myPokemonIdx);
 		if (myPokemonIdx != newPokeIdx)
 		{
-			pokeSauvage->attacking(myPokemon);
-			team[myPokemonIdx] = myPokemon;
+			Pokemon *myNewPokemon = &(team[newPokeIdx]);
+			pokeSauvage->attacking(*myNewPokemon);
+			team[newPokeIdx] = *myNewPokemon;
 			this->player->setTeam(team);
 		}
 		this->save();
@@ -228,7 +238,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	{
 		this->menuItem(pokeSauvage);
 		this->save();
-		this->wildGrass(pokeSauvage);
+		this->wildGrass(pokeSauvage, myPokemonIdx);
 		break;
 	}
 	case 4:
