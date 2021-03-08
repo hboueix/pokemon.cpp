@@ -9,7 +9,7 @@ using namespace std;
 
 class Ball : public Item {
 protected:
-    float chanceOfSuccess;
+    float ballRate;
     
 public:
     Ball();

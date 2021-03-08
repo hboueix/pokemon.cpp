@@ -8,7 +8,6 @@ using namespace std;
 
 class Pokeball : public Ball {
 private:
-    float chanceOfSuccess;
 
 public:
     virtual bool use(Pokemon* Pokemon) const;

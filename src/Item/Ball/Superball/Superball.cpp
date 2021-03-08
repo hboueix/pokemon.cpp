@@ -7,6 +7,7 @@
 Superball::Superball():Ball() {
     name = "Superball";
     description = "description for superball";
+    ballRate = 1.5;
 }
 
 Superball::~Superball() {
@@ -14,8 +15,16 @@ Superball::~Superball() {
 }
 
 bool Superball::use(Pokemon* pokemon) const {
-    cout << "Ceci est une superball." << name << chanceOfSuccess << endl;
-    return true;
+    int ChanceOfSuccess = (1-(2/3)*(pokemon->getHP() / pokemon->getMaxHP())) * pokemon->getCaptureRate() * ballRate;
+    int random = rand() % 256;
+    if (random <= ChanceOfSuccess) 
+    {
+        return true;
+    } 
+    else 
+    {
+        return false;
+    }
 }
 
 #endif

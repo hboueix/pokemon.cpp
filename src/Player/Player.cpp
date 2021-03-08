@@ -78,7 +78,11 @@ vector<Pokemon> Player::getTeamPC()
 	return this->teamPC;
 }
 
-vector<Item *> Player::getBackPack()
+void Player::setBackpack(vector<Item *> backpack) 
+{
+	this->backpack = backpack;
+}
+vector<Item *> Player::getBackpack()
 {
 	return this->backpack;
 }
@@ -111,13 +115,17 @@ void Player::moveToTeam(int toMove)
 
 int Player::addPokemon(Pokemon pokemon)
 {
+	cout << "Vous avez capturé " << pokemon.name << " !" << endl;
 	if (this->team.size() < 6)
 	{
 		this->team.push_back(pokemon);
+		cout << pokemon.name << " est ajouté a l'équipe !" << endl;
 		return 1;
 	}
 	else
 	{
+		this->teamPC.push_back(pokemon);
+		cout << pokemon.name << " est ajouté au PC !" << endl;
 		return 0;
 	}
 }
@@ -176,6 +184,8 @@ void Player::buyItem(string item, int howMuch)
 			this->backpack.push_back(new Masterball());
 		}
 	}
+	cout << endl
+		 << endl;
 }
 
 #endif

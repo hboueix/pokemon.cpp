@@ -7,6 +7,7 @@
 Pokeball::Pokeball():Ball()  {
     name = "Pokeball";
     description = "description for pokeball";
+    ballRate = 1;
 }
 
 Pokeball::~Pokeball() {
@@ -14,19 +15,16 @@ Pokeball::~Pokeball() {
 }
 
 bool Pokeball::use(Pokemon* pokemon) const {
-    int pokeMaxHP = pokemon->getMaxHP();
-    int pokeHP = pokemon->getHP();
-    return true;
-    //TODO: mettre au point un calcul de proba de reussite pour capture
-    // int chanceOfCapture = ((1-(pokeHP/pokeMaxHP))/chanceOfSuccess)*100;
-    // srand(time(NULL));
-    // int random = rand() % 100; 
-    // if (random <= chanceOfCapture) {
-    // cout << "PokemonCapturé!." << name << chanceOfSuccess << endl;
-    // } else {
-    //     cout << pokemon->name << " a reussi à s'échapper" << endl;
-    // }
-    
+    int ChanceOfSuccess = (1-(2/3)*(pokemon->getHP() / pokemon->getMaxHP())) * pokemon->getCaptureRate() * ballRate;
+    int random = rand() % 256;
+    if (random <= ChanceOfSuccess) 
+    {
+        return true;
+    } 
+    else 
+    {
+        return false;
+    }
 }
 
 #endif
