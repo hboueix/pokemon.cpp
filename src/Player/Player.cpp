@@ -159,7 +159,7 @@ void Player::buyItem(string item, int howMuch)
 		{
 			this->backpack.push_back(new Potionmax());
 		}
-		else if (item == "Ball")
+		else if (item == "Pokeball")
 		{
 			this->backpack.push_back(new Pokeball());
 		}
