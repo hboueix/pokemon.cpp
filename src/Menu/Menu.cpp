@@ -184,13 +184,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	{
 		Pokemon poke = this->storage->getRandomPokemon();
 		pokeSauvage = &poke;
+		cout << "Un " << pokeSauvage->name << " apparaît !" << endl
+			 << endl;
 	}
-
 	if (myPokemon.getHP() > 0 && pokeSauvage->getHP() > 0)
 	{
-		cout << "Un " << pokeSauvage->name << " apparaît !" << endl
-			 << endl
-			 << "À toi de jouer " << myPokemon.name << " !" << endl
+		cout << "À toi de jouer " << myPokemon.name << " !" << endl
 			 << endl
 			 << "Que vas-tu faire ?" << endl
 			 << endl
