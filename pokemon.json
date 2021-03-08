@@ -34809,7 +34809,7 @@
     "base_egg_steps": 6400,
     "base_happiness": 70,
     "base_total": 500,
-    "capture_rate": "30 (Meteorite)255 (Core)",
+    "capture_rate": 30,
     "classfication": "Meteor Pokémon",
     "defense": 60,
     "experience_growth": 1059860,
