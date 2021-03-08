@@ -199,9 +199,20 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	}
 	else
 	{
-		cout << "Votre pokémon est KO..." << endl;
-		this->save();
-		this->mainMenu();
+		int newPokeIdx = this->player->getFirstValidPokemonIndex();
+		if (newPokeIdx < 0)
+		{
+			cout << "Vous n'avez aucun pokémon en état de se battre..." << endl;
+			this->save();
+			this->mainMenu();
+		}
+		else
+		{
+			newPokeIdx = this->chooseAttackPoke(myPokemonIdx, true);
+			this->save();
+			this->wildGrass(pokeSauvage, newPokeIdx);
+		}
+		
 		return;
 	}
 
@@ -251,7 +262,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	}
 }
 
-int Menu::chooseAttackPoke(int actualPokeIdx)
+int Menu::chooseAttackPoke(int actualPokeIdx, bool forced)
 {
 	vector<Pokemon> team = this->player->getTeam();
 	int userChoice;
@@ -265,10 +276,18 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 		cout << i + 1 << ". " << pokeName << endl;
 	}
 
-	cout << endl
-		 << "0. Retour" << endl
-		 << endl;
-	userChoice = this->waitForValidUserInput(team.size());
+	if (!forced)
+	{
+		cout << endl
+			<< "0. Retour" << endl
+			<< endl;
+	}
+	else 
+	{
+		cout << endl;
+	}
+
+	userChoice = this->waitForValidUserInput(team.size(), !forced);
 	if (userChoice == 0)
 	{
 		return actualPokeIdx;
@@ -277,7 +296,7 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 	{
 		cout << "Ce pokémon est déjà KO !" << endl
 			 << endl;
-		userChoice = this->chooseAttackPoke(actualPokeIdx);
+		userChoice = this->chooseAttackPoke(actualPokeIdx, forced) + 1;
 	}
 
 	return userChoice - 1;

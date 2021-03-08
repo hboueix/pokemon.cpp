@@ -13,7 +13,7 @@ private:
 	Storage *storage;
 	int waitForValidUserInput(int maxValid, bool canExit=true);
 	void wildGrass(Pokemon *pokeSauvage=0, int attackingPokeIdx=-1);
-	int chooseAttackPoke(int actualPokeIdx);
+	int chooseAttackPoke(int actualPokeIdx, bool forced=false);
 	void menuItem(Pokemon *pokeSauvage=0);
 	void team();
 	void healTeam();
