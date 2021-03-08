@@ -164,7 +164,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	int userChoice;
 	vector<Pokemon> team = this->player->getTeam();
 	int myPokemonIdx;
-	if (attackingPokeIdx < 0) 
+	if (attackingPokeIdx < 0)
 	{
 		myPokemonIdx = this->player->getFirstValidPokemonIndex();
 	}
@@ -214,11 +214,20 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	}
 	else
 	{
-		cout << "Votre pokémon est KO..." << endl;
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
+		int newPokeIdx = this->player->getFirstValidPokemonIndex();
+		if (newPokeIdx < 0)
+		{
+			cout << "Vous n'avez aucun pokémon en état de se battre..." << endl;
+			this->save();
+			this->mainMenu();
+		}
+		else
+		{
+			newPokeIdx = this->chooseAttackPoke(myPokemonIdx, true);
+			this->save();
+			this->wildGrass(pokeSauvage, newPokeIdx);
+		}
+		
 		return;
 	}
 
@@ -279,7 +288,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	}
 }
 
-int Menu::chooseAttackPoke(int actualPokeIdx)
+int Menu::chooseAttackPoke(int actualPokeIdx, bool forced)
 {
 	vector<Pokemon> team = this->player->getTeam();
 	int userChoice;
@@ -293,13 +302,20 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 		cout << i + 1 << ". " << pokeName << endl;
 	}
 
-	cout << endl
-		 << "0. Retour" << endl
-		 << endl
-		 << endl
-		 << "Quel pokémon choisis-tu donc ?" << endl
-		 << endl;
-	userChoice = this->waitForValidUserInput(team.size());
+	if (!forced)
+	{
+		cout << endl
+			 << "0. Retour" << endl
+			 << endl
+			 << "Quel pokémon choisis-tu donc ?" << endl;
+	}
+	else
+	{
+		cout << endl
+			 << "Quel pokémon choisis-tu donc ?" << endl;
+	}
+
+	userChoice = this->waitForValidUserInput(team.size(), !forced);
 	if (userChoice == 0)
 	{
 		return actualPokeIdx;
@@ -308,7 +324,7 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 	{
 		cout << "Ce pokémon est déjà KO !" << endl
 			 << endl;
-		userChoice = this->chooseAttackPoke(actualPokeIdx);
+		userChoice = this->chooseAttackPoke(actualPokeIdx, forced) + 1;
 	}
 
 	return userChoice - 1;
@@ -344,10 +360,12 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			{
 				this->player->addPokemon(*pokeSauvage);
 				this->mainMenu();
-			} else {
+			}
+			else
+			{
 				cout << pokeSauvage->name << " s'est échapé !" << endl;
 			}
-			backpack.erase(backpack.begin()+userChoice-1);
+			backpack.erase(backpack.begin() + userChoice - 1);
 			// delete backpack[userChoice-1];
 			this->player->setBackpack(backpack);
 		}
@@ -375,7 +393,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			}
 
 			backpack[userChoice - 1]->use(&(team[userChoice2 - 1]));
-			backpack.erase(backpack.begin()+userChoice-1);
+			backpack.erase(backpack.begin() + userChoice - 1);
 			this->player->setTeam(team);
 			this->player->setBackpack(backpack);
 		}
@@ -603,7 +621,6 @@ void Menu::allPCTeam()
 				cout << teamPC[toRemove - 1].name << " a été relaché dans la nature..." << endl;
 				this->player->removeFromPC(toRemove);
 				sleep(2.5);
-				
 			}
 		}
 		cout << "\033[2J\033[1;1H";
