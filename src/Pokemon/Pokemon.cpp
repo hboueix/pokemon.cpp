@@ -46,13 +46,15 @@ void Pokemon::attacking(Pokemon &defender)
 	{
 		defender.setHP(defender.getHP() - lostPV);
 		cout << this->name << " a infligé " << lostPV << "HP à " << defender.name << endl
-			 << "Il reste " << defender.getHP() << "HP à " << defender.name << endl;
+			 << "Il reste " << defender.getHP() << "HP à " << defender.name << endl
+			 << endl;
 	}
 	else
 	{
 		defender.setHP(0);
 		cout << this->name << " a infligé " << lostPV << "HP à " << defender.name << endl
-			 << defender.name << " est KO." << endl;
+			 << defender.name << " est KO." << endl
+			 << endl;
 	}
 }
 
