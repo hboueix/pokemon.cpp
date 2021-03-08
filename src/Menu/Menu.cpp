@@ -227,7 +227,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 			this->save();
 			this->wildGrass(pokeSauvage, newPokeIdx);
 		}
-		
+
 		return;
 	}
 
@@ -651,76 +651,91 @@ void Menu::shop()
 		 << "0. Retour" << endl
 		 << endl;
 	int userChoice = this->waitForValidUserInput(8);
-	cout << "Combien ? (max: 20)" << endl;
-	int howMuch = this->waitForValidUserInput(20);
-	if (howMuch == 0)
+	if (userChoice != 0)
 	{
-		cout << "Vous me faites perdre mon temps.. Au revoir !" << endl;
-		this->mainMenu();
-		return;
+		cout << endl
+			 << "'Vous ne pouvez qu'en prendre 20 maximum !'" << endl
+			 << endl;
+		int howMuch = this->waitForValidUserInput(20);
+		if (howMuch == 0)
+		{
+			cout << endl
+				 << "'Vous me faites perdre mon temps.. Au revoir !!'" << endl;
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->mainMenu();
+			return;
+		}
+		switch (userChoice)
+		{
+		case 1:
+			this->player->buyItem("Pokeball", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 2:
+			this->player->buyItem("Superball", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 3:
+			this->player->buyItem("Hyperball", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 4:
+			this->player->buyItem("Masterball", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 5:
+			this->player->buyItem("Potion", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 6:
+			this->player->buyItem("Superpotion", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 7:
+			this->player->buyItem("Hyperpotion", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		case 8:
+			this->player->buyItem("Potionmax", howMuch);
+			sleep(2.5);
+			cout << "\033[2J\033[1;1H";
+			this->save();
+			this->mainMenu();
+			break;
+		default:
+			this->mainMenu();
+			break;
+		}
 	}
-
-	switch (userChoice)
+	else
 	{
-	case 1:
-		this->player->buyItem("Pokeball", howMuch);
+		cout << endl
+			 << "Vous me faites perdre mon temps.. Au revoir !" << endl;
 		sleep(2.5);
 		cout << "\033[2J\033[1;1H";
-		this->save();
 		this->mainMenu();
-		break;
-	case 2:
-		this->player->buyItem("Superball", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 3:
-		this->player->buyItem("Hyperball", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 4:
-		this->player->buyItem("Masterball", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 5:
-		this->player->buyItem("Potion", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 6:
-		this->player->buyItem("Superpotion", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 7:
-		this->player->buyItem("Hyperpotion", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 8:
-		this->player->buyItem("Potionmax", howMuch);
-		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
-		this->save();
-		this->mainMenu();
-		break;
-	case 0:
-		this->mainMenu();
-		break;
 	}
 }
 
