@@ -16,8 +16,8 @@ bool Potionmax::use(Pokemon* pokemon) const {
     } else if (pokeHP == 0) {
         cout << pokemon->name << " est K.O. Vous ne pouvez pas le soigner avec "<< this->name << endl; 
     } else {
-        pokemon->setHP(pokeMaxHP);
-        cout << " Vous avez rendu tout ses HP à " << pokemon->name << endl;
+        cout << " Vous avez rendu " << pokeMaxHP - pokeHP << " HP à " << pokemon->name << endl;
+        pokemon->setHP(pokeHP + this->pvHeal);
     }
     return true;
 }
