@@ -42,7 +42,7 @@ Menu::Menu(Player *player, Storage *storage)
 			 << "3 pour Carapuce" << endl
 			 << endl;
 		sleep(1);
-		int userChoice = waitForValidUserInput(4, "'Choisis bien, pas d'échanges !'", false);
+		int userChoice = waitForValidUserInput(4, false);
 		switch (userChoice)
 		{
 		case 1:
@@ -127,9 +127,8 @@ void Menu::mainMenu()
 	}
 }
 
-int Menu::waitForValidUserInput(int maxValid, string question, bool canExit)
+int Menu::waitForValidUserInput(int maxValid, bool canExit)
 {
-	cout << question << endl;
 	int userChoice;
 	while (!(cin >> userChoice) || !(userChoice <= maxValid && userChoice >= !canExit))
 	{
@@ -189,9 +188,9 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		return;
 	}
 	
-	string question = "Que doit faire ";
-	question.append(myPokemon.name).append(" ?");
-	userChoice = waitForValidUserInput(4, question , false);
+	// string question = "Que doit faire ";
+	// question.append(myPokemon.name).append(" ?");
+	userChoice = waitForValidUserInput(4, false);
 
 
 	switch (userChoice)
@@ -268,7 +267,7 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 	return userChoice - 1;
 }
 
-void Menu::menuItem()
+void Menu::menuItem(Pokemon *pokeSauvage)
 {
 	vector<Item *> backpack = this->player->getBackPack();
 	cout << endl
@@ -390,7 +389,7 @@ void Menu::healTeam()
 		 << "2. Retour" << endl
 		 << endl;
 	sleep(2.5);
-	int userChoice = waitForValidUserInput(2, "Tu réfléchis longuement...", false);
+	int userChoice = waitForValidUserInput(2, false);
 	int moneySpend = 0;
 	switch (userChoice)
 	{
