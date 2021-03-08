@@ -185,8 +185,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		this->mainMenu();
 		return;
 	}
+	
+	string question = "Que doit faire ";
+	question.append(myPokemon.name).append(" ?");
+	userChoice = waitForValidUserInput(4, question , false);
 
-	userChoice = waitForValidUserInput(4, "Que doit faire " + myPokemon.name + " ?", false);
+
 	switch (userChoice)
 	{
 	case 1:
@@ -257,7 +261,7 @@ void Menu::menuItem(Pokemon *pokeSauvage) {
 			cout << endl
 			<< "0. Retour" << endl
 			<< endl;
-			int userChoice2 = waitForValidUserInput(backpack.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
+			int userChoice2 = waitForValidUserInput(team.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
 			if (userChoice2 == 0)
 			{
 				this->menuItem();
