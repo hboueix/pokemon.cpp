@@ -111,13 +111,17 @@ void Player::moveToTeam(int toMove)
 
 int Player::addPokemon(Pokemon pokemon)
 {
+	cout << "Vous avez capturé " << pokemon.name << " !" << endl;
 	if (this->team.size() < 6)
 	{
 		this->team.push_back(pokemon);
+		cout << pokemon.name << " est ajouté a l'équipe !" << endl;
 		return 1;
 	}
 	else
 	{
+		this->teamPC.push_back(pokemon);
+		cout << pokemon.name << " est ajouté au PC !" << endl;
 		return 0;
 	}
 }

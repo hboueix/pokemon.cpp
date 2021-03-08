@@ -290,7 +290,6 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 	} else {
 		vector<Pokemon> team = this->player->getTeam();
 		if (backpack[userChoice-1]->type == "ball") {
-			//TODO: capture pokemon adverse
 			cout << "Vous avez lancé " << backpack[userChoice-1]->name <<" sur " << pokeSauvage->name << endl;
 			if (backpack[userChoice-1]->use(pokeSauvage))
 			{
