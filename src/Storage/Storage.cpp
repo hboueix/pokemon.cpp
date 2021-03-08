@@ -256,16 +256,13 @@ Pokemon Storage::getRandomPokemon()
 	return random;
 }
 
-
-// TODO: rentrer la création des objets Pokemon dans le if
 Pokemon Storage::getPokemonTemplate(string name)
 {
 	for (int i = 0; i < this->all_pokemon_templates.size(); i++)
 	{
-		Pokemon pokemon = this->all_pokemon_templates[i];
-
-		if (pokemon.name == name)
+		if (this->all_pokemon_templates[i].name == name)
 		{
+			Pokemon pokemon = this->all_pokemon_templates[i];
 			return pokemon;
 		}
 	}
