@@ -333,39 +333,91 @@ int Menu::chooseAttackPoke(int actualPokeIdx, bool forced)
 void Menu::menuItem(Pokemon *pokeSauvage)
 {
 	vector<Item *> backpack = this->player->getBackpack();
+	// cout << endl
+	// 	 << "Ton inventaire :" << endl;
+	// for (int i = 0; i < backpack.size(); i++)
+	// {
+	// 	cout << i + 1 << ". " << backpack[i]->name << endl;
+	// }
+	
+	//##
 	cout << endl
 		 << "Ton inventaire :" << endl;
+	map<Item *, int> inventory;
 	for (int i = 0; i < backpack.size(); i++)
 	{
-		cout << i + 1 << ". " << backpack[i]->name << endl;
+		try
+		{
+			inventory[backpack[i]] += 1;
+		}
+		catch (exception e)
+		{
+			inventory[backpack[i]] = 1;
+		}
 	}
+
+	map<string, int> inventoryName;
+	for (int i = 0; i < backpack.size(); i++)
+	{
+		try
+		{
+			inventoryName[backpack[i]->name] += 1;
+		}
+		catch (exception e)
+		{
+			inventoryName[backpack[i]->name] = 1;
+		}
+	}
+
+	
+	int i = 0;
+	int j = 0;
+	map<int, Item *> dictItem;
+	string lastItemName = "";
+	for (auto item : inventory)
+	{
+		if (!(lastItemName == dictItem[i]->name))
+		{
+		i++;
+		}
+		dictItem[i] = item.first;
+		lastItemName = dictItem[i]->name;
+	}
+	for (auto item : inventoryName) {
+		j++;
+		cout << j << "- " << item.first << " (" << item.second << ")" << endl;
+	}
+	//##
 
 	cout << endl
 		 << "0. Retour" << endl
 		 << endl;
-	int userChoice = waitForValidUserInput(backpack.size());
+	int userChoice = waitForValidUserInput(inventory.size());
 	if (userChoice == 0)
 	{
 		cout << "\033[2J\033[1;1H";
-		this->wildGrass();
+		this->wildGrass(pokeSauvage);
 		return;
 	}
 	else
 	{
 		vector<Pokemon> team = this->player->getTeam();
-		if (backpack[userChoice - 1]->type == "ball")
+		if (dictItem[userChoice]->type == "ball")
 		{
-			cout << "Tu as lancé une " << backpack[userChoice - 1]->name << " sur " << pokeSauvage->name << " !" << endl;
-			if (backpack[userChoice - 1]->use(pokeSauvage))
+			cout << "Tu as lancé une " << dictItem[userChoice]->name << " sur " << pokeSauvage->name << " !" << endl;
+			if (dictItem[userChoice]->use(pokeSauvage))
 			{
 				this->player->addPokemon(*pokeSauvage);
 				this->mainMenu();
 			}
 			else
 			{
-				cout << pokeSauvage->name << " s'est échapé !" << endl;
+				cout << pokeSauvage->name << " s'est échappé !" << endl;
 			}
-			backpack.erase(backpack.begin() + userChoice - 1);
+
+			auto item = find(backpack.begin(), backpack.end(), dictItem[userChoice]);
+			int indx = item - backpack.begin();
+			backpack.erase(backpack.begin() + indx);
 			// delete backpack[userChoice-1];
 			this->player->setBackpack(backpack);
 		}
