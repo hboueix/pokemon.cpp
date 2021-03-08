@@ -8,7 +8,6 @@
 #include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
 
-
 using namespace std;
 
 Menu::Menu(Player *player, Storage *storage)
@@ -187,10 +186,9 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		this->mainMenu();
 		return;
 	}
-	
+
 	cout << "Que doit faire " << myPokemon.name << " ?" << endl;
 	userChoice = waitForValidUserInput(4, false);
-
 
 	switch (userChoice)
 	{
@@ -218,12 +216,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		break;
 	}
 	case 3:
-		{
+	{
 		this->menuItem(pokeSauvage);
 		this->save();
 		this->wildGrass(pokeSauvage);
 		break;
-		}
+	}
 	case 4:
 		this->save();
 		this->mainMenu();
@@ -286,18 +284,21 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 	{
 		this->wildGrass();
 		return;
-	} else {
+	}
+	else
+	{
 		vector<Pokemon> team = this->player->getTeam();
-		if (backpack[userChoice-1]->type == "ball") {
+		if (backpack[userChoice - 1]->type == "ball")
+		{
 			//TODO: capture pokemon adverse
-			cout << "Vous avez lancé " << backpack[userChoice-1]->name <<" sur " << pokeSauvage->name << endl;
-			if (backpack[userChoice-1]->use(pokeSauvage))
+			cout << "Vous avez lancé " << backpack[userChoice - 1]->name << " sur " << pokeSauvage->name << endl;
+			if (backpack[userChoice - 1]->use(pokeSauvage))
 			{
 				this->player->addPokemon(*pokeSauvage);
 				this->mainMenu();
 			}
 		}
-		if (backpack[userChoice-1]->type == "potion") 
+		if (backpack[userChoice - 1]->type == "potion")
 		{
 			cout << endl
 				 << "Your team :" << endl;
@@ -309,9 +310,10 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				cout << i + 1 << ". " << pokeName << endl;
 			}
 			cout << endl
-			<< "0. Retour" << endl
-			<< endl;
-			int userChoice2 = waitForValidUserInput(team.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
+				 << "0. Retour" << endl
+				 << endl
+				 << "Sur quel Pokemon voulez vous utilisez cet objet?" << endl;
+			int userChoice2 = waitForValidUserInput(team.size());
 			if (userChoice2 == 0)
 			{
 				this->menuItem();
