@@ -188,8 +188,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		return;
 	}
 	
-	// string question = "Que doit faire ";
-	// question.append(myPokemon.name).append(" ?");
+	cout << "Que doit faire " << myPokemon.name << " ?" << endl;
 	userChoice = waitForValidUserInput(4, false);
 
 
