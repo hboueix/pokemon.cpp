@@ -24,13 +24,16 @@ Menu::Menu(Player *player, Storage *storage)
 			 << "=============================" << endl;
 		sleep(1);
 		cout << endl
-			 << "Bienvenue, jeune chasseur de pokémon !" << endl
-			 << "Que dis-tu ?" << endl
-			 << "Tu as besoin d'avoir un pokémon GrAtUiT pour commencer ton aventure !?" << endl
+			 << "'Bienvenue, jeune chasseur de pokémon !'" << endl
+			 << "..." << endl;
+		sleep(2);
+		cout << "'Que dis-tu ?'" << endl
+			 << "'Tu as besoin d'avoir un pokémon gRaTuIt pour commencer ton aventure !?'" << endl
+			 << "'Bon, je vais être serviable..'"
 			 << endl;
-		sleep(1);
+		sleep(2);
 		cout << endl
-			 << "Bon, je te laisse choisir entre ces trois là au moins!" << endl
+			 << "'Je te laisse choisir entre ces trois là, au moins !'" << endl
 			 << endl
 			 << " (っ▀¯▀)つ " << endl
 			 << endl
@@ -39,43 +42,44 @@ Menu::Menu(Player *player, Storage *storage)
 			 << "3 pour Carapuce" << endl
 			 << endl;
 		sleep(1);
-		int userChoice = waitForValidUserInput(4, "Choisis bien, pas d'échanges !", false);
+		int userChoice = waitForValidUserInput(4, "'Choisis bien, pas d'échanges !'", false);
 		switch (userChoice)
 		{
 		case 1:
 			cout << endl
-				 << "La nature est la plus forte !" << endl
+				 << "'La nature est la plus forte !'" << endl
 				 << "Tu as choisi Bulbizarre !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
 			this->player->addPokemon(this->storage->getPokemonTemplate("Bulbizarre"));
-			sleep(2.5);
+			sleep(5);
 			break;
 		case 2:
 			cout << endl
-				 << "Tout feu tout flamme !" << endl
+				 << "'Tout feu tout flamme !'" << endl
 				 << "Tu as choisi Salamèche !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
 			this->player->addPokemon(this->storage->getPokemonTemplate("Salamèche"));
-			sleep(2.5);
+			sleep(5);
 			break;
 		case 3:
 			cout << endl
-				 << "Haha, il est toujours salé !" << endl
+				 << "'Haha, il est toujours salé !'" << endl
 				 << "Tu as choisi Carapuce !" << endl
 				 << " ᕙ(⇀‸↼‶)ᕗ " << endl
 				 << endl;
 			this->player->addPokemon(this->storage->getPokemonTemplate("Carapuce"));
-			sleep(2.5);
+			sleep(5);
 			break;
 		default:
 			cout << endl
-				 << "Non ! Tu ne dois pas !!.." << endl
+				 << "'Non ! Tu ne dois pas !!..'" << endl
+				 << "Tu as obtenu Pikachu !!" << endl
 				 << " ᕦ(ò_óˇ)ᕤ " << endl
 				 << endl;
 			this->player->addPokemon(this->storage->getPokemonTemplate("Pikachu"));
-			sleep(2.5);
+			sleep(5);
 			break;
 		}
 	}
@@ -116,7 +120,6 @@ void Menu::mainMenu()
 	case 0:
 		this->save();
 		cout << "Bye !" << endl;
-		// exit(EXIT_SUCCESS);
 		break;
 	default:
 		cout << "Input out of range... This shouldn't be see..." << endl;
@@ -138,10 +141,10 @@ int Menu::waitForValidUserInput(int maxValid, string question, bool canExit)
 	return userChoice;
 }
 
-void Menu::wildGrass(Pokemon *pokeSauvage)
+void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 {
 	int userChoice;
-	vector<Pokemon> team = player->getTeam();
+	vector<Pokemon> team = this->player->getTeam();
 	int myPokemonIdx = this->player->getFirstValidPokemonIndex();
 	if (myPokemonIdx < 0)
 	{
@@ -149,7 +152,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 		this->mainMenu();
 		return;
 	}
-	Pokemon myPokemon = this->player->getTeam()[myPokemonIdx];
+	Pokemon myPokemon = team[myPokemonIdx];
 	if (pokeSauvage == 0)
 	{
 		Pokemon poke = this->storage->getRandomPokemon();
@@ -196,15 +199,26 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	case 1:
 	{
 		myPokemon.attacking(*pokeSauvage);
+		pokeSauvage->attacking(myPokemon);
+		team[myPokemonIdx] = myPokemon;
+		this->player->setTeam(team);
 		this->save();
 		this->wildGrass(pokeSauvage);
 		break;
 	}
 	case 2:
-		// TODO change attacking pokemon
+	{
+		int newPokeIdx = this->chooseAttackPoke(myPokemonIdx);
+		if (myPokemonIdx != newPokeIdx)
+		{
+			pokeSauvage->attacking(myPokemon);
+			team[myPokemonIdx] = myPokemon;
+			this->player->setTeam(team);
+		}
 		this->save();
-		this->wildGrass(pokeSauvage);
+		this->wildGrass(pokeSauvage, newPokeIdx);
 		break;
+	}
 	case 3:
 		{
 		this->menuItem(pokeSauvage);
@@ -222,18 +236,56 @@ void Menu::wildGrass(Pokemon *pokeSauvage)
 	}
 }
 
-void Menu::menuItem(Pokemon *pokeSauvage) {
-	vector<Item*> backpack = this->player->getBackPack();
-	cout << endl << "Votre inventaire :" << endl;
-	// cout << backpack << endl;
-	for (int i = 0; i < backpack.size(); i++) {
-		// string itemName = backpack[i].name;
-		cout << i+1 << ". " << backpack[i]->name << endl;
+int Menu::chooseAttackPoke(int actualPokeIdx)
+{
+	vector<Pokemon> team = this->player->getTeam();
+	int userChoice;
+	cout << "Choisis ton nouveau pokémon pour attaquer !" << endl
+		 << endl;
+	for (int i = 0; i < team.size(); i++)
+	{
+		string pokeName = team[i].name;
+		string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
+		team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
+		cout << i + 1 << ". " << pokeName << endl;
 	}
 
-	cout << endl << "0. Retour" << endl << endl;
+	cout << endl
+		 << "0. Retour" << endl
+		 << endl;
+	userChoice = this->waitForValidUserInput(team.size());
+	if (userChoice == 0)
+	{
+		return actualPokeIdx;
+	}
+	else if (team[userChoice - 1].getHP() == 0)
+	{
+		cout << "Ce pokémon est déjà KO !" << endl
+			 << endl;
+		userChoice = this->chooseAttackPoke(actualPokeIdx);
+	}
+
+	return userChoice - 1;
+}
+
+void Menu::menuItem()
+{
+	vector<Item *> backpack = this->player->getBackPack();
+	cout << endl
+		 << "Votre inventaire :" << endl;
+	// cout << backpack << endl;
+	for (int i = 0; i < backpack.size(); i++)
+	{
+		// string itemName = backpack[i].name;
+		cout << i + 1 << ". " << backpack[i]->name << endl;
+	}
+
+	cout << endl
+		 << "0. Retour" << endl
+		 << endl;
 	int userChoice = waitForValidUserInput(backpack.size());
-	if (userChoice == 0) {
+	if (userChoice == 0)
+	{
 		this->wildGrass();
 		return;
 	} else {
@@ -250,7 +302,7 @@ void Menu::menuItem(Pokemon *pokeSauvage) {
 		if (backpack[userChoice-1]->type == "potion") 
 		{
 			cout << endl
-				<< "Your team :" << endl;
+				 << "Your team :" << endl;
 			for (int i = 0; i < team.size(); i++)
 			{
 				string pokeName = team[i].name;
@@ -268,47 +320,16 @@ void Menu::menuItem(Pokemon *pokeSauvage) {
 				return;
 			}
 
-			backpack[userChoice-1]->use(&(team[userChoice2-1]));
+			backpack[userChoice - 1]->use(&(team[userChoice2 - 1]));
 			this->player->setTeam(team);
 		}
 		sleep(3);
 	}
 }
 
-
-void Menu::team() {
-	vector<Pokemon> team = this->player->getTeam();
-	cout << endl
-		 << "Your team :" << endl;
-	for (int i = 0; i < team.size(); i++)
-	{
-		string pokeName = team[i].name;
-		string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
-		team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
-		cout << i + 1 << ". " << pokeName << endl;
-	}
-
-	cout << endl
-		 << "0. Retour" << endl
-		 << endl;
-	int userChoice = waitForValidUserInput(team.size());
-	if (userChoice == 0)
-	{
-		this->mainMenu();
-	}
-	else
-	{
-		team[userChoice - 1].showStats();
-		sleep(5);
-		this->save();
-		this->team();
-	}
-}
-
-void Menu::healTeam()
+void Menu::team()
 {
 	vector<Pokemon> team = this->player->getTeam();
-
 	cout << endl
 		 << "Votre équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
@@ -318,21 +339,63 @@ void Menu::healTeam()
 		team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
 		cout << i + 1 << ". " << pokeName << endl;
 	}
-	cout << "Votre argent : " << this->player->getMoney() << " ¤" << endl;
 
 	cout << endl
-		 << "1. Soigner" << endl
 		 << "0. Retour" << endl
 		 << endl;
-	int userChoice = waitForValidUserInput(team.size());
+	int userChoice = waitForValidUserInput(team.size(), "Quel pokémon voulez-vous inspecter ?");
+	if (userChoice == 0)
+	{
+		this->mainMenu();
+	}
+	else
+	{
+		team[userChoice - 1].showStats();
+		sleep(3);
+		this->save();
+		this->team();
+	}
+}
+
+void Menu::healTeam()
+{
+	vector<Pokemon> team = this->player->getTeam();
+	cout << endl
+		 << "=============================" << endl
+		 << "|   HÔPITAL BOURG PALETTE   |" << endl
+		 << "=============================" << endl
+		 << endl
+		 << endl
+		 << "Tu arrives dans le centre hospitalier de Bourg Palette !" << endl
+		 << "L'hôtesse te salue poliment" << endl
+		 << endl
+		 << " (๑•́ ₃ •̀๑) " << endl
+		 << endl;
+	sleep(2.5);
+	cout << endl
+		 << "Ton équipe :" << endl;
+	for (int i = 0; i < team.size(); i++)
+	{
+		string pokeName = team[i].name;
+		string pokeHP = " (" + to_string(team[i].getHP()) + "/" + to_string(team[i].getMaxHP()) + ") ";
+		team[i].getHP() > 0 ? pokeName += pokeHP : pokeName += " (KO)";
+		cout << i + 1 << ". " << pokeName << endl;
+	}
+	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl;
+	sleep(2.5);
+	cout << endl
+		 << "'Avez-vous besoin de soigner des pokémons ?'" << endl
+		 << endl
+		 << "1. Soigner" << endl
+		 << "2. Retour" << endl
+		 << endl;
+	sleep(2.5);
+	int userChoice = waitForValidUserInput(2, "Tu réfléchis longuement...", false);
+	int moneySpend = 0;
 	switch (userChoice)
 	{
-	case 0:
-		this->mainMenu();
-		break;
 	case 1:
-		sleep(.5);
-		int moneySpend = 0;
+		sleep(1.5);
 		for (int i = 0; i < team.size(); i++)
 		{
 			int pokeHP = team[i].getHP();
@@ -352,8 +415,11 @@ void Menu::healTeam()
 		this->player->healPokemons();
 		this->save();
 		cout << endl
-			 << "Tu as dépensé(e) " << moneySpend << "¤ pour soigner tes pokémons." << endl
-			 << "Ton équipe s'est bien reposée." << endl;
+			 << "'Voici la note que vous me devez pour soigner vos pokémons, cher chasseur : " << moneySpend << " ¤ !'" << endl
+			 << "'Vos pokémons sont tous revigorés à 100%'" << endl
+			 << endl
+			 << " ( ˘ ³˘)♥ " << endl
+			 << endl;
 		for (int i = 0; i < team.size(); i++)
 		{
 			string pokeName = team[i].name;
@@ -361,10 +427,24 @@ void Menu::healTeam()
 			cout << i + 1 << ". " << pokeName << pokeHP << endl;
 		}
 		cout << endl
-			 << endl
+			 << "Tu repars, toi et tes pokémons, joyeusement !"
 			 << endl;
 		sleep(5);
 		this->mainMenu();
+		break;
+	case 2:
+		cout << endl
+			 << "Tu repars sans rien dire..." << endl
+			 << endl;
+		sleep(2.5);
+		this->mainMenu();
+		break;
+	default:
+		cout << endl
+			 << "'Excusez-moi ? Vous avez besoin d'aide ?' dit-elle en paniquant devant tes yeux vides..." << endl
+			 << endl;
+		sleep(2.5);
+		this->healTeam();
 		break;
 	}
 }
@@ -374,7 +454,7 @@ void Menu::allPCTeam()
 	vector<Pokemon> team = player->getTeam();
 	vector<Pokemon> teamPC = player->getTeamPC();
 	cout << endl
-		 << "Your team :" << endl;
+		 << "Votre équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
 	{
 		cout << "(" << i + 1 << ") " << team[i].name << endl;
@@ -386,7 +466,7 @@ void Menu::allPCTeam()
 	}
 
 	cout << endl
-		 << "Your PC :" << endl;
+		 << "Vos pokémons dans le PC :" << endl;
 	if (teamPC.size() > 0)
 	{
 		for (int i = 0; i < teamPC.size(); i++)

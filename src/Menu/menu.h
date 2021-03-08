@@ -12,7 +12,8 @@ private:
 	Player *player;
 	Storage *storage;
 	int waitForValidUserInput(int maxValid, string question="Que voulez-vous faire ?", bool canExit=true);
-	void wildGrass(Pokemon *pokeSauvage=0);
+	void wildGrass(Pokemon *pokeSauvage=0, int attackingPokeIdx=0);
+	int chooseAttackPoke(int actualPokeIdx);
 	void menuItem(Pokemon *pokeSauvage=0);
 	void team();
 	void healTeam();
