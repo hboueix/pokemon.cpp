@@ -14,7 +14,6 @@ using json = nlohmann::json;
 
 Storage::Storage()
 {
-	// save = "./saves/user.pokepp";
 	this->load_pokemons();
 }
 
@@ -38,7 +37,6 @@ string Storage::read(string filePath)
 	}
 	else
 	{
-		// cout << "ERREUR: Impossible d'ouvrir le fichier '" << filePath << "'." << endl;
 		return "";
 	}
 }
@@ -69,10 +67,10 @@ void Storage::savePlayer(Player *player)
 
 	for (int i = 0; i < player->getBackPack().size(); i++)
 	{
-		Item* item = player->getBackPack()[i];
+		Item *item = player->getBackPack()[i];
 		dataPlayer["backpack"].push_back(item->name);
 	}
-	
+
 	for (int i = 0; i < player->getTeam().size(); i++)
 	{
 		Pokemon pokemon = player->getTeam()[i];
@@ -149,32 +147,47 @@ Player *Storage::loadPlayer(string namePlayer)
 	if (dataPlayerRaw != "")
 	{
 		json dataPlayer = json::parse(dataPlayerRaw);
-		vector<Item*> backpack = {};
+		vector<Item *> backpack = {};
 		vector<Pokemon> team = {};
 		vector<Pokemon> teamPC = {};
 
 		for (int i = 0; i < dataPlayer["backpack"].size(); i++)
 		{
 			string item = dataPlayer["backpack"][i];
-			if (item == "Pokeball") {
+			if (item == "Pokeball")
+			{
 				backpack.push_back(new Pokeball());
-			} else if (item == "Superball") {
+			}
+			else if (item == "Superball")
+			{
 				backpack.push_back(new Superball());
-			} else if (item == "Hyperball") {
+			}
+			else if (item == "Hyperball")
+			{
 				backpack.push_back(new Hyperball());
-			} else if (item == "Masterball") {
+			}
+			else if (item == "Masterball")
+			{
 				backpack.push_back(new Masterball());
-			} else if (item == "Potion") {
+			}
+			else if (item == "Potion")
+			{
 				backpack.push_back(new Potion());
-			} else if (item == "Superpotion") {
+			}
+			else if (item == "Superpotion")
+			{
 				backpack.push_back(new Superpotion());
-			} else if (item == "Hyperpotion") {
+			}
+			else if (item == "Hyperpotion")
+			{
 				backpack.push_back(new Hyperpotion());
-			} else if (item == "Potionmax") {
+			}
+			else if (item == "Potionmax")
+			{
 				backpack.push_back(new Potionmax());
 			}
 		}
-		
+
 		for (int i = 0; i < dataPlayer["team"].size(); i++)
 		{
 			json pokemon = dataPlayer["team"][i];
@@ -188,7 +201,8 @@ Player *Storage::loadPlayer(string namePlayer)
 					pokemon["DEF"].get<int>(),
 					pokemon["SP_ATQ"].get<int>(),
 					pokemon["SP_DEF"].get<int>(),
-					pokemon["speed"].get<int>())));
+					pokemon["speed"].get<int>(),
+					pokemon["capture_rate"].get<int>())));
 		}
 
 		for (int i = 0; i < dataPlayer["teamPC"].size(); i++)
@@ -204,7 +218,8 @@ Player *Storage::loadPlayer(string namePlayer)
 					pokemon["DEF"].get<float>(),
 					pokemon["SP_ATQ"].get<int>(),
 					pokemon["SP_DEF"].get<int>(),
-					pokemon["speed"].get<int>())));
+					pokemon["speed"].get<int>(),
+					pokemon["capture_rate"].get<int>())));
 		}
 
 		return new Player(
@@ -239,7 +254,8 @@ void Storage::load_pokemons()
 					pokemon["defense"].get<int>(),
 					pokemon["sp_attack"].get<int>(),
 					pokemon["sp_defense"].get<int>(),
-					pokemon["speed"].get<int>())));
+					pokemon["speed"].get<int>(),
+					pokemon["capture_rate"].get<int>())));
 		}
 	}
 	else
@@ -256,16 +272,13 @@ Pokemon Storage::getRandomPokemon()
 	return random;
 }
 
-
-// TODO: rentrer la création des objets Pokemon dans le if
 Pokemon Storage::getPokemonTemplate(string name)
 {
 	for (int i = 0; i < this->all_pokemon_templates.size(); i++)
 	{
-		Pokemon pokemon = this->all_pokemon_templates[i];
-
-		if (pokemon.name == name)
+		if (this->all_pokemon_templates[i].name == name)
 		{
+			Pokemon pokemon = this->all_pokemon_templates[i];
 			return pokemon;
 		}
 	}

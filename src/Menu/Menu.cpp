@@ -8,7 +8,6 @@
 #include "../Storage/Storage.cpp"
 #include "../Player/Player.cpp"
 
-
 using namespace std;
 
 Menu::Menu(Player *player, Storage *storage)
@@ -120,6 +119,7 @@ void Menu::mainMenu()
 	case 0:
 		this->save();
 		cout << "Bye !" << endl;
+		exit(EXIT_SUCCESS);
 		break;
 	default:
 		cout << "Input out of range... This shouldn't be see..." << endl;
@@ -187,11 +187,9 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		this->mainMenu();
 		return;
 	}
-	
-	// string question = "Que doit faire ";
-	// question.append(myPokemon.name).append(" ?");
-	userChoice = waitForValidUserInput(4, false);
 
+	cout << "Que doit faire " << myPokemon.name << " ?" << endl;
+	userChoice = waitForValidUserInput(4, false);
 
 	switch (userChoice)
 	{
@@ -219,12 +217,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		break;
 	}
 	case 3:
-		{
+	{
 		this->menuItem(pokeSauvage);
 		this->save();
 		this->wildGrass(pokeSauvage);
 		break;
-		}
+	}
 	case 4:
 		this->save();
 		this->mainMenu();
@@ -287,7 +285,9 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 	{
 		this->wildGrass();
 		return;
-	} else {
+	}
+	else
+	{
 		vector<Pokemon> team = this->player->getTeam();
 		if (backpack[userChoice-1]->type == "ball") {
 			cout << "Vous avez lancé " << backpack[userChoice-1]->name <<" sur " << pokeSauvage->name << endl;
@@ -297,7 +297,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				this->mainMenu();
 			}
 		}
-		if (backpack[userChoice-1]->type == "potion") 
+		if (backpack[userChoice - 1]->type == "potion")
 		{
 			cout << endl
 				 << "Your team :" << endl;
@@ -309,9 +309,10 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				cout << i + 1 << ". " << pokeName << endl;
 			}
 			cout << endl
-			<< "0. Retour" << endl
-			<< endl;
-			int userChoice2 = waitForValidUserInput(team.size(), "Sur quel Pokemon voulez vous utilisez cet objet?");
+				 << "0. Retour" << endl
+				 << endl
+				 << "Sur quel Pokemon voulez vous utilisez cet objet?" << endl;
+			int userChoice2 = waitForValidUserInput(team.size());
 			if (userChoice2 == 0)
 			{
 				this->menuItem();
@@ -340,8 +341,9 @@ void Menu::team()
 
 	cout << endl
 		 << "0. Retour" << endl
-		 << endl;
-	int userChoice = waitForValidUserInput(team.size(), "Quel pokémon voulez-vous inspecter ?");
+		 << endl
+		 << "Quel pokémon voulez-vous inspecter ?" << endl;
+	int userChoice = waitForValidUserInput(team.size());
 	if (userChoice == 0)
 	{
 		this->mainMenu();

@@ -17,10 +17,10 @@ private:
 	int sp_attack;
 	int sp_defense;
 	int speed;
+	int capture_rate;
 public:
 	string name;
-	// Pokemon(string pokemonName);
-	Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed);
+	Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, int capture_rate);
 	~Pokemon();
 	void showStats();
 	void attacking(Pokemon &defender);
@@ -29,6 +29,7 @@ public:
 	int getMaxHP();
 	int getAttack();
 	int getDefense();
+	int getCaptureRate();
 	void setHP(int PDV);
 	json getJson();
 };
