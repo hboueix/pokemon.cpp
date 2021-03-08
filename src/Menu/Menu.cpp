@@ -333,14 +333,6 @@ int Menu::chooseAttackPoke(int actualPokeIdx, bool forced)
 void Menu::menuItem(Pokemon *pokeSauvage)
 {
 	vector<Item *> backpack = this->player->getBackpack();
-	// cout << endl
-	// 	 << "Ton inventaire :" << endl;
-	// for (int i = 0; i < backpack.size(); i++)
-	// {
-	// 	cout << i + 1 << ". " << backpack[i]->name << endl;
-	// }
-	
-	//##
 	cout << endl
 		 << "Ton inventaire :" << endl;
 	map<Item *, int> inventory;
@@ -369,30 +361,27 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 		}
 	}
 
-	
 	int i = 0;
 	int j = 0;
 	map<int, Item *> dictItem;
 	string lastItemName = "";
 	for (auto item : inventory)
 	{
-		if (!(lastItemName == dictItem[i]->name))
+		if (lastItemName != item.first->name)
 		{
-		i++;
+			lastItemName = item.first->name;
+			i++;
+			dictItem[i] = item.first;
 		}
-		dictItem[i] = item.first;
-		lastItemName = dictItem[i]->name;
 	}
-	for (auto item : inventoryName) {
-		j++;
-		cout << j << "- " << item.first << " (" << item.second << ")" << endl;
+	for (auto item : dictItem) {
+		cout << item.first << "- " << item.second->name << " (" << inventoryName[item.second->name] << ")" << endl;
 	}
-	//##
 
 	cout << endl
 		 << "0. Retour" << endl
 		 << endl;
-	int userChoice = waitForValidUserInput(inventory.size());
+	int userChoice = waitForValidUserInput(dictItem.size());
 	if (userChoice == 0)
 	{
 		cout << "\033[2J\033[1;1H";
@@ -408,18 +397,21 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			if (dictItem[userChoice]->use(pokeSauvage))
 			{
 				this->player->addPokemon(*pokeSauvage);
+				auto item = find(backpack.begin(), backpack.end(), dictItem[userChoice]);
+				int indx = item - backpack.begin();
+				backpack.erase(backpack.begin() + indx);
+				this->player->setBackpack(backpack);
 				this->mainMenu();
+				return;
 			}
 			else
 			{
 				cout << pokeSauvage->name << " s'est échappé !" << endl;
-			}
-
 			auto item = find(backpack.begin(), backpack.end(), dictItem[userChoice]);
 			int indx = item - backpack.begin();
 			backpack.erase(backpack.begin() + indx);
-			// delete backpack[userChoice-1];
 			this->player->setBackpack(backpack);
+			}
 		}
 		else if (backpack[userChoice - 1]->type == "potion")
 		{
