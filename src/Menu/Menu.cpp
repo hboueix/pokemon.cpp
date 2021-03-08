@@ -342,8 +342,9 @@ void Menu::team()
 
 	cout << endl
 		 << "0. Retour" << endl
-		 << endl;
-	int userChoice = waitForValidUserInput(team.size(), "Quel pokémon voulez-vous inspecter ?");
+		 << endl
+		 << "Quel pokémon voulez-vous inspecter ?" << endl;
+	int userChoice = waitForValidUserInput(team.size());
 	if (userChoice == 0)
 	{
 		this->mainMenu();
