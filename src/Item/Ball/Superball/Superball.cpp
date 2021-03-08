@@ -8,6 +8,7 @@ Superball::Superball():Ball() {
     name = "Superball";
     description = "description for superball";
     ballRate = 1.5;
+    prix = 600;
 }
 
 Superball::~Superball() {

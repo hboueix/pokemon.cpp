@@ -8,6 +8,7 @@ Hyperball::Hyperball():Ball() {
     name = "Hyperball";
     description = "description for hyperball";
     ballRate = 2;
+    prix = 1200;
 }
 
 Hyperball::~Hyperball() {

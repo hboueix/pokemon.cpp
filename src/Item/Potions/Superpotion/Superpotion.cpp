@@ -7,6 +7,7 @@ Superpotion::Superpotion():Potions() {
     name = "Superpotion";
     description = "description for superpotion";
     pvHeal = 50;
+    prix = 600;
 }
 
 bool Superpotion::use(Pokemon* pokemon) const {

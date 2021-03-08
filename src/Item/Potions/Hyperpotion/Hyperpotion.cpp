@@ -7,6 +7,7 @@ Hyperpotion::Hyperpotion():Potions() {
     name = "Hyperpotion";
     description = "description for hyperpotion";
     pvHeal = 200;
+    prix = 1200;
 }
 
 bool Hyperpotion::use(Pokemon* pokemon) const {

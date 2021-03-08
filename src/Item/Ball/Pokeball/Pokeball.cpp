@@ -8,6 +8,7 @@ Pokeball::Pokeball():Ball()  {
     name = "Pokeball";
     description = "description for pokeball";
     ballRate = 1;
+    prix = 200;
 }
 
 Pokeball::~Pokeball() {

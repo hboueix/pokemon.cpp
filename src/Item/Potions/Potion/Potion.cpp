@@ -7,6 +7,7 @@ Potion::Potion():Potions() {
     name = "Potion";
     description = "description for potion";
     pvHeal = 20;
+    prix = 300;
 }
 
 bool Potion::use(Pokemon* pokemon) const {

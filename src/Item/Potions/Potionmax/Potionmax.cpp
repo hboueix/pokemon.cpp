@@ -6,6 +6,7 @@
 Potionmax::Potionmax():Potions() {
     name = "Potionmax";
     description = "description for potionmax";
+    prix = 2500;
 }
 
 bool Potionmax::use(Pokemon* pokemon) const {

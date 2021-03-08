@@ -7,6 +7,7 @@
 Masterball::Masterball():Ball() {
     name = "Masterball";
     description = "description for masterball";
+    prix = 15000;
 }
 
 Masterball::~Masterball() {
