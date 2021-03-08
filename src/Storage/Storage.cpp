@@ -65,9 +65,9 @@ void Storage::savePlayer(Player *player)
 		{"team", {}},
 		{"teamPC", {}}};
 
-	for (int i = 0; i < player->getBackPack().size(); i++)
+	for (int i = 0; i < player->getBackpack().size(); i++)
 	{
-		Item *item = player->getBackPack()[i];
+		Item *item = player->getBackpack()[i];
 		dataPlayer["backpack"].push_back(item->name);
 	}
 

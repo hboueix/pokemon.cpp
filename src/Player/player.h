@@ -24,7 +24,8 @@ public:
 	void healPokemons();
 	void removeMoney(int toRemove);
 	int getMoney();
-	vector<Item*> getBackPack();
+	void setBackpack(vector<Item *> backpack);
+	vector<Item*> getBackpack();
 	void setTeam(vector<Pokemon> team);
 	vector<Pokemon> getTeam();
 	vector<Pokemon> getTeamPC();

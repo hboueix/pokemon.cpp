@@ -78,7 +78,11 @@ vector<Pokemon> Player::getTeamPC()
 	return this->teamPC;
 }
 
-vector<Item *> Player::getBackPack()
+void Player::setBackpack(vector<Item *> backpack) 
+{
+	this->backpack = backpack;
+}
+vector<Item *> Player::getBackpack()
 {
 	return this->backpack;
 }

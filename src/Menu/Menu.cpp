@@ -267,13 +267,11 @@ int Menu::chooseAttackPoke(int actualPokeIdx)
 
 void Menu::menuItem(Pokemon *pokeSauvage)
 {
-	vector<Item *> backpack = this->player->getBackPack();
+	vector<Item *> backpack = this->player->getBackpack();
 	cout << endl
 		 << "Votre inventaire :" << endl;
-	// cout << backpack << endl;
 	for (int i = 0; i < backpack.size(); i++)
 	{
-		// string itemName = backpack[i].name;
 		cout << i + 1 << ". " << backpack[i]->name << endl;
 	}
 
@@ -295,9 +293,14 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			{
 				this->player->addPokemon(*pokeSauvage);
 				this->mainMenu();
+			} else {
+				cout << pokeSauvage->name << " s'est échapé !" << endl;
 			}
+			backpack.erase(backpack.begin()+userChoice-1);
+			// delete backpack[userChoice-1];
+			this->player->setBackpack(backpack);
 		}
-		if (backpack[userChoice - 1]->type == "potion")
+		else if (backpack[userChoice - 1]->type == "potion")
 		{
 			cout << endl
 				 << "Your team :" << endl;
@@ -321,6 +324,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 
 			backpack[userChoice - 1]->use(&(team[userChoice2 - 1]));
 			this->player->setTeam(team);
+			this->player->setBackpack(backpack);
 		}
 		sleep(3);
 	}
