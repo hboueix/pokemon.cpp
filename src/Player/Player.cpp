@@ -139,4 +139,43 @@ int Player::getFirstValidPokemonIndex()
 	return -1;
 }
 
+void Player::buyItem(string item, int howMuch)
+{
+	for (int i = 0; i < howMuch; i++)
+	{
+		if (item == "Potion")
+		{
+			this->backpack.push_back(new Potion());
+		}
+		else if (item == "Superpotion")
+		{
+			this->backpack.push_back(new Superpotion());
+		}
+		else if (item == "Hyperpotion")
+		{
+			this->backpack.push_back(new Hyperpotion());
+		}
+		else if (item == "Potionmax")
+		{
+			this->backpack.push_back(new Potionmax());
+		}
+		else if (item == "Pokeball")
+		{
+			this->backpack.push_back(new Pokeball());
+		}
+		else if (item == "Superball")
+		{
+			this->backpack.push_back(new Superball());
+		}
+		else if (item == "Hyperball")
+		{
+			this->backpack.push_back(new Hyperball());
+		}
+		else if (item == "Masterball")
+		{
+			this->backpack.push_back(new Masterball());
+		}
+	}
+}
+
 #endif

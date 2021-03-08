@@ -8,17 +8,7 @@
 using namespace std;
 using json = nlohmann::json;
 
-// Pokemon::Pokemon(string pokemonName)
-// {
-// 	name = pokemonName;
-// 	type = "Not implemented";
-// 	maxHP = 30.0;
-// 	HP = maxHP;
-// 	attack = 10.0;
-// 	defense = 5.0;
-// }
-
-Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed)
+Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack, int defense, int sp_attack, int sp_defense, int speed, int capture_rate)
 {
 	this->name = pokemonName;
 	this->type = type;
@@ -29,6 +19,7 @@ Pokemon::Pokemon(string pokemonName, string type, int maxHP, int HP, int attack,
 	this->sp_attack = sp_attack;
 	this->sp_defense = sp_defense;
 	this->speed = speed;
+	this->capture_rate = capture_rate;
 }
 
 Pokemon::~Pokemon()
@@ -92,6 +83,11 @@ int Pokemon::getDefense()
 	return this->defense;
 }
 
+int Pokemon::getCaptureRate()
+{
+	return this->capture_rate;
+}
+
 void Pokemon::setHP(int HP)
 {
 	if (HP > this->maxHP)
@@ -115,7 +111,8 @@ json Pokemon::getJson()
 		{"DEF", this->defense},
 		{"SP_ATQ", this->sp_attack},
 		{"SP_DEF", this->sp_defense},
-		{"speed", this->speed}};
+		{"speed", this->speed},
+		{"capture_rate", this->capture_rate}};
 }
 
 #endif
