@@ -307,7 +307,7 @@ int Menu::chooseAttackPoke(int actualPokeIdx, bool forced)
 		cout << endl
 			 << "0. Retour" << endl
 			 << endl
-			 << "Quel pokémon choisis-tu donc ?" << endl
+			 << "Quel pokémon choisis-tu donc ?" << endl;
 	}
 	else
 	{
