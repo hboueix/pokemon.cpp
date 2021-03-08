@@ -36,6 +36,7 @@ public:
 	int addPokemon(Pokemon pokemon);
 	void removeFromPC(int toRemove);
 	int getFirstValidPokemonIndex();
+	void buyItem(string item, int howMuch);
 };
 
 #endif

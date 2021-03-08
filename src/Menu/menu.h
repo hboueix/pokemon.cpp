@@ -18,6 +18,8 @@ private:
 	void team();
 	void healTeam();
 	void allPCTeam();
+	void shop();
+	void showBackpack();
 	void save();
 public:
 	Menu(Player *player, Storage *storage);

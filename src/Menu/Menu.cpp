@@ -97,11 +97,13 @@ void Menu::mainMenu()
 		 << "2. Voir son équipe" << endl
 		 << "3. Soigner son équipe" << endl
 		 << "4. Voir ses pokémons dans le PC" << endl
+		 << "5. Rentrer dans le magasin" << endl
+		 << "6. Voir ses items dans son sac" << endl
 		 << endl
 		 << "0. Quitter" << endl
 		 << endl;
 	this->save();
-	int userChoice = waitForValidUserInput(4);
+	int userChoice = waitForValidUserInput(6);
 	switch (userChoice)
 	{
 	case 1:
@@ -115,6 +117,12 @@ void Menu::mainMenu()
 		break;
 	case 4:
 		this->allPCTeam();
+		break;
+	case 5:
+		this->shop();
+		break;
+	case 6:
+		this->showBackpack();
 		break;
 	case 0:
 		this->save();
@@ -550,6 +558,104 @@ void Menu::allPCTeam()
 		this->mainMenu();
 		break;
 	}
+}
+
+void Menu::shop()
+{
+	cout << "Bienvenue dans le magasin, que voulez-vous acheter ?" << endl
+		 << "1. Pokeball" << endl
+		 << "2. Superball" << endl
+		 << "3. Hyperball" << endl
+		 << "4. Masterball" << endl
+		 << "5. Potion" << endl
+		 << "6. Superpotion" << endl
+		 << "7. Hyperpotion" << endl
+		 << "8. Potionmax" << endl
+		 << endl
+		 << "0. Retour" << endl;
+	int userChoice = this->waitForValidUserInput(8);
+	cout << "Combien ? (max: 20)" << endl;
+	int howMuch = this->waitForValidUserInput(20);
+	if (howMuch == 0) 
+	{
+		cout << "Vous me faites perdre mon temps.. Au revoir !" << endl;
+		return;
+	}
+
+	switch (userChoice) 
+	{
+		case 1:
+			this->player->buyItem("Pokeball", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 2:
+			this->player->buyItem("Superball", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 3:
+			this->player->buyItem("Hyperball", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 4:
+			this->player->buyItem("Masterball", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 5:
+			this->player->buyItem("Potion", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 6:
+			this->player->buyItem("Superpotion", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 7:
+			this->player->buyItem("Hyperpotion", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 8:
+			this->player->buyItem("Potionmax", howMuch);
+			this->save();
+			this->mainMenu();
+			break;
+		case 0:
+			this->mainMenu();
+			break;
+	}
+}
+
+void Menu::showBackpack() 
+{
+	vector<Item *> backpack = this->player->getBackPack();
+	cout << endl
+		 << "Votre inventaire :" << endl;
+	map<string, int> inventory;
+	for (int i = 0; i < backpack.size(); i++)
+	{
+		try 
+		{
+			inventory[backpack[i]->name] += 1;
+		}
+		catch (exception e)
+		{
+			inventory[backpack[i]->name] = 1;
+		}
+	}
+
+	for (auto item : inventory) 
+	{
+		cout << "- " << item.first << " (" << item.second << ")" << endl;
+	}
+
+	cout << endl;
+	sleep(3);
+	this->mainMenu();
 }
 
 void Menu::save()
