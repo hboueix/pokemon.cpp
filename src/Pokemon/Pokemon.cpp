@@ -42,9 +42,10 @@ void Pokemon::attacking(Pokemon &defender)
 {
 	int cc = 1;
 	srand(time(NULL));
-	if (rand() % 255 < this->getSpeed()/2) 
+	if (rand() % 255 < this->getSpeed()/2)
 	{
 		cc = 2;
+		cout << this->name << " inflige un coup critique !" << endl;
 	}
 	int lostPV = ((((1 * 0.4 + 2) * this->attack * this->attack) / (defender.getDefense() * 50)) + 2)*cc;
 
