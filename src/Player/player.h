@@ -24,6 +24,7 @@ public:
 	void healPokemons();
 	void removeMoney(int toRemove);
 	int getMoney();
+	bool validBuyItem(int money);
 	void addMoney(int money);
 	void setBackpack(vector<Item *> backpack);
 	vector<Item*> getBackpack();

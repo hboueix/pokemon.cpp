@@ -57,9 +57,22 @@ int Player::getMoney()
 {
 	return money;
 }
-void Player::addMoney( int money)
+void Player::addMoney(int money)
 {
 	this->money += money;
+}
+
+bool Player::validBuyItem(int money)
+{
+	if (this->money < money)
+	{
+		return false;
+	}
+	else
+	{
+		this->removeMoney(money);
+		return true;
+	}
 }
 
 void Player::removeMoney(int toRemove)
@@ -82,7 +95,7 @@ vector<Pokemon> Player::getTeamPC()
 	return this->teamPC;
 }
 
-void Player::setBackpack(vector<Item *> backpack) 
+void Player::setBackpack(vector<Item *> backpack)
 {
 	this->backpack = backpack;
 }
@@ -153,62 +166,83 @@ int Player::getFirstValidPokemonIndex()
 
 void Player::buyItem(string item, int howMuch)
 {
-	for (int i = 0; i < howMuch; i++)
+	int howMuchMax = howMuch;
+	for (int i = 0; i < howMuchMax; i++)
 	{
 		if (item == "Potion")
 		{
-			this->backpack.push_back(new Potion());
-			this->removeMoney(300);
-			cout << "Ca vous fera "<< 300*howMuch <<" ¤" << endl;
+			if (this->validBuyItem(300))
+			{
+				howMuch--;
+				this->backpack.push_back(new Potion());
+			}
 		}
 		else if (item == "Superpotion")
 		{
-			this->backpack.push_back(new Superpotion());
-			this->removeMoney(600);
-			cout << "Ca vous fera "<< 600*howMuch <<" ¤" << endl;
+			if (this->validBuyItem(600))
+			{
+				howMuch--;
+				this->backpack.push_back(new Superpotion());
+			}
 		}
 		else if (item == "Hyperpotion")
 		{
-			this->backpack.push_back(new Hyperpotion());
-			this->removeMoney(1200);
-			cout << "Ca vous fera "<< 1200*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(1200))
+			{
+				howMuch--;
+				this->backpack.push_back(new Hyperpotion());
+			}
 		}
 		else if (item == "Potionmax")
 		{
-			this->backpack.push_back(new Potionmax());
-			this->removeMoney(2500);
-			cout << "Ca vous fera "<< 2500*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(2500))
+			{
+				howMuch--;
+				this->backpack.push_back(new Potionmax());
+			}
 		}
 		else if (item == "Pokeball")
 		{
-			this->backpack.push_back(new Pokeball());
-			this->removeMoney(200);
-			cout << "Ca vous fera "<< 200*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(200))
+			{
+				howMuch--;
+				this->backpack.push_back(new Pokeball());
+			}
 		}
 		else if (item == "Superball")
 		{
-			this->backpack.push_back(new Superball());
-			this->removeMoney(600);
-			cout << "Ca vous fera "<< 600*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(600))
+			{
+				howMuch--;
+				this->backpack.push_back(new Superball());
+			}
 		}
 		else if (item == "Hyperball")
 		{
-			this->backpack.push_back(new Hyperball());
-			this->removeMoney(1200);
-			cout << "Ca vous fera "<< 1200*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(1200))
+			{
+				howMuch--;
+				this->backpack.push_back(new Hyperball());
+			}
 		}
 		else if (item == "Masterball")
 		{
-			this->backpack.push_back(new Masterball());
-			this->removeMoney(15000);
-			cout << "Ca vous fera "<< 15000*howMuch <<" ¤" << endl;
-
+			if (this->validBuyItem(15000))
+			{
+				howMuch--;
+				this->backpack.push_back(new Masterball());
+			}
 		}
+	}
+
+	if (howMuch < howMuchMax)
+	{
+		cout << "Vous avez achetez " << howMuchMax - howMuch << " " << item << endl
+			 << "Ca vous fera " << this->backpack[backpack.size() - 1]->getPrix() * (howMuchMax - howMuch) << " ¤" << endl;
+	}
+	else
+	{
+		cout << "Vous n'avez pas assez d'argent pour acheter " << item << endl;
 	}
 	sort(this->backpack.begin(), this->backpack.end());
 	cout << endl
