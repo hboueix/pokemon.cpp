@@ -208,7 +208,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 			 << endl;
 		cout << "\033[2J\033[1;1H";
 		srand(time(NULL));
-		this->player->addMoney(rand() % 100 + (pokeSauvage->getMaxHP())*2);
+		this->player->addMoney(rand() % 100 + (pokeSauvage->getMaxHP()) * 2);
 		this->save();
 		this->mainMenu();
 		return;
@@ -242,8 +242,11 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		cout << "\033[2J\033[1;1H";
 		myPokemon.attacking(*pokeSauvage);
 		sleep(2.5);
-		pokeSauvage->attacking(myPokemon);
-		team[myPokemonIdx] = myPokemon;
+		if (pokeSauvage->getHP() != 0)
+		{
+			pokeSauvage->attacking(myPokemon);
+			team[myPokemonIdx] = myPokemon;
+		}
 		sleep(2.5);
 		cout << "\033[2J\033[1;1H";
 		this->player->setTeam(team);
@@ -369,18 +372,21 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 	for (auto item : inventory)
 	{
 		bool contains = false;
-		for (auto dictItem : dictItems) {
-			if (dictItem.second->name == item.first->name) 
+		for (auto dictItem : dictItems)
+		{
+			if (dictItem.second->name == item.first->name)
 			{
 				contains = true;
 			}
 		}
-		if (!contains) {
+		if (!contains)
+		{
 			i++;
 			dictItems[i] = item.first;
 		}
 	}
-	for (auto item : dictItems) {
+	for (auto item : dictItems)
+	{
 		cout << item.first << "- " << item.second->name << " (" << inventoryName[item.second->name] << ")" << endl;
 	}
 
@@ -413,10 +419,10 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 			else
 			{
 				cout << pokeSauvage->name << " s'est échappé !" << endl;
-			auto item = find(backpack.begin(), backpack.end(), dictItems[userChoice]);
-			int indx = item - backpack.begin();
-			backpack.erase(backpack.begin() + indx);
-			this->player->setBackpack(backpack);
+				auto item = find(backpack.begin(), backpack.end(), dictItems[userChoice]);
+				int indx = item - backpack.begin();
+				backpack.erase(backpack.begin() + indx);
+				this->player->setBackpack(backpack);
 			}
 		}
 		else if (backpack[userChoice - 1]->type == "potion")
@@ -687,7 +693,8 @@ void Menu::allPCTeam()
 
 void Menu::shop()
 {
-	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl << endl
+	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl
+		 << endl
 		 << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
 		 << endl
 		 << "1. Pokeball		200 ¤" << endl
@@ -794,7 +801,8 @@ void Menu::showBackpack()
 {
 	vector<Item *> backpack = this->player->getBackpack();
 	cout << endl
-		 << "Ton argent : " << this->player->getMoney() << " ¤" << endl << endl
+		 << "Ton argent : " << this->player->getMoney() << " ¤" << endl
+		 << endl
 		 << "Ton inventaire :" << endl;
 	map<string, int> inventory;
 	for (int i = 0; i < backpack.size(); i++)
