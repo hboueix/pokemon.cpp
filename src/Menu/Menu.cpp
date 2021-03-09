@@ -24,11 +24,16 @@ Menu::Menu(Player *player, Storage *storage)
 		sleep(1);
 		cout << endl
 			 << "'Bienvenue, jeune dresseur de pokémon !'" << endl
-			 << "..." << endl;
+			 << "..." << endl
+			 << endl;
 		sleep(2);
 		cout << "'Que dis-tu ?'" << endl
 			 << "'Tu as besoin d'avoir un pokémon pour commencer ton aventure !?'" << endl
-			 << "'Bon, je vais être serviable..'"
+			 << "'Bon, je vais être serviable..'" << endl
+			 << endl
+			 << "'Mon assistante va t'offrir une potion et une pokéball pour commencer ton aventure !'" << endl
+			 << endl
+			 << "Tu obtiens une pokéball pour capturer un pokémon sauvage et une potion de soin !"
 			 << endl;
 		sleep(2);
 		cout << endl
@@ -40,7 +45,6 @@ Menu::Menu(Player *player, Storage *storage)
 			 << "2 pour Dracaufeu" << endl
 			 << "3 pour Tortank" << endl
 			 << endl;
-		sleep(1);
 		int userChoice = waitForValidUserInput(4, false);
 		switch (userChoice)
 		{
@@ -96,6 +100,7 @@ void Menu::mainMenu()
 		 << "============================" << endl
 		 << "|        POKEMON++         |" << endl
 		 << "============================" << endl
+		 << endl
 		 << endl
 		 << "1. Se balader dans les hautes herbes" << endl
 		 << "2. Voir son équipe" << endl
@@ -184,7 +189,17 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	{
 		Pokemon poke = this->storage->getRandomPokemon();
 		pokeSauvage = &poke;
-		cout << "Un " << pokeSauvage->name << " apparaît !" << endl
+		cout << endl
+			 << "===========================" << endl
+			 << "|      HAUTES HERBES      |" << endl
+			 << "===========================" << endl
+			 << endl
+			 << "Tu t'aventures en dehors de la ville, dans les hautes herbes..." << endl
+			 << "Un pokémon surgit à l'instant ! De quel pokémon s'agit-t-il ?"
+			 << endl
+			 << "ฅ^•ﻌ•^ฅ" << endl
+			 << endl
+			 << "Un " << pokeSauvage->name << " apparaît !" << endl
 			 << endl;
 	}
 	if (myPokemon.getHP() > 0 && pokeSauvage->getHP() > 0)
@@ -207,9 +222,12 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		this->player->addMoney(gain);
 		cout << pokeSauvage->name << " est KO !" << endl
 			 << endl
+			 << "ฅ^ఠൠఠ^ฅ" << endl
+			 << endl
 			 << "Tu as battu " << pokeSauvage->name << " !" << endl
 			 << "Tu as gagné " << gain << " ¤ !" << endl
 			 << endl;
+		sleep(3);
 		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->mainMenu();
@@ -220,7 +238,8 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 		int newPokeIdx = this->player->getFirstValidPokemonIndex();
 		if (newPokeIdx < 0)
 		{
-			cout << "Vous n'avez aucun pokémon en état de se battre..." << endl;
+			cout << "Vous n'avez aucun pokémon en état de se battre..." << endl
+				 << "\033[2J\033[1;1H";
 			this->save();
 			this->mainMenu();
 		}
@@ -415,6 +434,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				int indx = item - backpack.begin();
 				backpack.erase(backpack.begin() + indx);
 				this->player->setBackpack(backpack);
+				cout << "\033[2J\033[1;1H";
 				this->mainMenu();
 				return;
 			}
@@ -425,6 +445,8 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				int indx = item - backpack.begin();
 				backpack.erase(backpack.begin() + indx);
 				this->player->setBackpack(backpack);
+				sleep(2.5);
+				cout << "\033[2J\033[1;1H";
 			}
 		}
 		else if (backpack[userChoice - 1]->type == "potion")
@@ -499,7 +521,6 @@ void Menu::healTeam()
 		 << "=============================" << endl
 		 << "|   HÔPITAL BOURG PALETTE   |" << endl
 		 << "=============================" << endl
-		 << endl
 		 << endl
 		 << "Tu arrives dans le centre hospitalier de Bourg Palette !" << endl
 		 << "L'hôtesse te salue poliment" << endl
@@ -595,6 +616,18 @@ void Menu::allPCTeam()
 	vector<Pokemon> team = player->getTeam();
 	vector<Pokemon> teamPC = player->getTeamPC();
 	cout << endl
+		 << "==============================" << endl
+		 << "|      PC BOURG PALETTE      |" << endl
+		 << "==============================" << endl
+		 << endl
+		 << "Le réceptionniste te salue quand tu rentres dans le centre Pokémon :" << endl
+		 << endl
+		 << "'Bonjour, jeune dresseur ! De quel pokémon avez-vous besoin aujourd'hui ?'" << endl
+		 << endl
+		 << "( ͡° ͜ʖ ͡°)" << endl
+		 << endl;
+	sleep(2.5);
+	cout << endl
 		 << "Ton équipe :" << endl;
 	for (int i = 0; i < team.size(); i++)
 	{
@@ -688,6 +721,7 @@ void Menu::allPCTeam()
 		break;
 	}
 	case 0:
+		cout << "\033[2J\033[1;1H";
 		this->mainMenu();
 		break;
 	}
@@ -695,9 +729,21 @@ void Menu::allPCTeam()
 
 void Menu::shop()
 {
-	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl
+	cout << endl
+		 << "=============================" << endl
+		 << "|   MAGASIN BOURG PALETTE   |" << endl
+		 << "=============================" << endl
 		 << endl
-		 << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
+		 << "Le vendeur te salue dès ton arrivée dans le magasin :" << endl
+		 << endl
+		 << "'Bonjour, jeune dresseur ! De quoi avez-vous besoin aujourd'hui ?'" << endl
+		 << "'J'ai en stock pleins de pokéball et de potions encore !'" << endl
+		 << endl
+		 << "ʕ •́؈•̀ ₎" << endl
+		 << endl
+		 << endl;
+	sleep(2.5);
+	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl
 		 << endl
 		 << "1. Pokeball		200 ¤" << endl
 		 << "2. Superball		600 ¤" << endl
@@ -720,7 +766,7 @@ void Menu::shop()
 		if (howMuch == 0)
 		{
 			cout << endl
-				 << "'Vous me faites perdre mon temps.. Au revoir !!'" << endl;
+				 << "'Vous n'achetez rien ? Regardez ailleurs !'" << endl;
 			sleep(2.5);
 			cout << "\033[2J\033[1;1H";
 			this->mainMenu();
@@ -792,7 +838,7 @@ void Menu::shop()
 	else
 	{
 		cout << endl
-			 << "Vous me faites perdre mon temps.. Au revoir !" << endl;
+			 << "'Vous me faites perdre mon temps.. Au revoir !'" << endl;
 		sleep(2.5);
 		cout << "\033[2J\033[1;1H";
 		this->mainMenu();
@@ -823,11 +869,15 @@ void Menu::showBackpack()
 	{
 		cout << "- " << item.first << " (" << item.second << ")" << endl;
 	}
-
-	cout << endl;
-	sleep(3);
-	cout << "\033[2J\033[1;1H";
-	this->mainMenu();
+	cout << endl
+		 << endl
+		 << "0. Retour" << endl;
+	int userReturn = waitForValidUserInput(0);
+	if (userReturn == 0)
+	{
+		cout << "\033[2J\033[1;1H";
+		this->mainMenu();
+	}
 }
 
 void Menu::save()
