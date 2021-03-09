@@ -260,7 +260,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	{
 	case 1:
 	{
-		cout << "\033[2J\033[1;1H";
+
 		myPokemon.attacking(*pokeSauvage);
 		sleep(2.5);
 		if (pokeSauvage->getHP() != 0)
@@ -269,7 +269,7 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 			team[myPokemonIdx] = myPokemon;
 		}
 		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
+
 		this->player->setTeam(team);
 		this->save();
 		this->wildGrass(pokeSauvage, myPokemonIdx);
@@ -287,7 +287,6 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 			this->player->setTeam(team);
 		}
 		sleep(2.5);
-		cout << "\033[2J\033[1;1H";
 		this->save();
 		this->wildGrass(pokeSauvage, newPokeIdx);
 		break;
@@ -434,6 +433,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				int indx = item - backpack.begin();
 				backpack.erase(backpack.begin() + indx);
 				this->player->setBackpack(backpack);
+				sleep(2);
 				cout << "\033[2J\033[1;1H";
 				this->mainMenu();
 				return;
@@ -449,7 +449,7 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				cout << "\033[2J\033[1;1H";
 			}
 		}
-		else if (backpack[userChoice - 1]->type == "potion")
+		else if (dictItems[userChoice]->type == "potion")
 		{
 			cout << endl
 				 << "Ton équipe :" << endl;
@@ -472,8 +472,10 @@ void Menu::menuItem(Pokemon *pokeSauvage)
 				return;
 			}
 
-			backpack[userChoice - 1]->use(&(team[userChoice2 - 1]));
-			backpack.erase(backpack.begin() + userChoice - 1);
+			dictItems[userChoice]->use(&(team[userChoice2 - 1]));
+			auto item = find(backpack.begin(), backpack.end(), dictItems[userChoice]);
+			int indx = item - backpack.begin();
+			backpack.erase(backpack.begin() + indx);
 			this->player->setTeam(team);
 			this->player->setBackpack(backpack);
 		}
