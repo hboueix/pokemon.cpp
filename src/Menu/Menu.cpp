@@ -687,16 +687,17 @@ void Menu::allPCTeam()
 
 void Menu::shop()
 {
-	cout << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
+	cout << "Ton argent : " << this->player->getMoney() << " ¤" << endl << endl
+		 << "'Bienvenue dans le magasin, que voulez-vous acheter ?'" << endl
 		 << endl
-		 << "1. Pokeball" << endl
-		 << "2. Superball" << endl
-		 << "3. Hyperball" << endl
-		 << "4. Masterball" << endl
-		 << "5. Potion" << endl
-		 << "6. Superpotion" << endl
-		 << "7. Hyperpotion" << endl
-		 << "8. Potionmax" << endl
+		 << "1. Pokeball		200 ¤" << endl
+		 << "2. Superball		600 ¤" << endl
+		 << "3. Hyperball		1200 ¤" << endl
+		 << "4. Masterball		15000 ¤" << endl
+		 << "5. Potion		300 ¤" << endl
+		 << "6. Superpotion		600 ¤" << endl
+		 << "7. Hyperpotion		1200 ¤" << endl
+		 << "8. Potionmax		2500 ¤" << endl
 		 << endl
 		 << "0. Retour" << endl
 		 << endl;
