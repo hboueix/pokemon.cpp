@@ -23,7 +23,7 @@ Menu::Menu(Player *player, Storage *storage)
 			 << "=============================" << endl;
 		sleep(1);
 		cout << endl
-			 << "'Bienvenue, jeune chasseur de pokémon !'" << endl
+			 << "'Bienvenue, jeune dresseur de pokémon !'" << endl
 			 << "..." << endl;
 		sleep(2);
 		cout << "'Que dis-tu ?'" << endl
@@ -202,13 +202,15 @@ void Menu::wildGrass(Pokemon *pokeSauvage, int attackingPokeIdx)
 	}
 	else if (!pokeSauvage->getHP() > 0)
 	{
+		srand(time(NULL));
+		int gain = rand() % 100 + (pokeSauvage->getMaxHP()) * 2;
+		this->player->addMoney(gain);
 		cout << pokeSauvage->name << " est KO !" << endl
 			 << endl
 			 << "Tu as battu " << pokeSauvage->name << " !" << endl
+			 << "Tu as gagné " << gain << " ¤ !" << endl
 			 << endl;
 		cout << "\033[2J\033[1;1H";
-		srand(time(NULL));
-		this->player->addMoney(rand() % 100 + (pokeSauvage->getMaxHP()) * 2);
 		this->save();
 		this->mainMenu();
 		return;
